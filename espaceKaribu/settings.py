@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -37,6 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'utilisateur.apps.UtilisateurConfig',
+    'administrateur.apps.AdministrateurConfig'
 ]
 
 MIDDLEWARE = [
@@ -71,13 +74,36 @@ TEMPLATES = [
 WSGI_APPLICATION = 'espaceKaribu.wsgi.application'
 
 
+#Les fichiers static
+STATIC_URL = '/static/'
+
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static'),
+]
+
+#Pour le deploiement
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+#Pour les session
+SESSION_ENGINE = 'django.contrib.sessions.backends.db'
+
+
+#Sauvegarde des media
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, '')
+
+
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'espace_karibu_bd',
+        'USER': 'root',
+        'PASSWORD': 'root',
+        'HOST': 'localhost',
+        'PORT': '3307',
     }
 }
 
