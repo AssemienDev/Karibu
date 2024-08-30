@@ -96,6 +96,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, '')
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
+#pour ousbi
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
