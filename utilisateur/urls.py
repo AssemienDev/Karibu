@@ -9,6 +9,9 @@ urlpatterns = [
     path('', views.index, name='index'),
     path('acceuil', views.index, name='index'),
 
+    # Url de la page d'espace evenementiel
+    path('espace_event', views.espaceEvent, name='espace_event'),
+
     # Url de la page de contact
     path('contact', views.contact, name='contact'),
 
@@ -16,13 +19,31 @@ urlpatterns = [
     path('connexion', views.connexion, name='connexion'),
 
     # Url de la page du mot de passe oublier "Email"
-    path('passeOublierEmail', views.passeOublierEmail, name='passeOublier'),
+    path('passeOublierEmail', views.passeOublierEmail, name='passeOublierEmail'),
 
     # Url de la page du mot de passe oublier "Code"
-    path('passeOublierCode', views.passeOublierCode, name='passeOublier'),
+    path('passeOublierCode', views.passeOublierCode, name='passeOublierCode'),
+
+    # Url de la page du mot de passe oublier "Changer mot de passe"
+    path('passeOublierChangePasse', views.passeOublierChangePasse, name='passeOublierChangePasse'),
 
     # Url de la page de listage des chambres disponibles
     path('chambreDisponible', views.listeChambreDisponible, name='chambreDisponible'),
+
+    # Url de la page details de la chambre
+    path('chambreDisponible/detailsChambre/<int:chambre_id>', views.detailChambre, name='chambreDisponible/detailsChambre'),
+
+    # Url de la page de reservation
+    path('reservationChambre/<int:chambre_id>', views.reservationChambre,
+         name='reservationChambre'),
+
+    # Url de la page de reservation payement
+    path('reservationChambrePayement', views.reservationChambrePayement,
+         name='reservationChambrePayement'),
+
+    # Url de la page de details chambre vidéo
+    path('chambreDisponible/detailsChambreVideo/<int:chambre_id>', views.detailChambreVideo,
+         name='chambreDisponible/detailsChambreVideo'),
 ]
 
 #Parametrer le chargement des médias
