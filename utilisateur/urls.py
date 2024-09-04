@@ -1,13 +1,14 @@
 from django.urls import path
 from django.conf import settings
 from django.conf.urls.static import static
+from django.views.generic import TemplateView
 
 from utilisateur import views
 
 urlpatterns = [
     # Url de l'acceuil
     path('', views.index, name='index'),
-    path('acceuil', views.index, name='index'),
+    path('acceuil', views.index, name='acceuil'),
 
     # Url de la page d'espace evenementiel
     path('espace_event', views.espaceEvent, name='espace_event'),
@@ -17,6 +18,15 @@ urlpatterns = [
 
     # Url de la page de connexion
     path('connexion', views.connexion, name='connexion'),
+
+    # Url de la page de profil de l'utilisateur
+    path('profilUtilisateur', views.profilUtilisateur, name='profil'),
+
+    # Url de la page de déconnexion
+    path('deconnexion', views.decoUtilisateur, name='deconnexion'),
+
+    # Url de la page d'insciption
+    path('inscription', views.inscription, name='inscription'),
 
     # Url de la page du mot de passe oublier "Email"
     path('passeOublierEmail', views.passeOublierEmail, name='passeOublierEmail'),
@@ -31,19 +41,17 @@ urlpatterns = [
     path('chambreDisponible', views.listeChambreDisponible, name='chambreDisponible'),
 
     # Url de la page details de la chambre
-    path('chambreDisponible/detailsChambre/<int:chambre_id>', views.detailChambre, name='chambreDisponible/detailsChambre'),
+    path('chambreDisponible/detailsChambre/<int:chambre_id>', views.detailChambre, name='detailsChambre'),
 
     # Url de la page de reservation
     path('reservationChambre/<int:chambre_id>', views.reservationChambre,
          name='reservationChambre'),
 
-    # Url de la page de reservation payement
-    path('reservationChambrePayement', views.reservationChambrePayement,
-         name='reservationChambrePayement'),
 
     # Url de la page de details chambre vidéo
     path('chambreDisponible/detailsChambreVideo/<int:chambre_id>', views.detailChambreVideo,
          name='chambreDisponible/detailsChambreVideo'),
+
 ]
 
 #Parametrer le chargement des médias

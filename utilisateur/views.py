@@ -2,8 +2,8 @@ from django.contrib.messages.storage import session
 from django.shortcuts import render, redirect
 
 from utilisateur.forms import ContactForm, ConnexionForm, InscriptionForm, PasseOublierEmailForm, PasseOublierCodeForm, \
-    ChangePasseForm, ReservationChambreForm, ReservationChambrePayementsForm
-from utilisateur.models import Chambre, Suite, ChambreClimatisee, ChambreVentilee, Espace
+    ChangePasseForm, ReservationChambreForm
+from utilisateur.models import Chambre, Suite, ChambreClimatisee, ChambreVentilee, Espace, Utilisateur
 
 
 # La Vue de l'acceuil
@@ -18,7 +18,7 @@ def index(request):
     }
 
     # Afficher le template de la page d'acceuil
-    return render(request,'index.html',context)
+    return render(request, 'utilisateur/home.html', context)
 
 
 # La Vue du contact
@@ -31,7 +31,7 @@ def contact(request):
 
         # Valider le formulaire de contact
         if form.is_valid():
-
+            form.save()
             # Recuperer vers la page d'Acceuil
             return redirect('acceuil')
 
@@ -44,7 +44,7 @@ def contact(request):
     }
 
     # Afficher le template de la page de contact
-    return render(request,'contact.html',context)
+    return render(request, 'utilisateur/contact.html', context)
 
 
 # La Vue de connexion
@@ -60,9 +60,10 @@ def connexion(request):
 
             # Valider le formulaire de contact
             if form.is_valid():
-                # session['emailUser'] = form.cleaned_data['emailUser']
-                # Recuperer vers la page d'Acceuil
-                return redirect('acceuil')
+                request.session['emailUser'] = form.cleaned_data['emailUser']
+
+                # Recuperer vers la page de profil
+                # return redirect('acceuil')
 
         # Recuperer le formulaire de connexion
         form = ConnexionForm()
@@ -73,7 +74,38 @@ def connexion(request):
         }
 
         # Afficher le template de la page de connexion
-        return render(request, 'connexion.html', context)
+        return render(request, 'utilisateur/connexion.html', context)
+
+
+# Profil
+def profilUtilisateur(request):
+    if 'emailUser' in request.session:
+
+        client = Utilisateur.objects.get(mail_utilisateur=request.session['emailUser'])
+
+        context = {
+            'InfoClient': client
+        }
+
+        # Afficher le template de la page d'inscription
+        return render(request, 'utilisateur/profilUtilisateur.html', context)
+
+    else:
+        return redirect('connexion')
+
+
+# Déconnexion
+def decoUtilisateur(request):
+    try:
+        # Supprime l'email de la session si présent
+        if 'emailUser' in request.session:
+            del request.session['emailUser']
+    except KeyError:
+        pass
+
+        # Redirige vers la page de connexion
+    return redirect('connexion')
+
 
 
 # La Vue d'inscription
@@ -89,6 +121,8 @@ def inscription(request):
 
             # Valider le formulaire de contact
             if form.is_valid():
+                form.save()
+
                 # Recuperer vers la page d'Acceuil
                 return redirect('connexion')
 
@@ -101,7 +135,7 @@ def inscription(request):
         }
 
         # Afficher le template de la page d'inscription
-        return render(request, 'inscription.html', context)
+        return render(request, 'utilisateur/inscription.html', context)
 
 
 # La Vue du passe oublié Email
@@ -117,7 +151,7 @@ def passeOublierEmail(request):
 
             # Valider le formulaire de l'email oublier
             if form.is_valid():
-                # session['emailPasseOublier'] = form.cleaned_data['emailUser']
+                # request.session['emailPasseOublier'] = form.cleaned_data['emailUser']
 
                 # Recuperer vers la page du code
                 return redirect('passeOublierCode')
@@ -186,7 +220,7 @@ def passeOublierChangePasse(request):
             'formCode': form
         }
         # Afficher le template de la page de message
-        return render(request,'changePasse.html', context)
+        return render(request, 'changePasse.html', context)
 
 
 # La Vue des chambres disponibles
@@ -200,7 +234,7 @@ def listeChambreDisponible(request):
     }
 
     # Afficher le template de la page d'acceuil
-    return render(request, 'chambresDisponible.html', context)
+    return render(request, 'utilisateur/chambresDisponible.html', context)
 
 
 # Detail de la chambre disponible
@@ -230,10 +264,10 @@ def detailChambre(request, chambre_id):
             }
 
             # Afficher le template de la page d'acceuil
-            return render(request, 'detailsChambre.html', context)
+            return render(request, 'utilisateur/detailsChambre.html', context)
 
         else:
-           return redirect('chambreDisponible')
+            return redirect('chambreDisponible')
     else:
         return redirect('connexion')
 
@@ -253,10 +287,10 @@ def detailChambreVideo(request, chambre_id):
             }
 
             # Afficher le template de la page d'acceuil
-            return render(request, 'detailsChambreVideo.html', context)
+            return render(request, 'utilisateur/detailsChambreVideo.html', context)
 
         else:
-           return redirect('chambreDisponible')
+            return redirect('chambreDisponible')
     else:
         return redirect('connexion')
 
@@ -278,19 +312,10 @@ def reservationChambre(request, chambre_id):
 
                 # Valider le formulaire de reservation
                 if form.is_valid():
+                    pass
 
-                    session['chambreCommande'] = {
-                        'chambre_id':chambre_id,
-                        'nom_complet': form.cleaned_data['nom_complet'],
-                        'date': form.cleaned_data['date'],
-                        'heure': form.cleaned_data['heure'],
-                        'numeroContacter': form.cleaned_data['numeroContacter'],
-                        'choixSejour': form.cleaned_data['choixSejour'],
-                        'temps_sejour': form.cleaned_data['temps_sejour'],
-                    }
-
-                    # Recuperer vers la page du payement
-                    return redirect('reservationChambrePayement')
+                    # Recuperer vers le profil du client
+                    #return redirect('profilClient')
 
             # Recuperer le formulaire de mot de passe
             form = ReservationChambreForm()
@@ -298,53 +323,14 @@ def reservationChambre(request, chambre_id):
             # Passer les chambres en paramètres
             context = {
                 'detailChambre': chambre,
-                'forms':form
+                'forms': form
             }
 
             # Afficher le template de la page d'acceuil
-            return render(request, 'reservationChambre.html', context)
+            return render(request, 'utilisateur/reservationChambre.html', context)
 
         else:
-           return redirect('chambreDisponible')
-    else:
-        return redirect('connexion')
-
-
-# Réservation de la chambre disponible payement
-def reservationChambrePayement(request):
-    if 'emailUser' in request.session:
-
-        if 'chambreCommande' in request.session:
-
-            # Recuperer la chambre précise
-            chambre = Chambre.objects.filter(id=session['chambreCommande']['chambre_id'])
-
-            # Verifier que la requete est POST
-            if request.method == 'POST':
-
-                # Recuperer le formulaire de contact depuis la page
-                form = ReservationChambrePayementsForm(request.POST, request)
-
-                # Valider le formulaire de reservation payements
-                if form.is_valid():
-                    # Recuperer vers la page du profil
-                    #return redirect('connexion')
-                    pass
-
-            # Recuperer le formulaire de mot de passe
-            form = ReservationChambrePayementsForm()
-
-            # Passer les chambres en paramètres
-            context = {
-                'detailChambre': chambre,
-                'forms':form
-            }
-
-            # Afficher le template de la page d'acceuil
-            return render(request, 'reservationChambrePayement.html', context)
-
-        else:
-           return redirect('chambreDisponible')
+            return redirect('chambreDisponible')
     else:
         return redirect('connexion')
 
@@ -354,17 +340,18 @@ def espaceEvent(request):
     if Espace.objects.exists():
 
         # Recuperer les details de l'espace
-        espaces = Espace.objects.all()
+        try:
+            espace = Espace.objects.get()  # Récupère l'objet Espace unique
+        except Espace.DoesNotExist:
+            espace = None  # Gère le cas où l'objet n'existe pas
 
         # Passer l'espace en paramètre
         context = {
-            'espace': espaces,
+            'espace': espace,
         }
 
         # Afficher le template de la page d'acceuil
-        return render(request, 'espace_evenementiel.html', context)
+        return render(request, 'utilisateur/espaceEvenementiel.html', context)
 
     else:
         return redirect('acceuil')
-
-
