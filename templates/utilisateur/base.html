@@ -8,6 +8,8 @@
 
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap">
 
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0"/>
+
 
     <title>{% block title %}{% endblock %}</title>
 
@@ -44,6 +46,8 @@
 
 <body class="h-full">
 
+    {% block header %}
+    
     <!-- Header -->
 
     <section class="relative py-4">
@@ -86,6 +90,8 @@
         </nav>
 
     </section>
+        
+    {% endblock %}
 
     
     {% block content %}

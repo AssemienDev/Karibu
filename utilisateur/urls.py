@@ -18,6 +18,12 @@ urlpatterns = [
     # Url de la page de connexion
     path('connexion', views.connexion, name='connexion'),
 
+    # Url de la page de profil de l'utilisateur
+    path('profilUtilisateur', views.profilUtilisateur, name='profil'),
+
+    # Url de la page de déconnexion
+    path('deconnexion', views.decoUtilisateur, name='deconnexion'),
+
     # Url de la page d'insciption
     path('inscription', views.inscription, name='inscription'),
 

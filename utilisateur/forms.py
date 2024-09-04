@@ -43,7 +43,7 @@ class ContactForm(forms.Form):
         # Création de l'objet ContactAdmin à partir des données du formulaire
         contact = ContactAdmin(
             nom_complet=self.cleaned_data['nom_complet'],
-            email=self.cleaned_data['email'],
+            mail_admin=self.cleaned_data['email'],
             message=self.cleaned_data['message']
         )
         contact.save()

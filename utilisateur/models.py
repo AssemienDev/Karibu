@@ -2,14 +2,16 @@ from django.db import models
 
 # Modèle pour l'espace
 class Espace(models.Model):
-    numeroChambre = models.CharField(max_length=10,blank=True, null=True)
     photo1 = models.ImageField(upload_to='document/espaces/', blank=False, null=False)
     photo2 = models.ImageField(upload_to='document/espaces/', blank=True, null=True)
     photo3 = models.ImageField(upload_to='document/espaces/', blank=True, null=True)
     photo4 = models.ImageField(upload_to='document/espaces/', blank=True, null=True)
     photo5 = models.ImageField(upload_to='document/espaces/', blank=True, null=True)
     photo6 = models.ImageField(upload_to='document/espaces/', blank=True, null=True)
-    description = models.TextField()
+    description = models.TextField(blank=False, null=False)
+    descriptionSalleReception = models.TextField(blank=True, null=True)
+    descriptionSalleVip = models.TextField(blank=True, null=True)
+    descriptionGarage = models.TextField(blank=True, null=True)
     prix = models.DecimalField(max_digits=10, decimal_places=2)
 
 # Modèle pour les suites
@@ -67,6 +69,7 @@ class CommandeLogement(models.Model):
     heure_arriver = models.TimeField()
     temps_sejour = models.IntegerField()  # Durée du séjour en jours
     chambre = models.ForeignKey('Chambre', on_delete=models.CASCADE)
+    total_a_payer = models.CharField(max_length=50)
 
 # Modèle pour les chambres
 class Chambre(models.Model):
@@ -95,3 +98,16 @@ class ContactAdmin(models.Model):
     nom_complet = models.CharField(max_length=255)
     mail = models.EmailField(unique=True)
     message = models.TextField()
+
+
+# Modèle pour le code de récupération
+class CodeRecuperationUser(models.Model):
+    client = models.ForeignKey('Utilisateur', on_delete=models.CASCADE, blank=True, null=True)
+    code = models.CharField(max_length=6)
+
+
+# Modèle pour le code de connexion de l'administrateur
+class CodeConnexionAdmin(models.Model):
+    admin = models.ForeignKey('Administrateur', on_delete=models.CASCADE, blank=True, null=True)
+    code = models.CharField(max_length=6)
+
