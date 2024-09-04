@@ -7,6 +7,7 @@ from utilisateur.models import Chambre, Suite, ChambreClimatisee, ChambreVentile
 
 
 # La Vue de l'acceuil
+
 def index(request):
     # Recuperer les chambres
     chambre = Chambre.objects.filter(statutChambre='LIBRE')[:6]

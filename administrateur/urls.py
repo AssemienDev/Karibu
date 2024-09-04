@@ -33,6 +33,20 @@ urlpatterns = [
     #url de la liste des commandes de logements
     path('ListCommandeLog', views.list_commande_log),
 
+    #url pour l'ajout des chambres
+    path('AjoutChambre',views.ajout_chambre),
+
+    #url pour l'ajout des chambres ventilees
+    path('AjoutChambreVent',views.ajout_chambre_vent),
+
+    #url pour l'ajout des chambres  climatisees
+    path('AjoutChambreClim',views.ajout_chambre_clim),
+
+    #url pour l'ajout des suites
+    path('AjoutSuite',views.ajout_suite),
+
+    #url pour l'ajout des espaces
+    path('AjoutEsapce',views.ajout_espace)
 
 
     
