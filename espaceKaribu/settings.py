@@ -97,28 +97,28 @@ MEDIA_ROOT = os.path.join(BASE_DIR, '')
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
 #pour ousbi
-DATABASES = {
-   'default': {
-       'ENGINE': 'django.db.backends.mysql',
-       'NAME': 'espace_karibu_bd',
-       'USER': 'root',
-       'PASSWORD': '',
-       'HOST': 'localhost',
-       'PORT': '3306',
-   }
-}
+#DATABASES = {
+#   'default': {
+#       'ENGINE': 'django.db.backends.mysql',
+#       'NAME': 'espace_karibu_bd',
+#       'USER': 'root',
+#       'PASSWORD': '',
+#       'HOST': 'localhost',
+#       'PORT': '3306',
+#   }
+#}
 
 # BD DE MARIE
-# DATABASES = {
-#      'default': {
-#          'ENGINE': 'django.db.backends.mysql',
-#          'NAME': 'espace_karibu_bd',
-#          'USER': 'root',
-#          'PASSWORD': 'root',
-#          'HOST': 'localhost',
-#          'PORT': '3307',
-#      }
-# }
+DATABASES = {
+      'default': {
+          'ENGINE': 'django.db.backends.mysql',
+          'NAME': 'espace_karibu_bd',
+          'USER': 'root',
+          'PASSWORD': 'root',
+          'HOST': 'localhost',
+          'PORT': '3307',
+      }
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
@@ -152,9 +152,16 @@ USE_TZ = True
 
 
 # Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/5.1/howto/static-files/
+# https://docs.djangoproject.com/en/5.0/howto/static-files/
+#Les fichiers static
+STATIC_URL = '/static/'
 
-STATIC_URL = 'static/'
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static'),
+]
+
+#Pour le deploiement
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field

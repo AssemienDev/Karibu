@@ -75,10 +75,6 @@ class Chambre(models.Model):
     chambre_ventilee = models.OneToOneField(ChambreVentilee, on_delete=models.CASCADE, null=True, blank=True)
     suite = models.OneToOneField(Suite, on_delete=models.CASCADE, null=True, blank=True)
 
-# Modèle pour les paiements
-class Paiement(models.Model):
-    num_depot = models.CharField(max_length=20)
-    capture_depot = models.ImageField(upload_to='document/paiements/')
 
 # Modèle pour les utilisateurs
 class Utilisateur(models.Model):
@@ -86,8 +82,16 @@ class Utilisateur(models.Model):
     mail_utilisateur = models.EmailField(unique=True)
     mot_de_passe = models.CharField(max_length=128)
 
+
 # Modèle pour les administrateurs
 class Administrateur(models.Model):
     nom = models.CharField(max_length=255)
     mail_admin = models.EmailField(unique=True)
     mot_de_passe = models.CharField(max_length=128)
+
+
+# Modèle pour le formulaire de contact
+class ContactAdmin(models.Model):
+    nom_complet = models.CharField(max_length=255)
+    mail = models.EmailField(unique=True)
+    message = models.TextField()
