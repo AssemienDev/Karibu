@@ -1,5 +1,4 @@
 // Utilisation de Swiper pour le slider
-alert('ok')
 new Swiper('.card-wrapper', {
     loop: true,
     spaceBetween : 30,

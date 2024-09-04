@@ -1,10 +1,15 @@
 {% load static %}
 <!DOCTYPE html>
-<html lang="en" class="h-full">
+<html lang="fr" class="h-full">
+{% load pwa %}
+
 <head>
+ {% progressive_web_app_meta %}
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.tailwindcss.com"></script>
+
+     <script src="{% static 'karibu/js/app.js' %}" defer></script>
 
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap">
 
@@ -40,6 +45,10 @@
     <link rel="stylesheet" href="{% static 'karibu/assets/css/slick-theme.css' %} " />
     <link rel="stylesheet" href="{% static 'karibu/assets/css/style.css' %} " />
     <link rel="stylesheet" href="{% static 'karibu/assets/css/responsive.css' %} " />
+
+
+
+
 
 </head>
 
@@ -110,6 +119,7 @@
 
         <footer class="mt-5 text-center text-black">
             &copy; 2024 Espace Karibu
+            <button id="installButton" style="display: none;">Installer l'application</button>
         </footer>
 
 
@@ -134,6 +144,7 @@
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
     <script src="{% static 'karibu/js/slide.js' %}"> </script>
+
 
     
 </body> 

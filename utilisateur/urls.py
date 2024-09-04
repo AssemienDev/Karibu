@@ -1,6 +1,7 @@
 from django.urls import path
 from django.conf import settings
 from django.conf.urls.static import static
+from django.views.generic import TemplateView
 
 from utilisateur import views
 
@@ -50,6 +51,7 @@ urlpatterns = [
     # Url de la page de details chambre vidéo
     path('chambreDisponible/detailsChambreVideo/<int:chambre_id>', views.detailChambreVideo,
          name='chambreDisponible/detailsChambreVideo'),
+
 ]
 
 #Parametrer le chargement des médias
