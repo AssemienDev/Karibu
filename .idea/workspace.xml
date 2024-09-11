@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="ea1b3f62-481b-4561-8344-ed06e2fce4d2" name="Changes" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="DjangoConsoleOptions" custom-start-script="import sys; print('Python %s on %s' % (sys.version, sys.platform))&#10;import django; print('Django %s' % django.get_version())&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;if 'setup' in dir(django): django.setup()&#10;import django_manage_shell; django_manage_shell.run(PROJECT_ROOT)">
+    <option name="myCustomStartScript" value="import sys; print('Python %s on %s' % (sys.version, sys.platform))&#10;import django; print('Django %s' % django.get_version())&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;if 'setup' in dir(django): django.setup()&#10;import django_manage_shell; django_manage_shell.run(PROJECT_ROOT)" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+        <option value="JavaScript File" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="master" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;AssemienDev&quot;
+  }
+}</component>
+  <component name="GitToolBoxStore">
+    <option name="recentBranches">
+      <RecentBranches>
+        <option name="branchesForRepo">
+          <list>
+            <RecentBranchesForRepo>
+              <option name="branches">
+                <list>
+                  <RecentBranch>
+                    <option name="branchName" value="back" />
+                    <option name="lastUsedInstant" value="1724778830" />
+                  </RecentBranch>
+                  <RecentBranch>
+                    <option name="branchName" value="master" />
+                    <option name="lastUsedInstant" value="1724778829" />
+                  </RecentBranch>
+                </list>
+              </option>
+              <option name="repositoryRootUrl" value="file://$PROJECT_DIR$" />
+            </RecentBranchesForRepo>
+          </list>
+        </option>
+      </RecentBranches>
+    </option>
+  </component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/AssemienDev/Karibu.git&quot;,
+    &quot;accountId&quot;: &quot;1ff8a0bb-9e8b-45a7-a863-4c2323ff7046&quot;
+  }
+}</component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 7
+}</component>
+  <component name="ProjectId" id="2lFb6fpLllq5K6C21gL1pOhT9lZ" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
+    "RunOnceActivity.OpenDjangoStructureViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "django.template.preview.state": "SHOW_EDITOR",
+    "git-widget-placeholder": "back",
+    "last_opened_file_path": "C:/Users/sidja/PycharmProjects/espaceKaribu/templates/utilisateur",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "vue.rearranger.settings.migration": "true"
+  },
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "mariadb"
+    ]
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\sidja\PycharmProjects\espaceKaribu\templates\utilisateur" />
+      <recent name="C:\Users\sidja\PycharmProjects\espaceKaribu\templates" />
+      <recent name="C:\Users\sidja\PycharmProjects\espaceKaribu\utilisateur\static\karibu\js" />
+      <recent name="C:\Users\sidja\PycharmProjects\espaceKaribu\utilisateur\static\karibu\assets" />
+      <recent name="C:\Users\sidja\PycharmProjects\espaceKaribu\utilisateur\static\karibu" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\sidja\PycharmProjects\espaceKaribu\templates\utilisateur" />
+      <recent name="C:\Users\sidja\PycharmProjects\espaceKaribu\utilisateur\static" />
+      <recent name="C:\Users\sidja\PycharmProjects\espaceKaribu\js" />
+      <recent name="C:\Users\sidja\PycharmProjects\espaceKaribu\utilisateur\static\karibu" />
+      <recent name="C:\Users\sidja\PycharmProjects\espaceKaribu\utilisateur\static\karibu\js" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="espaceKaribu" type="Python.DjangoServer" factoryName="Django server">
+      <module name="espaceKaribu" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="launchJavascriptDebuger" value="false" />
+      <option name="port" value="8000" />
+      <option name="host" value="localhost" />
+      <option name="additionalOptions" value="" />
+      <option name="browserUrl" value="" />
+      <option name="runTestServer" value="false" />
+      <option name="runNoReload" value="false" />
+      <option name="useCustomRunCommand" value="false" />
+      <option name="customRunCommand" value="" />
+      <method v="2" />
+    </configuration>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-js-predefined-1d06a55b98c1-0b3e54e931b4-JavaScript-PY-241.18034.82" />
+        <option value="bundled-python-sdk-975db3bf15a3-2767605e8bc2-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-241.18034.82" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="ea1b3f62-481b-4561-8344-ed06e2fce4d2" name="Changes" comment="" />
+      <created>1724778597619</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1724778597619</updated>
+      <workItem from="1724778598644" duration="309000" />
+      <workItem from="1724847722241" duration="113000" />
+      <workItem from="1724853026364" duration="94000" />
+      <workItem from="1724853146331" duration="2184000" />
+      <workItem from="1724858971383" duration="99000" />
+      <workItem from="1724859390670" duration="119000" />
+      <workItem from="1724859548629" duration="472000" />
+      <workItem from="1724860047850" duration="252000" />
+      <workItem from="1725038953019" duration="5652000" />
+      <workItem from="1725197960532" duration="525000" />
+      <workItem from="1725198670381" duration="878000" />
+      <workItem from="1725199793570" duration="4560000" />
+      <workItem from="1725305157134" duration="1995000" />
+      <workItem from="1725399073845" duration="237000" />
+      <workItem from="1725399447398" duration="4965000" />
+      <workItem from="1725407140924" duration="671000" />
+      <workItem from="1725407837588" duration="5439000" />
+      <workItem from="1725413385636" duration="4088000" />
+      <workItem from="1725451837952" duration="3523000" />
+      <workItem from="1725457050590" duration="5127000" />
+      <workItem from="1725462315096" duration="178000" />
+      <workItem from="1725462512103" duration="171000" />
+      <workItem from="1725462806336" duration="3127000" />
+      <workItem from="1725466024409" duration="4723000" />
+      <workItem from="1725471375111" duration="26000" />
+      <workItem from="1725872266915" duration="86000" />
+      <workItem from="1725918291732" duration="89000" />
+      <workItem from="1726094386780" duration="3838000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>
