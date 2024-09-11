@@ -1,9 +1,14 @@
+from django.contrib.auth.hashers import make_password
 from django.contrib.messages.storage import session
 from django.shortcuts import render, redirect
-
+from django.contrib import messages
 from utilisateur.forms import ContactForm, ConnexionForm, InscriptionForm, PasseOublierEmailForm, PasseOublierCodeForm, \
-    ChangePasseForm, ReservationChambreForm
-from utilisateur.models import Chambre, Suite, ChambreClimatisee, ChambreVentilee, Espace, Utilisateur
+    ChangePasseForm, ReservationChambreForm, ReservationEventForm
+from utilisateur.models import Chambre, Suite, ChambreClimatisee, ChambreVentilee, Espace, Utilisateur, \
+    CodeRecuperationUser
+from django.core.mail import send_mail
+import random
+import string
 
 
 # La Vue de l'acceuil
@@ -137,6 +142,11 @@ def inscription(request):
         return render(request, 'utilisateur/inscription.html', context)
 
 
+def generate_random_code(length=6):
+    """Génère un code aléatoire de 6 caractères (lettres majuscules et chiffres)."""
+    characters = string.ascii_uppercase + string.digits
+    return ''.join(random.choices(characters, k=length))
+
 # La Vue du passe oublié Email
 def passeOublierEmail(request):
     if 'emailUser' in request.session:
@@ -150,13 +160,41 @@ def passeOublierEmail(request):
 
             # Valider le formulaire de l'email oublier
             if form.is_valid():
-                # request.session['emailPasseOublier'] = form.cleaned_data['emailUser']
+                request.session['emailPasseOublier'] = form.cleaned_data['emailUser']
 
-                # Recuperer vers la page du code
-                return redirect('passeOublierCode')
+                code = generate_random_code()
 
-        # Recuperer le formulaire de l'email lors du mot de passe oublier
-        form = PasseOublierEmailForm()
+                email = form.cleaned_data['email']
+                try:
+                    # Rechercher l'utilisateur associé à cet email
+                    user = Utilisateur.objects.get(mail_utilisateur=email)
+                    # Envoyer un email de réinitialisation du mot de passe
+
+                    code_recuperation, created = CodeRecuperationUser.objects.get_or_create(client=user)
+
+                    # Mettre à jour le code et la date de création
+                    code_recuperation.code = code
+                    code_recuperation.save()
+
+
+                    send_mail(
+                        subject='Réinitialisation du mot de passe Code',
+                        message=f'Voici votre code: {code}.',
+                        from_email='support@votresite.com',
+                        recipient_list=[email],
+                        fail_silently=False,
+                    )
+
+                    messages.success(request, 'Un email a été envoyé contenant le code pour réinitialiser votre mot de passe.')
+                    # Recuperer vers la page du code
+                    return redirect('passeOublierCode')  # Redirigez vers une page
+                except Utilisateur.DoesNotExist:
+                    messages.error(request, 'Aucun utilisateur trouvé avec cet email.')
+
+        else:
+
+            # Recuperer le formulaire de l'email lors du mot de passe oublier
+            form = PasseOublierEmailForm()
 
         # Passer le form de contact en paramètres
         context = {
@@ -164,7 +202,7 @@ def passeOublierEmail(request):
         }
 
         # Afficher le template de la page d'email
-        return render(request, 'passeOublierEmail.html', context)
+        return render(request, 'utilisateur/passeOublierEmail.html', context)
 
 
 # La Vue du passe oublié Code
@@ -208,6 +246,15 @@ def passeOublierChangePasse(request):
 
             # Valider le formulaire du mot de passe oublier
             if form.is_valid():
+
+                password = form.cleaned_data['password']
+
+                # Récupérer l'utilisateur
+                user = Utilisateur.objects.get(mail_utilisateur=request.session['emailPasseOublier'])
+                user.mot_de_passe = make_password(password)  # Hacher le nouveau mot de passe
+                user.save()
+
+                messages.success(request, 'Votre mot de passe a été changé avec succès.')
                 # Recuperer vers la page de connexion
                 return redirect('connexion')
 
@@ -219,7 +266,7 @@ def passeOublierChangePasse(request):
             'formCode': form
         }
         # Afficher le template de la page de message
-        return render(request, 'changePasse.html', context)
+        return render(request, 'utilisateur/changePasse.html', context)
 
 
 # La Vue des chambres disponibles
@@ -354,3 +401,41 @@ def espaceEvent(request):
 
     else:
         return redirect('acceuil')
+
+
+# Réservation de la chambre disponible
+def reservationEvent(request):
+    if 'emailUser' in request.session:
+
+        try:
+            espace = Espace.objects.get()  # Récupère l'objet Espace unique
+        except Espace.DoesNotExist:
+            espace = None
+
+            # Verifier que la requete est POST
+            if request.method == 'POST':
+
+                # Recuperer le formulaire de contact depuis la page
+                form = ReservationEventForm(request.POST)
+
+                # Valider le formulaire de reservation
+                if form.is_valid():
+                    pass
+
+                    # Recuperer vers le profil du client
+                    #return redirect('profilClient')
+
+            # Recuperer le formulaire de mot de passe
+            form = ReservationEventForm()
+
+            # Passer les chambres en paramètres
+            context = {
+                'detailEspace': espace,
+                'forms': form
+            }
+
+            # Afficher le template de la page d'acceuil
+            return render(request, 'utilisateur/reservationEvent.html', context)
+
+    else:
+        return redirect('connexion')

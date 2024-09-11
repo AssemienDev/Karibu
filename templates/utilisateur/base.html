@@ -8,6 +8,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ['Inter', 'system-ui', 'sans-serif'], // Manually define the font stack
+            },
+            gridTemplateColumns: {
+              menu: '100px 1fr 100px', // This will work as intended
+            },
+          },
+        },
+      }
+    </script>
+
 
      <script src="{% static 'karibu/js/app.js' %}" defer></script>
 
@@ -144,6 +159,7 @@
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
     <script src="{% static 'karibu/js/slide.js' %}"> </script>
+     
 
 
     

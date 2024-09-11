@@ -139,7 +139,19 @@ class InscriptionForm(forms.Form):
 
 # Etablir le formulaire du mot de passe oublier Email
 class PasseOublierEmailForm(forms.Form):
-    pass
+    email = forms.EmailField(
+        widget=forms.EmailInput(
+            attrs={
+                'class': 'w-full h-[70px] md:w-[500px]',  # Classes CSS pour le style
+                'placeholder': 'Entrez votre E-mail',
+                'id': 'email',
+                'required': 'required',
+            }
+        ),
+        label="Adresse e-mail",
+        max_length=254,  # Longueur maximale d'un email
+        required=True,  # L'email est obligatoire
+    )
 
 
 # Etablir le formulaire du mot de passe oublier Code
@@ -149,10 +161,44 @@ class PasseOublierCodeForm(forms.Form):
 
 # Etablir le formulaire pour changer le mot de passe
 class ChangePasseForm(forms.Form):
-    pass
+    password = forms.CharField(
+        widget=forms.PasswordInput(attrs={
+            'class': 'w-full h-[70px] md:w-[500px]',
+            'placeholder': 'Nouveau mot de passe',
+            'id': 'password',
+            'required': 'required',
+        }),
+        label="Nouveau mot de passe",
+        min_length=8,  # Vous pouvez spécifier une longueur minimale
+    )
+
+    password2 = forms.CharField(
+        widget=forms.PasswordInput(attrs={
+            'class': 'w-full h-[70px] md:w-[500px]',
+            'placeholder': 'Confirmer le mot de passe',
+            'id': 'password2',
+            'required': 'required',
+        }),
+        label="Confirmer le mot de passe",
+    )
+
+    def clean(self):
+        cleaned_data = super().clean()
+        password = cleaned_data.get("password")
+        password2 = cleaned_data.get("password2")
+
+        # Vérifier si les deux mots de passe correspondent
+        if password and password2 and password != password2:
+            raise self.add_error(None,"Les mots de passe ne correspondent pas.")
+
+        return cleaned_data
 
 
 # Etablir le formulaire pour la reservation d'une chambre
 class ReservationChambreForm(forms.Form):
     pass
 
+
+# Etablir le formulaire pour la reservation d'une chambre
+class ReservationEventForm(forms.Form):
+    pass

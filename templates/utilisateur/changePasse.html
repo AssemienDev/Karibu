@@ -1,0 +1,47 @@
+ {% extends 'utilisateur/base.html' %}
+{% load static %}
+
+{% block title %}
+ 	Changer Mot de passe
+ {% endblock %}
+
+{% block content %}
+	
+    <div class="flex">
+        <div class="flex-1 flex flex-col justify-center items-center md:flex-none">
+            <!-- Faire que l'image s'affiche sur grand ecran seulement -->
+            <div class="w-full max-w-xl">
+            <!-- Pour que la taille des inputs ne change pas -->
+                <div class="py-16">
+                    <img src="{%  static 'karibu/assets/images/nature.jpg' %}" alt="logo.png" class="md:hidden w-96 mx-auto mt-10 p-4 sm:w-[400px] lg:w-[350px]">
+                </div>
+                    <h2 class="text-center font-bold text-xl mb-10">
+                       Réinitialiser le mot de passe  
+                    </h2>
+        <section class="relative px-10 ">
+                        <!--Formulaire de mot de passe  -->
+            <form method="POST" class="block space-y-10">
+                {% csrf_token %}
+                {{ formCode.password }}
+                {{ formCode.password2 }}
+                <button class="bg-violet-600 justify-center items-center mx-auto px-7 py-3 w-full rounded-md text-white" type="submit" required> 
+                    Valider
+                </button>
+            </form>
+        </section>
+                
+
+    <p class="text-center">
+            Vous n'avez pas de compte ? 
+            <a href="{% url 'inscription' %}" class="text-violet-600 underline">s'inscrire</a>
+    </p>
+
+</div>
+</div>
+{{-- l'image apparait seulement quand on est sur grand écran --}}
+<div class="hidden md:block flex-1">
+    <img src="{%  static 'karibu/assets/images/nature.jpg' %}" alt="logo.png" class="h-full w-full object-cover">
+</div>
+</div>
+
+{% endblock %}

@@ -13,6 +13,10 @@ urlpatterns = [
     # Url de la page d'espace evenementiel
     path('espace_event', views.espaceEvent, name='espace_event'),
 
+    # Url de la page de reservation Event
+    path('reservationEvent', views.reservationEvent,
+         name='reservationEvent'),
+
     # Url de la page de contact
     path('contact', views.contact, name='contact'),
 
