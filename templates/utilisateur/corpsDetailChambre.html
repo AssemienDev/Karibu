@@ -11,7 +11,7 @@
                     <li class="card-item swiper-slide">
                         
                         <a href="#" class="card-link">
-                            <img src="{{ MEDIA_URL }}{{ detailChambre.photo1.url }}" alt="Card Image"
+                            <img src="{{ detailChambre.photo1.url }}" alt="Card Image"
                             class="card-image object-cover">
                        
                         </a>
@@ -21,7 +21,7 @@
                         <li class="card-item swiper-slide">
                         
                             <a href="#" class="card-link">
-                                <img src="{{ MEDIA_URL }}{{ detailChambre.photo2.url }}" alt="Card Image"
+                                <img src="{{ detailChambre.photo2.url }}" alt="Card Image"
                                 class="card-image object-cover">
                            
                             </a>
@@ -31,7 +31,7 @@
                         <li class="card-item swiper-slide">
                         
                             <a href="#" class="card-link">
-                                <img src="{{ MEDIA_URL }}{{ detailChambre.photo3.url }}" alt="Card Image"
+                                <img src="{{ detailChambre.photo3.url }}" alt="Card Image"
                                 class="card-image object-cover">
                            
                             </a>
@@ -41,7 +41,7 @@
                         <li class="card-item swiper-slide">
                         
                             <a href="#" class="card-link">
-                                <img src="{{ MEDIA_URL }}{{ detailChambre.photo4.url }}" alt="Card Image"
+                                <img src="{{ detailChambre.photo4.url }}" alt="Card Image"
                                 class="card-image object-cover">
                            
                             </a>
@@ -60,16 +60,10 @@
     </div>
 
     <div class="mx-5">
-        <h2 class="underline font-bold text-lg text-center">Détail de l'article</h2>
+        <h2 class="underline font-bold text-lg text-center">Détail de la chambre</h2>
         <p class="mb-4">
             <h2 class="font-bold text-lg">
-                {% if detailChambre.suite %}
-                    SUITE
-                {% elif detailChambre.chambre_climatisee %}
-                    CHAMBRE CLIMATISEE
-                {% else %}
-                    CHAMBRE VENTILEE
-                {% endif %}
+                {{ type }}
             </h2>
             <span> {{ detailChambre.description }} </span>
         </p> 
@@ -81,7 +75,7 @@
         <div class="justify-center flex sm:mb-5 mb-5">
             <a class="mt-5 text-white bg-violet-500
               items-center py-2 px-5 rounded-lg" 
-              href="{% url 'reservationChambre' detailChambre.id %}">
+              href="{% url 'reservationChambre' idChambre %}">
                 Reservez
             </a>
           </div>
@@ -95,19 +89,13 @@
         </h2>
         <div class="container flex flex-col md:flex-row sm:justify-around mx-7">
             <div class="flex-shrink-0 w-full sm:w-auto">
-                <img src="{{ MEDIA_URL }}{{ detailChambre.photo1.url }}" class="object-cover md:max-w-[350px] md:h-full w-full">
+                <img src="{{ detailChambre.photo1.url }}" class="object-cover md:max-w-[350px] md:h-full w-full">
             </div>
             <div class="mx-5 max-w-[350px]">
-                <h2 class="underline font-bold text-lg text-center">Détail de l'article</h2>
+                <h2 class="underline font-bold text-lg text-center">Détail de la chambre</h2>
                 <p class="mb-4">
                     <h2 class="font-bold text-lg">
-                        {% if detailChambre.suite %}
-                            SUITE
-                        {% elif detailChambre.chambre_climatisee %}
-                            CHAMBRE CLIMATISEE
-                        {% else %}
-                            CHAMBRE VENTILEE
-                        {% endif %}
+                        {{ type }}
                     </h2>
                     <span class="">{{ detailChambre.description }}</span>
                 </p> 
@@ -119,7 +107,7 @@
                 <div class="justify-center flex">
                     <a class="mt-5 text-white bg-violet-500
                       items-center py-2 px-5 rounded-lg" 
-                      href="{% url 'reservationChambre' detailChambre.id %}">
+                      href="{% url 'reservationChambre' idChambre %}">
                         Reservez
                     </a>
                   </div>

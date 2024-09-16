@@ -7,6 +7,7 @@
 
 {% block header %}
     
+    
 	<section class="relative py-4">
     
         <nav class="fixed top-0 z-20 bg-gray-800 w-full grid grid-cols-none p-3 shadow-xl
@@ -47,26 +48,25 @@
 {% endblock %}
 
 {% block content %}
-
+    
         <section class="max-w-7xl mx-auto px-4 py-10">
+            <a href="{% url 'reservation' %}" class="text-white text-lg underline py-5">Voir mes réservations </a>
+
             <hr class="hidden md:block">
             <p class="text-2xl mb-5 font-bold text-white">
-                Profil
+                {{ InfoClient.nom_complet }}
+                {{ InfoClient.mail_utilisateur }}
             </p>
             <p class="text-2xl mb-1 font-bold text-white">
                 Informations sur le profil
             </p>
             <p class="text-zinc-400 mb-5">
-                Mettez à jour les informations de profil et l'adresse e-mail 
-                de votre compte
+                Mettez à jour les informations de profil
             </p>
             <form action="" class="flex flex-col" method="POST">
                 <label for="name" class="font-bold text-white">Nom</label> 
                 <input type="text" name="name" id="name" class="max-w-[600px] h-[50px] rounded my-3 px-10 text-black"  >
-
-                <label for="email" class="font-bold text-white">E-mail</label> 
-                <input type="email" name="email" id="email" class="max-w-[600px] h-[50px] rounded my-3 px-10 text-black" >
-
+                
                 <button type="submit" class="bg-white rounded  max-w-[110px] py-2 text-black mt-2">
                     Sauvegarder
                 </button>
@@ -99,16 +99,18 @@
                 Supprimer votre compte
             </p>
             <p class="text-zinc-400 mb-5">
-                Une fois votre compte supprimé, toutes ressources et données seront définitivement supprimées .
+                Une fois votre compte supprimé, toutes ressources et données seront définitivement supprimées.
             </p>
 
             <button type="submit" class="bg-red-600 rounded max-w-[400px] px-4 py-3 text-white mt-2">
-                SUPPRIMER LE COMPTE
+                <a class="text-white" href="{% url 'suppression' %}"> SUPPRIMER LE COMPTE </a>
             </button>
 
         </section>
     
+    
 {% endblock %}
+
 
 
 

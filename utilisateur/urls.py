@@ -29,6 +29,12 @@ urlpatterns = [
     # Url de la page de déconnexion
     path('deconnexion', views.decoUtilisateur, name='deconnexion'),
 
+    # Url de la page de suppression
+    path('suppression', views.suppUtilisateur, name='suppression'),
+
+    # Url de la page de reservation
+    path('reservation', views.reservation, name='reservation'),
+
     # Url de la page d'insciption
     path('inscription', views.inscription, name='inscription'),
 

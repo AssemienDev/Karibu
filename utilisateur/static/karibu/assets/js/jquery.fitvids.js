@@ -36,7 +36,7 @@
         'iframe[src*="player.vimeo.com"]',
         'iframe[src*="youtube.com"]',
         'iframe[src*="youtube-nocookie.com"]',
-        'iframe[src*="kickstarter.com"][src*="video.html"]',
+        'iframe[src*="kickstarter.com"][src*="detailsChambreVideo.html"]',
         'object',
         'embed'
       ];

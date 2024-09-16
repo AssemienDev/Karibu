@@ -42,7 +42,7 @@
     </section> -->
     
     
-    {% include 'utilisateur/template.html' %}
+    {% include 'utilisateur/corpsDetailChambre.html' %}
 
     
 
@@ -64,7 +64,7 @@
                 <a href="{% url 'detailsChambre' chambre.id %}" class="flex items-center justify-center px-4 py-2
                 font-semibold text-smrounded-lg text-white">
                     <div> 
-                        <img src="{{ MEDIA_URL }} {{ chambre.photo1.url }}" class="w-full h-48 object-cover md:h-full">
+                        <img src=" {{ chambre.photo1.url }}" class="w-full h-48 object-cover md:h-full">
                         <p class=" mt-2 font-semibold text-center">{{ chambre.description}}</p>
                         <h5>Nuitée: {{ chambre.prix_nuitee }}</h5>
                         <h5>Journée: {{ chambre.prix_journee }}</h5>

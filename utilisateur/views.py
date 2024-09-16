@@ -5,7 +5,7 @@ from django.contrib import messages
 from utilisateur.forms import ContactForm, ConnexionForm, InscriptionForm, PasseOublierEmailForm, PasseOublierCodeForm, \
     ChangePasseForm, ReservationChambreForm, ReservationEventForm
 from utilisateur.models import Chambre, Suite, ChambreClimatisee, ChambreVentilee, Espace, Utilisateur, \
-    CodeRecuperationUser
+    CodeRecuperationUser, CommandeLogement, CommandeEspace
 from django.core.mail import send_mail
 import random
 import string
@@ -66,9 +66,8 @@ def connexion(request):
             # Valider le formulaire de contact
             if form.is_valid():
                 request.session['emailUser'] = form.cleaned_data['emailUser']
-
                 # Recuperer vers la page de profil
-                # return redirect('acceuil')
+                return redirect('profil')
 
         # Recuperer le formulaire de connexion
         form = ConnexionForm()
@@ -112,6 +111,50 @@ def decoUtilisateur(request):
     return redirect('connexion')
 
 
+# Déconnexion
+def suppUtilisateur(request):
+    try:
+        # Supprime l'email de la session si présent
+        if 'emailUser' in request.session:
+            Utilisateur.objects.get(mail_utilisateur=request.session['emailUser']).delete()
+
+            del request.session['emailUser']
+    except KeyError:
+        pass
+
+        # Redirige vers la page d'inscription
+    return redirect('inscription')
+
+
+# Detail de l'espace event
+def reservation(request):
+    if 'emailUser' in request.session:
+
+        client = Utilisateur.objects.get(mail_utilisateur=request.session['emailUser'])
+        # Recuperer les details de la reservation
+        try:
+            reservChambre = CommandeLogement.objects.filter(client=client)  # Récupère l'objet commande
+        except Espace.DoesNotExist:
+            reservChambre = None  # Gère le cas où l'objet n'existe pas
+
+        # Recuperer les details de la reservation
+        try:
+            reservEspace = CommandeEspace.objects.filter(client=client)  # Récupère l'objet commande
+        except Espace.DoesNotExist:
+            reservEspace = None  # Gère le cas où l'objet n'existe pas
+
+        # Passer l'espace en paramètre
+        context = {
+            'reservChambres': reservChambre,
+            'reservEspaces': reservEspace,
+        }
+
+        # Afficher le template de la page d'acceuil
+        return render(request, 'utilisateur/reservations.html', context)
+    else:
+        return redirect('co3')
+
+
 
 # La Vue d'inscription
 def inscription(request):
@@ -148,6 +191,7 @@ def generate_random_code(length=6):
     characters = string.ascii_uppercase + string.digits
     return ''.join(random.choices(characters, k=length))
 
+
 # La Vue du passe oublié Email
 def passeOublierEmail(request):
     if 'emailUser' in request.session:
@@ -177,7 +221,6 @@ def passeOublierEmail(request):
                     code_recuperation.code = code
                     code_recuperation.save()
 
-
                     send_mail(
                         subject='Réinitialisation du mot de passe Code',
                         message=f'Voici votre code: {code}.',
@@ -186,7 +229,8 @@ def passeOublierEmail(request):
                         fail_silently=False,
                     )
 
-                    messages.success(request, 'Un email a été envoyé contenant le code pour réinitialiser votre mot de passe.')
+                    messages.success(request,
+                                     'Un email a été envoyé contenant le code pour réinitialiser votre mot de passe.')
                     # Recuperer vers la page du code
                     return redirect('passeOublierCode')  # Redirigez vers une page
                 except Utilisateur.DoesNotExist:
@@ -231,7 +275,7 @@ def passeOublierCode(request):
         }
 
         # Afficher le template de la page de code
-        return render(request, 'passeOublierCode.html', context)
+        return render(request, 'utilisateur/passeOublierCode.html', context)
 
 
 # La Vue du message
@@ -247,13 +291,14 @@ def passeOublierChangePasse(request):
 
             # Valider le formulaire du mot de passe oublier
             if form.is_valid():
-
                 password = form.cleaned_data['password']
 
                 # Récupérer l'utilisateur
                 user = Utilisateur.objects.get(mail_utilisateur=request.session['emailPasseOublier'])
                 user.mot_de_passe = make_password(password)  # Hacher le nouveau mot de passe
                 user.save()
+
+                del request.session['emailPasseOublier']
 
                 messages.success(request, 'Votre mot de passe a été changé avec succès.')
                 # Recuperer vers la page de connexion
@@ -292,21 +337,32 @@ def detailChambre(request, chambre_id):
 
             # Recuperer la chambre précise
             chambre = Chambre.objects.filter(id=chambre_id)
+            chambrer = None
+            chambres = None
+            typeChambre = None
 
             if chambre:
                 if chambre.suite:
                     # Recuperer les suites
+                    chambrer = chambre.suite
+                    typeChambre = "SUITE"
                     chambres = Suite.objects.all()
                 elif chambre.chambre_climatisee:
                     # Recuperer les chambres climatisées
+                    chambrer = chambre.chambre_climatisee
+                    typeChambre = "CHAMBRE CLIMATISEE"
                     chambres = ChambreClimatisee.objects.all()
                 elif chambre.chambre_ventilee:
                     # Recuperer les chambres ventilées
+                    chambrer = chambre.chambre_ventilee
+                    typeChambre = "CHAMBRE VENTILEE"
                     chambres = ChambreVentilee.objects.all()
 
             # Passer les chambres en paramètres
             context = {
-                'detailChambre': chambre,
+                'idChambre': chambre,
+                'detailChambre': chambrer,
+                'type': typeChambre,
                 'chambres': chambres
             }
 
@@ -326,7 +382,20 @@ def detailChambreVideo(request, chambre_id):
         if Chambre.objects.filter(id=chambre_id).exists():
 
             # Recuperer la chambre précise
-            chambre = Chambre.objects.filter(id=chambre_id)
+            chamb = Chambre.objects.filter(id=chambre_id)
+
+            chambre = None
+
+            if chamb:
+                if chamb.suite:
+                    # Recuperer la suite
+                    chambre = chamb.suite
+                elif chamb.chambre_climatisee:
+                    # Recuperer la chambre climatisée
+                    chambre = chamb.chambre_climatisee
+                elif chamb.chambre_ventilee:
+                    # Recuperer la chambre ventilée
+                    chambre = chamb.chambre_ventilee
 
             # Passer les chambres en paramètres
             context = {
@@ -349,20 +418,39 @@ def reservationChambre(request, chambre_id):
         if Chambre.objects.filter(id=chambre_id).exists():
 
             # Recuperer la chambre précise
-            chambre = Chambre.objects.filter(id=chambre_id)
+            chamb = Chambre.objects.filter(id=chambre_id)
+
+            chambre = None
+
+            if chamb:
+                if chamb.suite:
+                    # Recuperer la suite
+                    chambre = chamb.suite
+                elif chamb.chambre_climatisee:
+                    # Recuperer la chambre climatisée
+                    chambre = chamb.chambre_climatisee
+                elif chamb.chambre_ventilee:
+                    # Recuperer la chambre ventilée
+                    chambre = chamb.chambre_ventilee
 
             # Verifier que la requete est POST
             if request.method == 'POST':
+
 
                 # Recuperer le formulaire de contact depuis la page
                 form = ReservationChambreForm(request.POST)
 
                 # Valider le formulaire de reservation
                 if form.is_valid():
-                    pass
+
+                    reservationChambre = form.save(commit=False)
+
+                    reservationChambre.client = Utilisateur.objects.get(mail_utilisateur=request.session['emailUser'])
+
+                    reservationChambre.save()
 
                     # Recuperer vers le profil du client
-                    #return redirect('profilClient')
+                    return redirect('profil')
 
             # Recuperer le formulaire de mot de passe
             form = ReservationChambreForm()
@@ -384,24 +472,20 @@ def reservationChambre(request, chambre_id):
 
 # Detail de l'espace event
 def espaceEvent(request):
-    if Espace.objects.exists():
 
-        # Recuperer les details de l'espace
-        try:
-            espace = Espace.objects.get()  # Récupère l'objet Espace unique
-        except Espace.DoesNotExist:
-            espace = None  # Gère le cas où l'objet n'existe pas
+    # Recuperer les details de l'espace
+    try:
+        espace = Espace.objects.get()  # Récupère l'objet Espace unique
+    except Espace.DoesNotExist:
+        espace = None  # Gère le cas où l'objet n'existe pas
 
-        # Passer l'espace en paramètre
-        context = {
-            'espace': espace,
-        }
+    # Passer l'espace en paramètre
+    context = {
+        'espace': espace,
+    }
 
-        # Afficher le template de la page d'acceuil
-        return render(request, 'utilisateur/espaceEvenementiel.html', context)
-
-    else:
-        return redirect('acceuil')
+    # Afficher le template de la page d'acceuil
+    return render(request, 'utilisateur/espaceEvenementiel.html', context)
 
 
 # Réservation de la chambre disponible
@@ -421,10 +505,16 @@ def reservationEvent(request):
 
                 # Valider le formulaire de reservation
                 if form.is_valid():
-                    pass
 
-                    # Recuperer vers le profil du client
-                    #return redirect('profilClient')
+                    reservationEspace = form.save(commit=False)
+
+                    espace = Espace.objects.get(id=1)
+                    reservationEspace.espace = espace
+                    reservationEspace.client = Utilisateur.objects.get(mail_utilisateur=request.session['emailUser'])
+
+                    reservationEspace.save()
+
+                    return redirect('profil')
 
             # Recuperer le formulaire de mot de passe
             form = ReservationEventForm()

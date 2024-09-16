@@ -3,7 +3,7 @@ from django.contrib.auth.hashers import check_password
 from django.contrib.auth.hashers import make_password
 
 
-from utilisateur.models import ContactAdmin, Utilisateur
+from utilisateur.models import ContactAdmin, Utilisateur, CommandeLogement, CommandeEspace
 
 
 # Etablir le formulaire de contact
@@ -156,7 +156,19 @@ class PasseOublierEmailForm(forms.Form):
 
 # Etablir le formulaire du mot de passe oublier Code
 class PasseOublierCodeForm(forms.Form):
-    pass
+    code = forms.CharField(
+        widget=forms.TextInput(
+            attrs={
+                'class': 'w-full h-[70px] md:w-[500px]',  # Classes CSS pour le style
+                'placeholder': 'Entrez le code reçu ',
+                'id': 'email',
+                'required': 'required',
+            }
+        ),
+        label="Code",
+        max_length=6,  # Longueur maximale d'un code
+        required=True,  # Le code est obligatoire
+    )
 
 
 # Etablir le formulaire pour changer le mot de passe
@@ -195,10 +207,67 @@ class ChangePasseForm(forms.Form):
 
 
 # Etablir le formulaire pour la reservation d'une chambre
-class ReservationChambreForm(forms.Form):
-    pass
+class ReservationChambreForm(forms.ModelForm):
+    class Meta:
+        model = CommandeLogement
+        fields = ['numero_contacter', 'date_arriver', 'heure_arriver', 'temps_sejour', 'choixSejour']
+
+    # Personnaliser les widgets et leur apparence dans le formulaire
+    numero_contacter = forms.CharField(
+        widget=forms.TextInput(attrs={
+            'class': 'w-full h-[70px] rounded my-3',
+            'placeholder': 'cel:1111112222',
+            'required': 'required'
+        })
+    )
+    date_arriver = forms.DateField(
+        widget=forms.DateInput(attrs={
+            'class': 'my-3 rounded',
+            'type': 'date',
+            'required': 'required'
+        })
+    )
+    heure_arriver = forms.TimeField(
+        widget=forms.TimeInput(attrs={
+            'class': 'my-3 rounded',
+            'type': 'time',
+            'required': 'required'
+        })
+    )
+    temps_sejour = forms.IntegerField(
+        widget=forms.NumberInput(attrs={
+            'class': 'font-thin text-black',
+            'placeholder': 'Nombre de jours',
+            'required': 'required'
+        })
+    )
+    choixSejour = forms.ChoiceField(
+        choices=[('nuitée', 'Nuitée'), ('journée', 'Journée')],
+        widget=forms.Select(attrs={
+            'class': 'form-control my-3',
+            'required': 'required'
+        })
+    )
 
 
 # Etablir le formulaire pour la reservation d'une chambre
-class ReservationEventForm(forms.Form):
-    pass
+class ReservationEventForm(forms.ModelForm):
+    class Meta:
+        model = CommandeEspace
+        fields = ['numero_contacter', 'date_arriver']
+
+    # Widgets personnalisés pour le rendu du formulaire
+    numero_contacter = forms.CharField(
+        widget=forms.TextInput(attrs={
+            'class': 'w-full h-[70px] rounded my-3',
+            'placeholder': 'cel:1111112222',
+            'required': 'required'
+        })
+    )
+    date_arriver = forms.DateField(
+        widget=forms.DateInput(attrs={
+            'class': 'my-3 rounded',
+            'type': 'date',
+            'required': 'required'
+        })
+    )
