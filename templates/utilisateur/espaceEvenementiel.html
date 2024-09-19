@@ -26,8 +26,8 @@
         <a href="{% url 'espace_event' %}" class=" flex items-center justify-center px-4 py-2
                         font-semibold text-smrounded-lg text-white">
                 <div class="border px-2 py-3 text-center"> 
-                    <img src="{% static 'karibu/assets/images/menu.png' %}" class="mx-auto object-cover md:h-full">
-                    <h4 class="py-2 text-sm font-semibold">SALLE DE RECEPTION</h4>
+                    <img src="{% static 'karibu/assets/icons/reception.jpg' %}" class="mx-auto object-cover md:h-full w-14">
+                    <h4 class="py-2 text-sm font-bold">SALLE DE RECEPTION</h4>
                     <p class=" mt-2 font-semibold text-center">
                         {{ espace.descriptionSalleReception }}
                     </p>
@@ -36,8 +36,8 @@
         <a href="{% url 'espace_event' %}" class=" flex items-center justify-center px-4 py-2
                         font-semibold text-smrounded-lg text-white">
                 <div class="border px-2 py-3 text-center"> 
-                    <img src="{% static 'karibu/assets/images/menu.png' %}" class="mx-auto object-cover md:h-full">
-                    <h4 class="py-2 text-sm font-semibold">SALLE VIP</h4>
+                    <img src="{% static 'karibu/assets/icons/vip(1).png' %}" class="mx-auto object-cover md:h-full w-14">
+                    <h4 class="py-2 text-sm font-bold">SALLE VIP</h4>
                     <p class=" mt-2 font-semibold text-center">
                         {{ espace.descriptionSalleVip }}
                     </p>
@@ -46,8 +46,8 @@
         <a href="{% url 'espace_event' %}" class=" flex items-center justify-center px-4 py-2
                 font-semibold text-smrounded-lg text-white">
                 <div class="border px-2 py-3 text-center"> 
-                    <img src="{% static 'karibu/assets/images/menu.png' %}" class="mx-auto object-cover md:h-full">
-                    <h4 class="py-2 text-sm font-semibold" > GARAGE</h4>
+                    <img src="{% static 'karibu/assets/icons/garage.png' %}" class="mx-auto object-cover md:h-full w-14">
+                    <h4 class="py-2 text-sm font-bold" > GARAGE</h4>
                     <p class=" mt-2 font-semibold text-center">
                         {{ espace.descriptionGarage }}
                     </p>
@@ -67,11 +67,6 @@
         <!-- Justifier le texte  -->
         {{ espace.description }}
         <!-- flex text-black -->
-        <a href="{% url 'espace_event' %}" class="flex items-center  text-decoration-none">En Savoir plus 
-            <span class="material-symbols-outlined">
-            arrow_right_alt
-            </span>
-        </a>
     </p>
 </section>
 

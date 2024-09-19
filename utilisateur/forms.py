@@ -11,7 +11,7 @@ class ContactForm(forms.Form):
     nom_complet = forms.CharField(
         max_length=100,
         widget=forms.TextInput(attrs={
-            'class': 'w-full h-[70px] mt-3 mb-5 rounded',
+            'class': 'border w-full h-[70px] mt-3 mb-5 rounded',
             'placeholder': 'John Doe',
             'id': 'name',
             'required': 'required'
@@ -19,7 +19,7 @@ class ContactForm(forms.Form):
     )
     email = forms.EmailField(
         widget=forms.EmailInput(attrs={
-            'class': 'w-full h-[70px] mt-3 mb-5 rounded',
+            'class': 'border w-full h-[70px] mt-3 mb-5 rounded',
             'placeholder': 'example@gmail.com',
             'id': 'email',
             'required': 'required'
@@ -27,7 +27,7 @@ class ContactForm(forms.Form):
     )
     message = forms.CharField(
         widget=forms.Textarea(attrs={
-            'class': 'w-full h-[150px] mt-3 mb-5 rounded',
+            'class': 'border w-full h-[150px] mt-3 mb-5 rounded',
             'placeholder': 'Ici votre message ...',
             'id': 'message',
             'rows': 10,
@@ -53,7 +53,7 @@ class ContactForm(forms.Form):
 class ConnexionForm(forms.Form):
     email = forms.EmailField(
         widget=forms.EmailInput(attrs={
-            'class': 'w-full h-[70px]',
+            'class': 'border w-full h-[70px]',
             'placeholder': 'E-mail',
             'id': 'email',
             'required': 'required'
@@ -61,7 +61,7 @@ class ConnexionForm(forms.Form):
     )
     password = forms.CharField(
         widget=forms.PasswordInput(attrs={
-            'class': 'w-full h-[70px]',
+            'class': 'border w-full h-[70px]',
             'placeholder': 'Mot de passe',
             'id': 'password',
             'required': 'required'
@@ -97,7 +97,7 @@ class InscriptionForm(forms.Form):
     nom_complet = forms.CharField(
         max_length=100,
         widget=forms.TextInput(attrs={
-            'class': 'w-full h-[70px]',
+            'class': 'border w-full h-[70px]',
             'placeholder': 'Nom Complet',
             'id': 'name',
             'required': 'required'
@@ -105,7 +105,7 @@ class InscriptionForm(forms.Form):
     )
     email = forms.EmailField(
         widget=forms.EmailInput(attrs={
-            'class': 'w-full h-[70px]',
+            'class': 'border w-full h-[70px]',
             'placeholder': 'E-mail',
             'id': 'email',
             'required': 'required'
@@ -113,7 +113,7 @@ class InscriptionForm(forms.Form):
     )
     password = forms.CharField(
         widget=forms.PasswordInput(attrs={
-            'class': 'w-full h-[70px]',
+            'class': 'border w-full h-[70px]',
             'placeholder': 'Mot de passe',
             'id': 'password',
             'required': 'required'
@@ -142,7 +142,7 @@ class PasseOublierEmailForm(forms.Form):
     email = forms.EmailField(
         widget=forms.EmailInput(
             attrs={
-                'class': 'w-full h-[70px] md:w-[500px]',  # Classes CSS pour le style
+                'class': 'border w-full h-[70px] md:w-[500px]',  # Classes CSS pour le style
                 'placeholder': 'Entrez votre E-mail',
                 'id': 'email',
                 'required': 'required',
@@ -159,7 +159,7 @@ class PasseOublierCodeForm(forms.Form):
     code = forms.CharField(
         widget=forms.TextInput(
             attrs={
-                'class': 'w-full h-[70px] md:w-[500px]',  # Classes CSS pour le style
+                'class': 'border w-full h-[70px] md:w-[500px]',  # Classes CSS pour le style
                 'placeholder': 'Entrez le code reçu ',
                 'id': 'email',
                 'required': 'required',
@@ -175,7 +175,7 @@ class PasseOublierCodeForm(forms.Form):
 class ChangePasseForm(forms.Form):
     password = forms.CharField(
         widget=forms.PasswordInput(attrs={
-            'class': 'w-full h-[70px] md:w-[500px]',
+            'class': 'border w-full h-[70px] md:w-[500px]',
             'placeholder': 'Nouveau mot de passe',
             'id': 'password',
             'required': 'required',
@@ -186,7 +186,7 @@ class ChangePasseForm(forms.Form):
 
     password2 = forms.CharField(
         widget=forms.PasswordInput(attrs={
-            'class': 'w-full h-[70px] md:w-[500px]',
+            'class': 'border w-full h-[70px] md:w-[500px]',
             'placeholder': 'Confirmer le mot de passe',
             'id': 'password2',
             'required': 'required',
@@ -215,7 +215,7 @@ class ReservationChambreForm(forms.ModelForm):
     # Personnaliser les widgets et leur apparence dans le formulaire
     numero_contacter = forms.CharField(
         widget=forms.TextInput(attrs={
-            'class': 'w-full h-[70px] rounded my-3',
+            'class': 'border w-full h-[70px] rounded my-3',
             'placeholder': 'cel:1111112222',
             'required': 'required'
         })
@@ -259,7 +259,7 @@ class ReservationEventForm(forms.ModelForm):
     # Widgets personnalisés pour le rendu du formulaire
     numero_contacter = forms.CharField(
         widget=forms.TextInput(attrs={
-            'class': 'w-full h-[70px] rounded my-3',
+            'class': 'border w-full h-[70px] rounded my-3',
             'placeholder': 'cel:1111112222',
             'required': 'required'
         })

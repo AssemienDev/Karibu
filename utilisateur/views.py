@@ -2,6 +2,8 @@ from django.contrib.auth.hashers import make_password
 from django.contrib.messages.storage import session
 from django.shortcuts import render, redirect
 from django.contrib import messages
+
+from espaceKaribu import settings
 from utilisateur.forms import ContactForm, ConnexionForm, InscriptionForm, PasseOublierEmailForm, PasseOublierCodeForm, \
     ChangePasseForm, ReservationChambreForm, ReservationEventForm
 from utilisateur.models import Chambre, Suite, ChambreClimatisee, ChambreVentilee, Espace, Utilisateur, \
@@ -10,12 +12,26 @@ from django.core.mail import send_mail
 import random
 import string
 
+#L'envoi d'email avec django
+from django.core.mail import send_mail
+
+
+# Envoi d'email
+def envoyer_email(recepteur, subject, message):
+    if isinstance(recepteur, str):
+        recepteur = [recepteur]  # Convertit la chaîne de caractères en liste
+
+    try:
+        envoi = send_mail(subject, message, settings.DEFAULT_FROM_EMAIL, recepteur)
+        print("Email envoyé, statut:", envoi)
+    except Exception as e:
+        print("Erreur lors de l'envoi de l'email:", e)
+
 
 # La Vue de l'acceuil
-
 def index(request):
     # Recuperer les chambres
-    chambre = Chambre.objects.filter(statutChambre='LIBRE')[:6]
+    chambre = Chambre.objects.filter(statutChambre='libre')[:6]
 
     # Passer les chambres en paramètres
     context = {
@@ -37,6 +53,12 @@ def contact(request):
         # Valider le formulaire de contact
         if form.is_valid():
             form.save()
+
+            sujet = "MESSAGE D'INFORMATION"
+            message = (
+                f"Bonjour/Bonsoir, Nous avons bien réçu votre message.")
+            envoyer_email(form.cleaned_data['email'], sujet, message)
+
             # Recuperer vers la page d'Acceuil
             return redirect('acceuil')
 
@@ -116,9 +138,16 @@ def suppUtilisateur(request):
     try:
         # Supprime l'email de la session si présent
         if 'emailUser' in request.session:
+
             Utilisateur.objects.get(mail_utilisateur=request.session['emailUser']).delete()
 
+            sujet = "MESSAGE D'INFORMATION"
+            message = (
+                f"Bonjour/Bonsoir, Vous avez supprimé votre compte.")
+            envoyer_email(request.session['emailUser'], sujet, message)
+
             del request.session['emailUser']
+
     except KeyError:
         pass
 
@@ -152,8 +181,7 @@ def reservation(request):
         # Afficher le template de la page d'acceuil
         return render(request, 'utilisateur/reservations.html', context)
     else:
-        return redirect('co3')
-
+        return redirect('connexion')
 
 
 # La Vue d'inscription
@@ -170,6 +198,11 @@ def inscription(request):
             # Valider le formulaire de contact
             if form.is_valid():
                 form.save()
+
+                sujet = "MESSAGE D'INFORMATION"
+                message = (
+                    f"Bonjour/Bonsoir, Votre inscription a bien été validé.")
+                envoyer_email(form.cleaned_data['email'], sujet, message)
 
                 # Recuperer vers la page d'Acceuil
                 return redirect('connexion')
@@ -221,13 +254,10 @@ def passeOublierEmail(request):
                     code_recuperation.code = code
                     code_recuperation.save()
 
-                    send_mail(
-                        subject='Réinitialisation du mot de passe Code',
-                        message=f'Voici votre code: {code}.',
-                        from_email='support@votresite.com',
-                        recipient_list=[email],
-                        fail_silently=False,
-                    )
+                    sujet = "Réinitialisation du mot de passe Code"
+                    message = (
+                        f"Bonjour/Bonsoir, Voici votre code: {code}.")
+                    envoyer_email(email, sujet, message)
 
                     messages.success(request,
                                      'Un email a été envoyé contenant le code pour réinitialiser votre mot de passe.')
@@ -263,8 +293,13 @@ def passeOublierCode(request):
 
             # Valider le formulaire de code
             if form.is_valid():
-                # Recuperer vers la page changer mot de passe
-                return redirect('passeOublierChangePasse')
+
+                client = Utilisateur.objects.get(mail_utilisateur=request.session['emailPasseOublier'])
+
+                if form.cleaned_data['code'] == CodeRecuperationUser.objects.get(client=client).code:
+
+                    # Recuperer vers la page changé mot de passe
+                    return redirect('passeOublierChangePasse')
 
         # Recuperer le formulaire du code lors du mot de passe oublier
         form = PasseOublierCodeForm()
@@ -297,6 +332,11 @@ def passeOublierChangePasse(request):
                 user = Utilisateur.objects.get(mail_utilisateur=request.session['emailPasseOublier'])
                 user.mot_de_passe = make_password(password)  # Hacher le nouveau mot de passe
                 user.save()
+
+                sujet = "Réinitialisation du mot de passe"
+                message = (
+                    f"Bonjour/Bonsoir, Votre mot de passe a été modifié avec succès.")
+                envoyer_email(request.session['emailPasseOublier'], sujet, message)
 
                 del request.session['emailPasseOublier']
 
@@ -436,18 +476,21 @@ def reservationChambre(request, chambre_id):
             # Verifier que la requete est POST
             if request.method == 'POST':
 
-
                 # Recuperer le formulaire de contact depuis la page
                 form = ReservationChambreForm(request.POST)
 
                 # Valider le formulaire de reservation
                 if form.is_valid():
-
                     reservationChambre = form.save(commit=False)
 
                     reservationChambre.client = Utilisateur.objects.get(mail_utilisateur=request.session['emailUser'])
 
                     reservationChambre.save()
+
+                    sujet = "RESERVATION DE CHAMBRE"
+                    message = (
+                        f"Bonjour/Bonsoir, Vous serez contacter lors de la validation.")
+                    envoyer_email(request.session['emailUser'], sujet, message)
 
                     # Recuperer vers le profil du client
                     return redirect('profil')
@@ -472,7 +515,6 @@ def reservationChambre(request, chambre_id):
 
 # Detail de l'espace event
 def espaceEvent(request):
-
     # Recuperer les details de l'espace
     try:
         espace = Espace.objects.get()  # Récupère l'objet Espace unique
@@ -505,7 +547,6 @@ def reservationEvent(request):
 
                 # Valider le formulaire de reservation
                 if form.is_valid():
-
                     reservationEspace = form.save(commit=False)
 
                     espace = Espace.objects.get(id=1)
@@ -513,6 +554,11 @@ def reservationEvent(request):
                     reservationEspace.client = Utilisateur.objects.get(mail_utilisateur=request.session['emailUser'])
 
                     reservationEspace.save()
+
+                    sujet = "RESERVATION DE L'ESPACE"
+                    message = (
+                        f"Bonjour/Bonsoir, Vous serez contacter lors de la validation.")
+                    envoyer_email(request.session['emailUser'], sujet, message)
 
                     return redirect('profil')
 
