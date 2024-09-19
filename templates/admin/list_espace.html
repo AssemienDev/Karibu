@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Liste espace</title>
+    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+    <style>
+        
+        .table-responsive {
+            overflow-x: auto; /* Ajout de défilement horizontal uniquement si nécessaire */
+        }
+        table {
+            width: 100%;
+        }
+        th, td {
+            text-align: center;
+        }
+        .table thead th {
+            background-color: #f8f9fa;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <!-- Classe Bootstrap pour le fond bleu et le texte en blanc -->
+        <h2 class="text-center bg-primary text-white p-3">Liste des espaces</h2>
+
+        <!-- Div pour centrer le contenu -->
+        <div class="text-center mb-4">
+            <h4 class="alert alert-info">Montrer les informations des espaces</h4>
+        </div>
+        
+        <div class="table-responsive">
+            {% if affiche_espace %}
+            <table class="table table-hover table-bordered">
+                <thead>
+                  <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Description de la salle de réception</th>
+                    <th scope="col">Description de la salle Vip</th>
+                    <th scope="col">Description du garage</th>
+                    <th scope="col">Prix</th>
+                    
+                    <!-- modif et supprimer -->
+                    <th scope="col">Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                    {% for affiche in affiche_espace %}
+                  <tr>
+                    <th scope="row">{{affiche.id}}</th>
+                    <td>{{affiche.description}}</td>
+                    <td>{{affiche.descriptionSalleReception}}</td>
+                    <td>{{affiche.descriptionSalleVip}}</td>
+                    <td>{{affiche.descriptionGarage}}</td>
+                    <td>{{affiche.prix}}</td>
+                    <!-- modif et supprimer -->
+                    <td>
+                      <a href="{% url 'modifier_espace' affiche.id %}" class="btn btn-warning btn-sm d-block d-sm-inline mb-2">Modifier</a>
+                      <form action="{% url 'supprimer_espace' affiche.id %}" method="post" class="d-inline">
+                        {% csrf_token %}
+                        <input type="submit" class="btn btn-danger btn-sm" value="Supprimer">
+                      </form>
+                    </td>
+                  </tr>
+                  {% endfor %}
+                </tbody> 
+              </table>
+            {% else %}
+            <div class="alert alert-warning text-center" role="alert">
+                Pas enregistré
+            </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="{% static 'js/bootstrap.js' %}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.7/dist/umd/popper.min.js"></script>
+</body>
+</html>

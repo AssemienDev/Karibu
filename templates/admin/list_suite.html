@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Liste chambre ventilée</title>
+    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+    <style>
+        
+        .table-responsive {
+            overflow-x: auto; /* Ajout de défilement horizontal uniquement si nécessaire */
+        }
+        table {
+            width: 100%;
+        }
+        th, td {
+            text-align: center;
+        }
+        .table thead th {
+            background-color: #f8f9fa;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <!-- Classe Bootstrap pour le fond bleu et le texte en blanc -->
+        <h2 class="text-center bg-primary text-white p-3">Liste des suites</h2>
+
+        <!-- Div pour centrer le contenu -->
+        <div class="text-center mb-4">
+            <h4 class="alert alert-info">Montrer les informations des suites</h4>
+        </div>
+        
+        <div class="table-responsive">
+            {% if affiche_suite %}
+            <table class="table table-hover table-bordered">
+                <thead>
+                  <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Numéro de chambre</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Prix Nuitée</th>
+                    <th scope="col">Prix Journée</th>
+                    <th scope="col">Statut de la chambre</th>
+                    <!-- modif et supprimer -->
+                    <th scope="col">Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                    {% for affiche in affiche_suite %}
+                  <tr>
+                    <th scope="row">{{affiche.id}}</th>
+                    <td>{{affiche.numeroChambre}}</td>
+                    <td>{{affiche.description}}</td>
+                    <td>{{affiche.prix_nuite}}</td>
+                    <td>{{affiche.prix_journee}}</td>
+                    <td>{{affiche.statutChambre}}</td>
+                    <!-- modif et supprimer -->
+                    <td>
+                      <a href="{% url 'modifier_suite' affiche.id %}" class="btn btn-warning btn-sm d-block d-sm-inline mb-2">Modifier</a>
+                      <form action="{% url 'supprimer_suite' affiche.id %}" method="post" class="d-inline">
+                        {% csrf_token %}
+                        <input type="submit" class="btn btn-danger btn-sm" value="Supprimer">
+                      </form>
+                    </td>
+                  </tr>
+                  {% endfor %}
+                </tbody> 
+              </table>
+            {% else %}
+            <div class="alert alert-warning text-center" role="alert">
+                Pas enregistré
+            </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="{% static 'js/bootstrap.js' %}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.7/dist/umd/popper.min.js"></script>
+</body>
+</html>
