@@ -1,8 +1,9 @@
 from django.db import models
 
+
 # Modèle pour l'espace
 class Espace(models.Model):
-    photo1 = models.ImageField(upload_to='document/espaces/', blank=False, null=False)
+    photo1 = models.ImageField(upload_to='document/espaces/', blank=True, null=True)
     photo2 = models.ImageField(upload_to='document/espaces/', blank=True, null=True)
     photo3 = models.ImageField(upload_to='document/espaces/', blank=True, null=True)
     photo4 = models.ImageField(upload_to='document/espaces/', blank=True, null=True)
@@ -17,47 +18,67 @@ class Espace(models.Model):
 # Modèle pour les suites
 class Suite(models.Model):
     numeroChambre = models.CharField(max_length=10, blank=True, null=True)
-    photo1 = models.ImageField(upload_to='document/suites/images/', blank=False, null=False)
+    photo1 = models.ImageField(upload_to='document/suites/images/', blank=True, null=True)
     photo2 = models.ImageField(upload_to='document/suites/images/', blank=True, null=True)
     photo3 = models.ImageField(upload_to='document/suites/images/', blank=True, null=True)
     photo4 = models.ImageField(upload_to='document/suites/images/', blank=True, null=True)
-    video1 = models.FileField(upload_to='document/suites/videos/', blank=False, null=False)
+    video1 = models.FileField(upload_to='document/suites/videos/', blank=True, null=True)
     video2 = models.FileField(upload_to='document/suites/videos/', blank=True, null=True)
     video3 = models.FileField(upload_to='document/suites/videos/', blank=True, null=True)
     description = models.TextField()
     prix_nuite = models.DecimalField(max_digits=10, decimal_places=2)
     prix_journee = models.DecimalField(max_digits=10, decimal_places=2)
     statutChambre = models.CharField(max_length=20, null=True, blank=True)
+    STATUT_CHOICES = [
+        ('libre', 'Libre'),
+        ('occupe', 'Occupé'),
+    ]
+
+    
+    statutChambre = models.CharField(max_length=10, choices=STATUT_CHOICES, default='libre')
 
 # Modèle pour les chambres climatisées
 class ChambreClimatisee(models.Model):
     numeroChambre = models.CharField(max_length=10, blank=True, null=True)
-    photo1 = models.ImageField(upload_to='document/chambres_climatisees/images/', blank=False, null=False)
+    photo1 = models.ImageField(upload_to='document/chambres_climatisees/images/', blank=True, null=True)
     photo2 = models.ImageField(upload_to='document/chambres_climatisees/images/', blank=True, null=True)
     photo3 = models.ImageField(upload_to='document/chambres_climatisees/images/', blank=True, null=True)
     photo4 = models.ImageField(upload_to='document/chambres_climatisees/images/', blank=True, null=True)
-    video1 = models.FileField(upload_to='document/chambres_climatisees/videos/', blank=False, null=False)
+    video1 = models.FileField(upload_to='document/chambres_climatisees/videos/', blank=True, null=True)
     video2 = models.FileField(upload_to='document/chambres_climatisees/videos/', blank=True, null=True)
     video3 = models.FileField(upload_to='document/chambres_climatisees/videos/', blank=True, null=True)
     description = models.TextField()
     prix_nuite = models.DecimalField(max_digits=10, decimal_places=2)
     prix_journee = models.DecimalField(max_digits=10, decimal_places=2)
-    statutChambre = models.CharField(max_length=20, null=True, blank=True)
+    STATUT_CHOICES = [
+        ('libre', 'Libre'),
+        ('occupe', 'Occupé'),
+    ]
+
+  
+    statutChambre = models.CharField(max_length=10, choices=STATUT_CHOICES, default='libre')
 
 # Modèle pour les chambres ventilées
 class ChambreVentilee(models.Model):
     numeroChambre = models.CharField(max_length=10, blank=True, null=True)
-    photo1 = models.ImageField(upload_to='document/chambres_ventilees/images/', blank=False, null=False)
+    photo1 = models.ImageField(upload_to='document/chambres_ventilees/images/', blank=True, null=True)
     photo2 = models.ImageField(upload_to='document/chambres_ventilees/images/', blank=True, null=True)
     photo3 = models.ImageField(upload_to='document/chambres_ventilees/images/', blank=True, null=True)
     photo4 = models.ImageField(upload_to='document/chambres_ventilees/images/', blank=True, null=True)
-    video1 = models.FileField(upload_to='document/chambres_ventilees/videos/', blank=False, null=False)
+    video1 = models.FileField(upload_to='document/chambres_ventilees/videos/', blank=True, null=True)
     video2 = models.FileField(upload_to='document/chambres_ventilees/videos/', blank=True, null=True)
     video3 = models.FileField(upload_to='document/chambres_ventilees/videos/', blank=True, null=True)
     description = models.TextField()
     prix_nuite = models.DecimalField(max_digits=10, decimal_places=2)
     prix_journee = models.DecimalField(max_digits=10, decimal_places=2)
     statutChambre = models.CharField(max_length=20, null=True, blank=True)
+    STATUT_CHOICES = [
+        ('libre', 'Libre'),
+        ('occupe', 'Occupé'),
+    ]
+
+    
+    statutChambre = models.CharField(max_length=10, choices=STATUT_CHOICES, default='libre')
 
 
 # Modèle pour les utilisateurs

@@ -64,7 +64,12 @@ ROOT_URLCONF = 'espaceKaribu.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates']
+        #'DIRS': [BASE_DIR / 'templates']
+        'DIRS': [
+            os.path.join(BASE_DIR, 'templates'),  
+            os.path.join(BASE_DIR, 'templates', 'admin'),  
+            os.path.join(BASE_DIR, 'templates', 'utilisateur'), 
+        ]
         ,
         'APP_DIRS': True,
         'OPTIONS': {
@@ -98,35 +103,35 @@ SESSION_ENGINE = 'django.contrib.sessions.backends.db'
 
 #Sauvegarde des media
 MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, '')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
 #pour ousbi
-#DATABASES = {
-#   'default': {
-#       'ENGINE': 'django.db.backends.mysql',
-#       'NAME': 'espace_karibu_bd',
-#       'USER': 'root',
-#       'PASSWORD': '',
-#       'HOST': 'localhost',
-#       'PORT': '3306',
-#   }
-#}
+DATABASES = {
+  'default': {
+      'ENGINE': 'django.db.backends.mysql',
+      'NAME': 'espace_karibu_bd',
+      'USER': 'root',
+      'PASSWORD': '',
+      'HOST': 'localhost',
+      'PORT': '3306',
+  }
+}
 
 # BD DE MARIE
-DATABASES = {
-      'default': {
-          'ENGINE': 'django.db.backends.mysql',
-          'NAME': 'espace_karibu_bd',
-          'USER': 'root',
-          'PASSWORD': 'root',
-          'HOST': 'localhost',
-          'PORT': '3307',
-      }
-}
+# DATABASES = {
+#       'default': {
+#           'ENGINE': 'django.db.backends.mysql',
+#           'NAME': 'espace_karibu_bd',
+#           'USER': 'root',
+#           'PASSWORD': 'root',
+#           'HOST': 'localhost',
+#           'PORT': '3307',
+#       }
+# }
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
