@@ -57,11 +57,24 @@ def ajout_chambre(request):
 
 #la vue pour ajouter une chambre ventilee
 def ajout_chambre_vent(request):
+    # l'afficheur de popup
+    ajouter = False
+
     # voir si le form est bon et valide
     if request.method == 'POST':
+
+
         form = AjoutChambreVent(request.POST, request.FILES)
         if form.is_valid():
-            form.save()
+
+            # recupere l'id de la chambre ajouter
+            chambre = form.save()
+
+            # l'ajouter dans chambre
+            Chambre.objects.create(chambre_ventilee=chambre, statutChambre=chambre.statutChambre)
+
+            ajouter = True
+
             #actualise le form
             form = AjoutChambreVent()
             
@@ -71,33 +84,29 @@ def ajout_chambre_vent(request):
         #récuperer ces colonnes de la table
       
       
-    return render(request,'ajout_chambre_vent.html',{'form':form})
+    return render(request,'ajout_chambre_vent.html',{'form':form, 'ajouter':ajouter})
 
 
 
 #la vue pour ajouter une chambre climatisee
 def ajout_chambre_clim(request):
     # voir si le form est bon et valide
+
+    # l'afficheur de popup
+    ajouter = False
+
     if request.method == 'POST':
         form = AjoutChambreClim(request.POST)
         if form.is_valid():
-            # retire les données dans le champ après insertion et validation
-            numChambre = form.cleaned_data['numeroChambre']
-            ph1 = form.cleaned_data['photo1']
-            ph2 = form.cleaned_data['photo2']
-            ph3 = form.cleaned_data['photo3']
-            ph4 = form.cleaned_data['photo4']
-            vi1 = form.cleaned_data['video1']
-            vi2 = form.cleaned_data['video2']
-            vi3 = form.cleaned_data['video3']
-            desc = form.cleaned_data['description']
-            prix_nuit = form.cleaned_data['prix_nuite']
-            prix_jour = form.cleaned_data['prix_journee']
-            statChambre = form.cleaned_data['statutChambre']
 
-            #creation du register pour le form
-            reg = ChambreClimatisee(numeroChambre = numChambre,photo1 = ph1,photo2 = ph2,photo3 = ph3,photo4 = ph4,video1= vi1,video2= vi2,video3 = vi3,description = desc,prix_nuite = prix_nuit,prix_journee = prix_jour,statutChambre = statChambre)
-            reg.save()
+            # recupere la chambre ajouter
+            chambre = form.save()
+
+            # l'ajouter dans chambre
+            Chambre.objects.create(chambre_climatisee=chambre, statutChambre=chambre.statutChambre)
+
+            ajouter = True
+
             #actualise le form
             form = AjoutChambreClim()
     else:
@@ -106,32 +115,27 @@ def ajout_chambre_clim(request):
         #récuperer ces colonnes de la table
       
       
-    return render(request,'ajout_chambre_clim.html',{'form':form})
+    return render(request,'ajout_chambre_clim.html',{'form':form, 'ajouter':ajouter})
 
 
 
 #la vue pour ajouter une suite
 def ajout_suite(request):
+    # l'afficheur de popup
+    ajouter = False
     # voir si le form est bon et valide
     if request.method == 'POST':
         form = AjoutSuite(request.POST)
         if form.is_valid():
-            # retire les données dans le champ après insertion et validation
-            numChambre = form.cleaned_data['numeroChambre']
-            ph1 = form.cleaned_data['photo1']
-            ph2 = form.cleaned_data['photo2']
-            ph3 = form.cleaned_data['photo3']
-            ph4 = form.cleaned_data['photo4']
-            vi1 = form.cleaned_data['video1']
-            vi2 = form.cleaned_data['video2']
-            vi3 = form.cleaned_data['video3']
-            desc = form.cleaned_data['description']
-            prix_nuit = form.cleaned_data['prix_nuite']
-            prix_jour = form.cleaned_data['prix_journee']
 
-            #creation du register pour le form
-            reg = Suite(numeroChambre = numChambre,photo1 = ph1,photo2 = ph2,photo3 = ph3,photo4 = ph4,video1= vi1,video2= vi2,video3 = vi3,description = desc,prix_nuite = prix_nuit,prix_journee = prix_jour)
-            reg.save()
+            # recupere la chambre ajouter
+            chambre = form.save()
+
+            # l'ajouter dans chambre
+            Chambre.objects.create(suite=chambre, statutChambre=chambre.statutChambre)
+
+            ajouter = True
+
             #actualise le form
             form = AjoutSuite()
     else:
@@ -140,7 +144,7 @@ def ajout_suite(request):
         #récuperer ces colonnes de la table
       
       
-    return render(request,'ajout_suite.html',{'form':form})
+    return render(request,'ajout_suite.html',{'form':form, 'ajouter':ajouter})
 
 
 
@@ -150,22 +154,8 @@ def ajout_espace(request):
     if request.method == 'POST':
         form = AjoutEspace(request.POST)
         if form.is_valid():
-            # retire les données dans le champ après insertion et validation
-            ph1 = form.cleaned_data['photo1']
-            ph2 = form.cleaned_data['photo2']
-            ph3 = form.cleaned_data['photo3']
-            ph4 = form.cleaned_data['photo4']
-            ph5 = form.cleaned_data['photo5']
-            ph6 = form.cleaned_data['photo6']
-            desc = form.cleaned_data['description']
-            desc_rec = form.cleaned_data['descriptionSalleReception']
-            desc_vip = form.cleaned_data['descriptionSalleVip']
-            desc_gar = form.cleaned_data['descriptionGarage']
-            prixx = form.cleaned_data['prix']
+            form.save()
 
-            #creation du register pour le form
-            reg = Espace(photo1 = ph1,photo2 = ph2,photo3 = ph3,photo4 = ph4,photo5 = ph5,photo6 = ph6,description = desc, descriptionSalleReception = desc_rec,descriptionSalleVip = desc_vip,descriptionGarage = desc_gar,prix = prixx)
-            reg.save()
             #actualise le form
             form = AjoutEspace()
     else:
