@@ -25,11 +25,74 @@
     </style>
 </head>
 <body>
+    <nav class="navbar navbar-dark bg-primary fixed-top">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Bienvenue dans l'espace administration</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="offcanvasDarkNavbar" aria-labelledby="offcanvasDarkNavbarLabel">
+                <div class="offcanvas-header">
+                    <h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel">Administration</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                </div>
+                <div class="offcanvas-body">
+                    <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="#">Accueil</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Ajouter une chambre
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-dark">
+                                <li><a class="dropdown-item" href="{% url 'AjoutChambreClim' %}">Chambre climatisée</a></li>
+                                <li><a class="dropdown-item" href="{% url 'AjoutChambreVent' %}">Chambre ventilée</a></li>
+                                <li><a class="dropdown-item" href="{% url 'AjoutSuite' %}">Suite</a></li>
+                            </ul>
+                        </li>
+                        
+                        <li class="nav-item dropdown"></li>
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Listes des chambres
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-dark">
+                                <li><a class="dropdown-item" href="{% url 'ListChambreClim' %}">Chambre climatisée</a></li>
+                                <li><a class="dropdown-item" href="{% url 'ListChambreVent' %}">Chambre ventilée</a></li>
+                                <li><a class="dropdown-item" href="{% url 'ListSuite' %}">Suite</a></li>
+                            </ul>
+                        </li>
+                        
+                        <li>
+                            <a class="dropdown-item" href="{% url 'AjoutEspace' %}">
+                                Ajouter un espace
+                            </a>
+                        </li>
+
+                        
+                        <li>
+                            <a class="dropdown-item" href="{% url 'ListEspace' %}">
+                                Liste des espaces
+                            </a>
+                        </li>
+                            
+                            
+                        
+
+
+                    </ul>   
+                    
+
+                </div>
+            </div>
+        </div>
+    </nav>
+    
+    <br><br><br>
+
     <div class="container mt-5">
-        <!-- Classe Bootstrap pour le fond bleu et le texte en blanc -->
         <h2 class="text-center bg-primary text-white p-3">Ajouter une chambre climatisée</h2>
 
-        <!-- Formulaire élargi et centré -->
         <div class="row justify-content-center">
             <div class="col-sm-10 col-md-8 col-lg-7">
                 <div class="form-container">
@@ -41,11 +104,11 @@
                 </div>
             </div>
         </div>
-        
     </div>
 
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="{% static 'js/bootstrap.js' %}"></script>
+    <!-- Popper.js doit être inclus avant Bootstrap -->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.7/dist/umd/popper.min.js"></script>
+    <script src="{% static 'js/bootstrap.js' %}"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </body>
 </html>
