@@ -10,7 +10,7 @@ urlpatterns = [
     #Creer des urls
 
     #url de la liste des utilisateurs
-    path('ListUser', views.list_user),
+    path('ListUser', views.list_user,name="ListUser"),
 
     #url de la liste des chambres
     path('ListChambre', views.list_chambre),
@@ -28,25 +28,27 @@ urlpatterns = [
     path('ListEspace', views.list_espace,name="ListEspace"),
 
     #url de la liste des commandes d' espaces
-    path('ListCommandeEsp', views.list_commande_esp),
+    path('ListCommandeEsp', views.list_commande_esp,name="ListCommandeEsp"),
 
     #url de la liste des commandes de logements
-    path('ListCommandeLog', views.list_commande_log),
+    path('ListCommandeLog', views.list_commande_log,name="ListCommandeLog"),
+
+
 
      #url pour l'ajout des chambres
     path('AjoutChambre',views.ajout_chambre),
 
     #url pour l'ajout des chambres ventilees
-    path('AjoutChambreVent',views.ajout_chambre_vent),
+    path('AjoutChambreVent',views.ajout_chambre_vent,name='AjoutChambreVent'),
 
     #url pour l'ajout des chambres  climatisees
-    path('AjoutChambreClim',views.ajout_chambre_clim),
+    path('AjoutChambreClim',views.ajout_chambre_clim,name='AjoutChambreClim'),
 
     #url pour l'ajout des suites
-    path('AjoutSuite',views.ajout_suite),
+    path('AjoutSuite',views.ajout_suite,name='AjoutSuite'),
 
     #url pour l'ajout des espaces
-    path('AjoutEspace',views.ajout_espace),
+    path('AjoutEspace',views.ajout_espace,name='AjoutEspace'),
 
     #url pour supprimer une chambre climatisee
     path('Supprimer/<int:id>',views.supprimer,name="supprimer"),
@@ -59,6 +61,12 @@ urlpatterns = [
 
     #url pour supprimer un espace
     path('supprimer_espace/<int:id>',views.supprimer_espace,name="supprimer_espace"),
+
+    #url pour supprimer une commande espace
+    path('supprimer_cmde_espace/<int:id>',views.supprimer_cmde_espace,name="supprimer_cmde_espace"),
+
+    #url pour supprimer une commande logement
+    path('supprimer_cmde_logement/<int:id>',views.supprimer_cmde_logement,name="supprimer_cmde_logement"),
 
 
 
@@ -75,7 +83,21 @@ urlpatterns = [
     # URL pour modifier un espace
     path('modifier_espace/<int:id>/', views.modifier_espace, name='modifier_espace'),
 
-    
+    #url pour lister commande espace
+    path('ListCmdeEspace',views.list_commande_esp,name='ListCmdeEspace'),
+
+    # URL pour valider une commande espace
+    path('valider_commande/<int:id>/', views.valider_commande, name='valider_commande'),
+
+    # URL pour valider une commande logement
+    path('valider_commande_log/<int:id>/', views.valider_commande_log, name='valider_commande_log'),
+
+    # URL pour réfuser une commande espace
+    path('refuser_commande/<int:id>/', views.refuser_commande, name='refuser_commande'),
+
+    # URL pour réfuser une commande logement
+    path('refuser_commande_log/<int:id>/', views.refuser_commande_log, name='refuser_commande_log'),
+
 
 ]
 

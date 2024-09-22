@@ -3,7 +3,7 @@ from django.db import models
 
 # Modèle pour l'espace
 class Espace(models.Model):
-    photo1 = models.ImageField(upload_to='document/espaces/', blank=True, null=True)
+    photo1 = models.ImageField(upload_to='document/espaces/', blank=False, null=False)
     photo2 = models.ImageField(upload_to='document/espaces/', blank=True, null=True)
     photo3 = models.ImageField(upload_to='document/espaces/', blank=True, null=True)
     photo4 = models.ImageField(upload_to='document/espaces/', blank=True, null=True)
@@ -14,6 +14,12 @@ class Espace(models.Model):
     descriptionSalleVip = models.TextField(blank=True, null=True)
     descriptionGarage = models.TextField(blank=True, null=True)
     prix = models.DecimalField(max_digits=10, decimal_places=2)
+    STATUT_CHOICES = [
+        ('libre', 'Libre'),
+        ('occupe', 'Occupé'),
+    ]
+
+    statutEspace = models.CharField(max_length=10, choices=STATUT_CHOICES, default='libre')
 
 
 # Modèle pour les suites
@@ -94,6 +100,25 @@ class CommandeEspace(models.Model):
     date_arriver = models.DateField()
     espace = models.ForeignKey(Espace, on_delete=models.CASCADE)
     client = models.ForeignKey(Utilisateur, on_delete=models.CASCADE, null=True, blank=True)
+    ETAT_CHOICES = [
+        ('validee', 'Commande validée'),
+        ('refusee', 'Commande refusée'),
+        ('en_attente', 'En attente')
+    ]
+    etat_commande = models.CharField(
+        max_length=10, 
+        choices=ETAT_CHOICES,
+        default='en_attente'
+    )
+
+    # méthode pour prendre description et nom complet dans la table utilisateur
+    def espace_description(self):
+        return self.espace.description
+    
+    def client_nom_complet(self):
+        return self.client.nom_complet
+
+    
 
 
 class CommandeLogement(models.Model):
@@ -105,6 +130,17 @@ class CommandeLogement(models.Model):
     choixSejour = models.CharField(max_length=20, null=True, blank=True)
     total_a_payer = models.CharField(max_length=50)
     client = models.ForeignKey(Utilisateur, on_delete=models.CASCADE, null=True, blank=True)
+
+    ETAT_CHOICES = [
+        ('validee', 'Commande validée'),
+        ('refusee', 'Commande refusée'),
+        ('en_attente', 'En attente')
+    ]
+    etat_commande = models.CharField(
+        max_length=10,
+        choices=ETAT_CHOICES,
+        default='en_attente'
+    )
 
 
 # Modèle pour les chambres
@@ -139,4 +175,6 @@ class CodeRecuperationUser(models.Model):
 class CodeConnexionAdmin(models.Model):
     admin = models.ForeignKey('Administrateur', on_delete=models.CASCADE, blank=True, null=True)
     code = models.CharField(max_length=6)
+
+
 

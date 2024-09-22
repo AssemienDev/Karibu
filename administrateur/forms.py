@@ -80,7 +80,7 @@ class AjoutEspace(forms.ModelForm):
         #le modele pour la table dans la bd
         model = Espace
         #les champs de la table
-        fields = ['photo1','photo2','photo3','photo4','photo5','photo6','description','descriptionSalleReception','descriptionSalleVip','descriptionGarage','prix']
+        fields = ['photo1','photo2','photo3','photo4','photo5','photo6','description','descriptionSalleReception','descriptionSalleVip','descriptionGarage','prix','statutEspace']
         widgets = {
             'photo1': forms.FileInput(attrs={'class': 'form-control'}),
             'photo2': forms.FileInput(attrs={'class': 'form-control'}),
@@ -93,5 +93,6 @@ class AjoutEspace(forms.ModelForm):
             'descriptionSalleVip': forms.Textarea(attrs={'class': 'form-control'}),
             'descriptionGarage': forms.Textarea(attrs={'class': 'form-control'}),
             'prix': forms.NumberInput(attrs={'class': 'form-control'}),
+            'statutEspace': forms.Select(attrs={'class': 'form-control'}),
             
         }

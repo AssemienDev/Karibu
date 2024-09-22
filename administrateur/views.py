@@ -1,4 +1,7 @@
-from django.shortcuts import render,HttpResponseRedirect,redirect
+from django.shortcuts import render,HttpResponseRedirect,redirect,get_object_or_404
+from django.contrib import messages
+
+
 from .forms import AjoutChambreClim,AjoutChambreVent,AjoutSuite,AjoutEspace
 from utilisateur.models import Utilisateur,Chambre,ChambreClimatisee,ChambreVentilee,Suite,Espace,CommandeEspace,CommandeLogement
 
@@ -11,6 +14,12 @@ from utilisateur.models import Utilisateur,Chambre,ChambreClimatisee,ChambreVent
 def list_user (request):
     user = Utilisateur.objects.all()
     return render (request, "liste_user.html",{'utilisateur':user})
+
+#la vue pour récuperer la commande de l'espace
+def list_cmde_espace (request):
+    cmde_espace = CommandeEspace.objects.all()
+    return render (request, "list_cmde_espace.html",{'cmde_espace':cmde_espace})
+
 
 
 #la vue pour lister les chambres
@@ -42,13 +51,13 @@ def list_espace(request):
 
 #la vue pour lister les commandes d'espace 
 def list_commande_esp(request):
-    commande = CommandeEspace.objects.all()
-    return render(request,"list_commande_esp.html",{"commande":commande})
+    affiche_commande_esp = CommandeEspace.objects.all()
+    return render(request,"admin/list_cmde_espace.html",{"affiche_commande_esp":affiche_commande_esp})
 
 #la vue pour lister les commandes de logement
 def list_commande_log(request):
-    logement = CommandeLogement.objects.all()
-    return render(request,'list_commande_log.html',{"logement":logement})
+    affiche_cmde_log = CommandeLogement.objects.all()
+    return render(request,'list_cmde_logement.html',{"affiche_cmde_log":affiche_cmde_log})
 
 #la vue pour ajouter une chambre
 def ajout_chambre(request):
@@ -96,7 +105,7 @@ def ajout_chambre_clim(request):
     ajouter = False
 
     if request.method == 'POST':
-        form = AjoutChambreClim(request.POST)
+        form = AjoutChambreClim(request.POST,request.FILES)
         if form.is_valid():
 
             # recupere la chambre ajouter
@@ -125,7 +134,7 @@ def ajout_suite(request):
     ajouter = False
     # voir si le form est bon et valide
     if request.method == 'POST':
-        form = AjoutSuite(request.POST)
+        form = AjoutSuite(request.POST,request.FILES)
         if form.is_valid():
 
             # recupere la chambre ajouter
@@ -150,9 +159,17 @@ def ajout_suite(request):
 
 #la vue pour ajouter un espace 
 def ajout_espace(request):
+    # Vérifier si un espace existe déjà
+    espace_existant = Espace.objects.exists()
+    if espace_existant:
+        # Message d'erreur si un espace existe déjà
+        messages.error(request, "Un espace existe déjà. Vous ne pouvez pas en ajouter un autre.")
+        #return redirect('ListEspace')  # Rediriger vers la page de liste des espaces
+
+
     # voir si le form est bon et valide
     if request.method == 'POST':
-        form = AjoutEspace(request.POST)
+        form = AjoutEspace(request.POST,request.FILES)
         if form.is_valid():
             form.save()
 
@@ -252,4 +269,137 @@ def modifier_espace(request,id):
         form = AjoutEspace(instance=mod)
 
     return render(request,'admin/modif_espace.html',{'form':form,})
+
+#la vue pour validé une commande espace
+def valider_commande(request, id):
+    cmde_espace = get_object_or_404(CommandeEspace, id=id)
+    cmde_espace.etat_commande = 'validee'
+    cmde_espace.save()
+
+    # Mettre à jour le statut de l'espace
+    # Accéder à l'espace associé à cette commande
+    espace = cmde_espace.espace  #  accédez à l'espace lié à la commande
+
+    # Modifier le statut de l'espace
+    espace.statutEspace = 'occupé'
+    espace.save()  # Sauvegarder les modifications de l'espace
+    return redirect('ListCommandeEsp')
+
+def refuser_commande(request, id):
+    cmde_espace = get_object_or_404(CommandeEspace, id=id)
+    cmde_espace.etat_commande = 'refusee'
+    cmde_espace.delete()
+    return redirect('ListCommandeEsp')
+
     
+#la vue pour supprimer une comande d'espace
+def supprimer_cmde_espace(request, id):
+    # Récupérer l'instance de la commande
+    cmde_espace = get_object_or_404(CommandeEspace, id=id)
+
+    # Accéder à l'espace associé à cette commande
+    espace = cmde_espace.espace
+
+    # Modifier le statut de l'espace
+    espace.statutEspace = 'libre'
+    espace.save()  # Sauvegarder les modifications de l'espace
+
+    # Supprimer la commande
+    cmde_espace.delete()
+
+    return redirect('ListCommandeEsp')
+
+
+
+
+
+
+#la vue pour validé une commande logement
+def valider_commande_log(request, id):
+    cmde_logement = get_object_or_404(CommandeLogement, id=id)
+    cmde_logement.etat_commande = 'validee'
+    cmde_logement.save()
+
+    # Accéder à l'espace (logement) associé à cette commande
+    logement = cmde_logement.chambre  # accédez à la chambre liée à la commande
+
+    # Modifier le statut de la chambre
+    logement.statutChambre = 'occupé'
+
+    # Vérifier quel type de chambre est associé et mettre à jour le statut
+    if logement.chambre_climatisee:
+        print("Chambre climatisée trouvée")
+        logement.chambre_climatisee.statutChambre = 'occupé'
+        logement.chambre_climatisee.save()
+    elif logement.chambre_ventilee:
+        print("Chambre ventilée trouvée")
+        logement.chambre_ventilee.statutChambre = 'occupé'
+        logement.chambre_ventilee.save()
+    elif logement.suite:
+        print("Suite trouvée")
+        logement.suite.statutChambre = 'occupé'
+        logement.suite.save()
+
+    # Sauvegarder les modifications de la chambre
+    logement.save()
+
+    return redirect('ListCommandeLog')
+
+
+def refuser_commande_log(request, id):
+    cmde_logement = get_object_or_404(CommandeLogement, id=id)
+    cmde_logement.etat_commande = 'refusee'
+    cmde_logement.delete()
+    return redirect('ListCommandeLog')
+
+    
+#la vue pour supprimer une comande de logement
+def supprimer_cmde_logement(request, id):
+    # Récupérer l'instance de la commande
+    cmde_logement = get_object_or_404(CommandeLogement, id=id)
+
+    # Accéder à l'espace associé à cette commande
+    logement = cmde_logement.chambre
+
+    # Modifier le statut de l'espace
+    logement.statutChambre = 'libre'
+    logement.save()  # Sauvegarder les modifications de l'espace
+
+    # Vérifier quel type de chambre est associé et mettre à jour le statut
+    if logement.chambre_climatisee:
+        print("Chambre climatisée trouvée")
+        logement.chambre_climatisee.statutChambre = "libre"
+        logement.chambre_climatisee.save()
+    elif logement.chambre_ventilee:
+        print("Chambre ventilée trouvée")
+        logement.chambre_ventilee.statutChambre = 'libre'
+        logement.chambre_ventilee.save()
+    elif logement.suite:
+        print("Suite trouvée")
+        logement.suite.statutChambre = 'libre'
+        logement.suite.save()
+
+    # Supprimer la commande
+    cmde_logement.delete()
+
+    return redirect('ListCommandeLog')
+
+
+    
+#la vue pour l'admin
+"""def AdminDeconnexion(request):
+    try:
+        if 'emailAdmin' in request.session:
+            Administrateur.objects.get(mail_admin=request.session['emailAdmin']).delete()
+             # Affiche un message de succès
+            messages.success(request, "Vous êtes déconnecté avec succès.")
+        else:
+            # Affiche un message d'information si l'utilisateur n'est pas connecté
+            messages.info(request, "Vous n'êtes pas connecté.")
+
+    except Exception as e:
+        # En cas d'erreur, affiche un message d'erreur
+        messages.error(request, f"Une erreur est survenue : {str(e)}")
+    
+    # Redirige vers l'URL de connexion ou une autre page après la déconnexion
+    return redirect('login_url')  # Remplace 'login_url' par l'URL appropriée"""

@@ -23,6 +23,7 @@
     </style>
 </head>
 <body>
+  {% include 'navbar.html' %}
     <div class="container mt-5">
         <!-- Classe Bootstrap pour le fond bleu et le texte en blanc -->
         <h2 class="text-center bg-primary text-white p-3">Liste des chambres ventilées</h2>
@@ -76,8 +77,10 @@
         </div>
     </div>
 
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="{% static 'js/bootstrap.js' %}"></script>
+    <!-- Popper.js doit être inclus avant Bootstrap -->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.7/dist/umd/popper.min.js"></script>
+    <script src="{% static 'js/bootstrap.js' %}"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </body>
 </html>

@@ -2,7 +2,7 @@ from django.contrib import admin
 
 # Register your models here.
 
-from utilisateur.models import Utilisateur,Chambre,ChambreClimatisee
+from utilisateur.models import Utilisateur,Chambre,ChambreClimatisee,CommandeEspace,CommandeLogement
 
 @admin.register(Utilisateur)
 
@@ -12,6 +12,7 @@ class list_user (admin.ModelAdmin):
     list_display = (
         "nom_complet",
         "mail_utilisateur",
+        "mot_de_passe"
         
     )
 
@@ -52,4 +53,52 @@ class list_ChambreClimatisee (admin.ModelAdmin):
         "prix_nuite",
         "prix_journee",
     )
+
+
+@admin.register(CommandeEspace)
+#classe pour lister la liste commandes espaces
+
+class list_cmde_espace (admin.ModelAdmin):
+    list_display = (
+        "numero_contacter",
+        "date_arriver",
+        "espace_description",
+        "client_nom_complet",
+        "etat_commande",
+    )
+
+    search_field = (
+        "numero_contacter",
+        "date_arriver",
+        "espace_description",
+        "client_nom_complet",
+        "etat_commande",
+    )
+
+@admin.register(CommandeLogement)
+#classe pour lister la liste commmande logement 
+
+class list_cmde_logement (admin.ModelAdmin):
+    list_display = (
+        "numero_contacter",
+        "date_arriver",
+        "heure_arriver",
+        "temps_sejour",
+        "chambre",
+        "choixSejour",
+        "total_a_payer",
+        "client",
+    )
+
+    search_field = (
+        "numero_contacter",
+        "date_arriver",
+        "heure_arriver",
+        "temps_sejour",
+        "chambre",
+        "choixSejour",
+        "total_a_payer",
+        "client",
+    )
+
 

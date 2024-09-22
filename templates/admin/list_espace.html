@@ -7,7 +7,6 @@
     <title>Liste espace</title>
     <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
     <style>
-        
         .table-responsive {
             overflow-x: auto; /* Ajout de défilement horizontal uniquement si nécessaire */
         }
@@ -20,9 +19,26 @@
         .table thead th {
             background-color: #f8f9fa;
         }
+        
+        /* Aligner les boutons horizontalement sur les grands écrans */
+        @media (min-width: 576px) {
+            .action-buttons {
+                display: inline-flex;
+                gap: 10px; /* Espace entre les boutons */
+            }
+        }
+
+        /* Sur les petits écrans, les boutons restent en bloc */
+        @media (max-width: 575.98px) {
+            .action-buttons a, .action-buttons form {
+                display: block;
+                margin-bottom: 10px; /* Espace entre les boutons en vertical */
+            }
+        }
     </style>
 </head>
 <body>
+  {% include 'navbar.html' %}
     <div class="container mt-5">
         <!-- Classe Bootstrap pour le fond bleu et le texte en blanc -->
         <h2 class="text-center bg-primary text-white p-3">Liste des espaces</h2>
@@ -43,6 +59,7 @@
                     <th scope="col">Description de la salle Vip</th>
                     <th scope="col">Description du garage</th>
                     <th scope="col">Prix</th>
+                    <th scope="col">Statut de l'espace</th>
                     
                     <!-- modif et supprimer -->
                     <th scope="col">Action</th>
@@ -57,13 +74,16 @@
                     <td>{{affiche.descriptionSalleVip}}</td>
                     <td>{{affiche.descriptionGarage}}</td>
                     <td>{{affiche.prix}}</td>
+                    <td>{{affiche.statutEspace}}</td>
                     <!-- modif et supprimer -->
                     <td>
-                      <a href="{% url 'modifier_espace' affiche.id %}" class="btn btn-warning btn-sm d-block d-sm-inline mb-2">Modifier</a>
-                      <form action="{% url 'supprimer_espace' affiche.id %}" method="post" class="d-inline">
-                        {% csrf_token %}
-                        <input type="submit" class="btn btn-danger btn-sm" value="Supprimer">
-                      </form>
+                      <div class="action-buttons">
+                          <a href="{% url 'modifier_espace' affiche.id %}" class="btn btn-warning btn-sm">Modifier</a>
+                          <form action="{% url 'supprimer_espace' affiche.id %}" method="post" class="d-inline">
+                            {% csrf_token %}
+                            <input type="submit" class="btn btn-danger btn-sm" value="Supprimer">
+                          </form>
+                      </div>
                     </td>
                   </tr>
                   {% endfor %}
@@ -77,8 +97,10 @@
         </div>
     </div>
 
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="{% static 'js/bootstrap.js' %}"></script>
+    <!-- Popper.js doit être inclus avant Bootstrap -->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.7/dist/umd/popper.min.js"></script>
+    <script src="{% static 'js/bootstrap.js' %}"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </body>
 </html>

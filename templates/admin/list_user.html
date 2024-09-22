@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Liste chambre ventilée</title>
+    <title>Liste chambre climatisée</title>
     <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
     <style>
         
@@ -26,45 +26,36 @@
   {% include 'navbar.html' %}
     <div class="container mt-5">
         <!-- Classe Bootstrap pour le fond bleu et le texte en blanc -->
-        <h2 class="text-center bg-primary text-white p-3">Liste des suites</h2>
+        <h2 class="text-center bg-primary text-white p-3">Liste des chambres climatisées</h2>
 
         <!-- Div pour centrer le contenu -->
         <div class="text-center mb-4">
-            <h4 class="alert alert-info">Montrer les informations des suites</h4>
+            <h4 class="alert alert-info">Montrer les informations des chambres climatisées</h4>
         </div>
         
         <div class="table-responsive">
-            {% if affiche_suite %}
+            {% if utilisateur %}
             <table class="table table-hover table-bordered">
                 <thead>
                   <tr>
-                    <th scope="col">ID</th>
-                    <th scope="col">Numéro de chambre</th>
-                    <th scope="col">Description</th>
+                    <th scope="col">Nom complet de l'utilisateur</th>
+                    <th scope="col">Mail utilisateur</th>
+                    <th scope="col">Mot de passe utilisateur</th>
                     <th scope="col">Prix Nuitée</th>
-                    <th scope="col">Prix Journée</th>
-                    <th scope="col">Statut de la chambre</th>
-                    <!-- modif et supprimer -->
-                    <th scope="col">Action</th>
+                
+                   
                   </tr>
                 </thead>
                 <tbody>
-                    {% for affiche in affiche_suite %}
+                    {% for user in utilisateur %}
                   <tr>
                     <th scope="row">{{affiche.id}}</th>
-                    <td>{{affiche.numeroChambre}}</td>
-                    <td>{{affiche.description}}</td>
-                    <td>{{affiche.prix_nuite}}</td>
-                    <td>{{affiche.prix_journee}}</td>
-                    <td>{{affiche.statutChambre}}</td>
-                    <!-- modif et supprimer -->
-                    <td>
-                      <a href="{% url 'modifier_suite' affiche.id %}" class="btn btn-warning btn-sm d-block d-sm-inline mb-2">Modifier</a>
-                      <form action="{% url 'supprimer_suite' affiche.id %}" method="post" class="d-inline">
-                        {% csrf_token %}
-                        <input type="submit" class="btn btn-danger btn-sm" value="Supprimer">
-                      </form>
-                    </td>
+                    <td>{{user.nom_complet}}</td>
+                    <td>{{user.mail_utilisateur}}</td>
+                    <td>{{user.mot_de_passe}}</td>
+                  
+                  
+                    
                   </tr>
                   {% endfor %}
                 </tbody> 

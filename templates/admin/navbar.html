@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="fr">
+{% block navbar %}   
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+        <style>
+            body {
+                background-color: #f0f8ff; /* Bleu ciel */
+            }
+            .form-container {
+                background-color: white;
+                padding: 40px;
+                border-radius: 10px;
+                box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+                margin-top: 50px;
+            }
+            .btn-success {
+                width: 100%; /* Bouton large */
+                padding: 12px;
+                font-size: 16px;
+            }
+        </style>
+    </head>
+    <body>
+        
+        <nav class="navbar navbar-dark bg-primary fixed-top">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#">Bienvenue dans l'espace administration</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="offcanvasDarkNavbar" aria-labelledby="offcanvasDarkNavbarLabel">
+                    <div class="offcanvas-header">
+                        <h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel">Administration</h5>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                    </div>
+                    <div class="offcanvas-body">
+                        <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+                            <li class="nav-item">
+                                <a class="nav-link " aria-current="page" href="#">Accueil</a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Ajouter une chambre
+                                </a>
+                                <ul class="dropdown-menu dropdown-menu-dark">
+                                    <li><a class="dropdown-item" href="{% url 'AjoutChambreClim' %}">Chambre climatisée</a></li>
+                                    <li><a class="dropdown-item" href="{% url 'AjoutChambreVent' %}">Chambre ventilée</a></li>
+                                    <li><a class="dropdown-item" href="{% url 'AjoutSuite' %}">Suite</a></li>
+                                </ul>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Listes des chambres
+                                </a>
+                                <ul class="dropdown-menu dropdown-menu-dark">
+                                    <li><a class="dropdown-item" href="{% url 'ListChambreClim' %}">Chambre climatisée</a></li>
+                                    <li><a class="dropdown-item" href="{% url 'ListChambreVent' %}">Chambre ventilée</a></li>
+                                    <li><a class="dropdown-item" href="{% url 'ListSuite' %}">Suite</a></li>
+                                </ul>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'AjoutEspace' %}">Ajouter un espace</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'ListEspace' %}">Liste espace</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'ListUser' %}">Liste des utilisateurs</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'ListCommandeEsp' %}">Liste commande espace</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'ListCommandeLog' %}">Liste des commandes de logement</a>
+                            </li>
+                        </ul>
+                        <div class="mt-3">
+                            <form action="#" method="post">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-primary w-100">Se déconnecter</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+        
+        
+        
+        
+        <br><br><br>
+
+    
+
+
+
+    </body>
+    </html>
+{% endblock %}
