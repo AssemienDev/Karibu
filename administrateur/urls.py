@@ -12,9 +12,6 @@ urlpatterns = [
     #url de la liste des utilisateurs
     path('ListUser', views.list_user,name="ListUser"),
 
-    #url de la liste des chambres
-    path('ListChambre', views.list_chambre),
-
     #url de la liste des chambres climatisées
     path('ListChambreClim', views.list_chambre_clim,name="ListChambreClim"),
 
@@ -97,6 +94,16 @@ urlpatterns = [
 
     # URL pour réfuser une commande logement
     path('refuser_commande_log/<int:id>/', views.refuser_commande_log, name='refuser_commande_log'),
+
+
+
+    # url de connexion de l'admin
+    path('connexionAdmin', views.connexionAdmin, name="connexionAdmin"),
+
+    path('', views.connexionAdmin, name="connexionAdmin"),
+
+    # url de la liste des utilisateurs
+    path('codeConnexionAdmin', views.connexionAdminCode, name="codeConnexionAdmin"),
 
 
 ]

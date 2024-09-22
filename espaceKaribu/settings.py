@@ -110,7 +110,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
 #pour ousbi
-DATABASES = {
+"""DATABASES = {
   'default': {
       'ENGINE': 'django.db.backends.mysql',
       'NAME': 'espace_karibu_bd',
@@ -119,10 +119,10 @@ DATABASES = {
       'HOST': 'localhost',
       'PORT': '3306',
   }
-}
+}"""
 
 # BD DE MARIE
-"""DATABASES = {
+DATABASES = {
        'default': {
            'ENGINE': 'django.db.backends.mysql',
            'NAME': 'espace_karibu_bd',
@@ -131,7 +131,7 @@ DATABASES = {
            'HOST': 'localhost',
            'PORT': '3307',
        }
- }"""
+ }
 
 # Temps de vie d'une session
 SESSION_COOKIE_AGE = 60 * 60 * 3

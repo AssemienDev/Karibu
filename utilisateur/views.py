@@ -87,7 +87,7 @@ def connexion(request):
 
             # Valider le formulaire de contact
             if form.is_valid():
-                request.session['emailUser'] = form.cleaned_data['emailUser']
+                request.session['emailUser'] = form.cleaned_data['email']
                 # Recuperer vers la page de profil
                 return redirect('profil')
 

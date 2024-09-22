@@ -1,6 +1,8 @@
+from django.contrib.auth.hashers import check_password
 from django.core import validators
 from django import forms
-from utilisateur.models import ChambreClimatisee,ChambreVentilee,Suite,Espace
+from utilisateur.models import ChambreClimatisee, ChambreVentilee, Suite, Espace, Administrateur
+
 
 #code pour gerer le form de chambre climatisee
 class AjoutChambreClim(forms.ModelForm):
@@ -96,3 +98,60 @@ class AjoutEspace(forms.ModelForm):
             'statutEspace': forms.Select(attrs={'class': 'form-control'}),
             
         }
+
+
+class ConnexionForm(forms.Form):
+    email = forms.EmailField(
+        widget=forms.EmailInput(attrs={
+            'class': 'border w-full h-[70px]',
+            'placeholder': 'E-mail',
+            'id': 'email',
+            'required': 'required'
+        })
+    )
+    password = forms.CharField(
+        widget=forms.PasswordInput(attrs={
+            'class': 'border w-full h-[70px]',
+            'placeholder': 'Mot de passe',
+            'id': 'password',
+            'required': 'required'
+        })
+    )
+
+    def clean(self):
+        cleaned_data = super().clean()
+        email = cleaned_data.get('email')
+        password = cleaned_data.get('password')
+
+        if email and password:
+            user = self.authentifier_utilisateur(email, password)
+            if not user:
+                raise self.add_error(self,"E-mail ou mot de passe incorrect")
+
+        return cleaned_data
+
+    def authentifier_utilisateur(self, email, password):
+        try:
+            user = Administrateur.objects.get(mail_utilisateur=email)  # Recherche de l'utilisateur par email
+            if check_password(password, user.password):  # Vérifie si le mot de passe est correct
+                return user
+            else:
+                return None
+        except Administrateur.DoesNotExist:
+            return None
+
+
+class ConnexionCodeForm(forms.Form):
+    code = forms.CharField(
+        widget=forms.TextInput(
+            attrs={
+                'class': 'border w-full h-[70px] md:w-[500px]',  # Classes CSS pour le style
+                'placeholder': 'Entrez le code reçu ',
+                'id': 'email',
+                'required': 'required',
+            }
+        ),
+        label="Code",
+        max_length=6,  # Longueur maximale d'un code
+        required=True,  # Le code est obligatoire
+    )

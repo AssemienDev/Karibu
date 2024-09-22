@@ -1,9 +1,28 @@
+import random
+import string
+
 from django.shortcuts import render,HttpResponseRedirect,redirect,get_object_or_404
 from django.contrib import messages
 
+from espaceKaribu import settings
+from .forms import AjoutChambreClim, AjoutChambreVent, AjoutSuite, AjoutEspace, ConnexionForm, ConnexionCodeForm
+from utilisateur.models import Utilisateur, Chambre, ChambreClimatisee, ChambreVentilee, Suite, Espace, CommandeEspace, \
+    CommandeLogement, Administrateur, CodeConnexionAdmin
 
-from .forms import AjoutChambreClim,AjoutChambreVent,AjoutSuite,AjoutEspace
-from utilisateur.models import Utilisateur,Chambre,ChambreClimatisee,ChambreVentilee,Suite,Espace,CommandeEspace,CommandeLogement
+#L'envoi d'email avec django
+from django.core.mail import send_mail
+
+
+# Envoi d'email
+def envoyer_email(recepteur, subject, message):
+    if isinstance(recepteur, str):
+        recepteur = [recepteur]  # Convertit la chaîne de caractères en liste
+
+    try:
+        envoi = send_mail(subject, message, settings.DEFAULT_FROM_EMAIL, recepteur)
+        print("Email envoyé, statut:", envoi)
+    except Exception as e:
+        print("Erreur lors de l'envoi de l'email:", e)
 
 # Create your views here.
 
@@ -12,57 +31,77 @@ from utilisateur.models import Utilisateur,Chambre,ChambreClimatisee,ChambreVent
 
 #la vue pour récuperer la liste des utilisateurs
 def list_user (request):
-    user = Utilisateur.objects.all()
-    return render (request, "liste_user.html",{'utilisateur':user})
+    if "emailPasAdmin" in request.session:
+        user = Utilisateur.objects.all()
+        return render (request, "admin/list_user.html",{'utilisateur':user})
+    else:
+        return redirect('connexionAdmin')
 
 #la vue pour récuperer la commande de l'espace
 def list_cmde_espace (request):
-    cmde_espace = CommandeEspace.objects.all()
-    return render (request, "list_cmde_espace.html",{'cmde_espace':cmde_espace})
+    if "emailPasAdmin" in request.session:
+        cmde_espace = CommandeEspace.objects.all()
+        return render (request, "admin/list_cmde_espace.html",{'cmde_espace':cmde_espace})
+    else:
+        return redirect('connexionAdmin')
 
-
-
-#la vue pour lister les chambres
-def list_chambre(request):
-    chambre = Chambre.objects.all()
-    return render(request,"liste_chambre.html",{"chambre":chambre})
 
 
 #la vue pour lister les chambres climatisées
 def list_chambre_clim(request):
-    affiche_chambre_clim = ChambreClimatisee.objects.all()
-    return render(request,"admin/list_chambre_clim.html",{'affiche_clim':affiche_chambre_clim})
+    if "emailPasAdmin" in request.session:
+        affiche_chambre_clim = ChambreClimatisee.objects.all()
+        return render(request,"admin/list_chambre_clim.html",{'affiche_clim':affiche_chambre_clim})
+    else:
+        return redirect('connexionAdmin')
 
 #la vue pour lister les chambres ventilées
 def list_chambre_vent(request):
-    affiche_chambre_vent = ChambreVentilee.objects.all()
-    return render(request,"admin/list_chambre_vent.html",{"affiche_vent":affiche_chambre_vent})
+    if "emailPasAdmin" in request.session:
+        affiche_chambre_vent = ChambreVentilee.objects.all()
+        return render(request,"admin/list_chambre_vent.html",{"affiche_vent":affiche_chambre_vent})
+    else:
+        return redirect('connexionAdmin')
 
 
 #la vue pour lister les suites
 def list_suite(request):
-    affiche_suite = Suite.objects.all()
-    return render(request,"admin/list_suite.html",{"affiche_suite":affiche_suite})
+    if "emailPasAdmin" in request.session:
+        affiche_suite = Suite.objects.all()
+        return render(request,"admin/list_suite.html",{"affiche_suite":affiche_suite})
+    else:
+        return redirect('connexionAdmin')
 
 #la vue pour lister  les espaces
 def list_espace(request):
-    affiche_espace = Espace.objects.all()
-    return render(request,"admin/list_espace.html",{"affiche_espace":affiche_espace})
+    if "emailPasAdmin" in request.session:
+        affiche_espace = Espace.objects.all()
+        return render(request,"admin/list_espace.html",{"affiche_espace":affiche_espace})
+    else:
+        return redirect('connexionAdmin')
 
 #la vue pour lister les commandes d'espace 
 def list_commande_esp(request):
-    affiche_commande_esp = CommandeEspace.objects.all()
-    return render(request,"admin/list_cmde_espace.html",{"affiche_commande_esp":affiche_commande_esp})
+    if "emailPasAdmin" in request.session:
+        affiche_commande_esp = CommandeEspace.objects.all()
+        return render(request,"admin/list_cmde_espace.html",{"affiche_commande_esp":affiche_commande_esp})
+    else:
+        return redirect('connexionAdmin')
 
 #la vue pour lister les commandes de logement
 def list_commande_log(request):
-    affiche_cmde_log = CommandeLogement.objects.all()
-    return render(request,'list_cmde_logement.html',{"affiche_cmde_log":affiche_cmde_log})
+    if "emailPasAdmin" in request.session:
+        affiche_cmde_log = CommandeLogement.objects.all()
+        return render(request,'list_cmde_logement.html',{"affiche_cmde_log":affiche_cmde_log})
+    else:
+        return redirect('connexionAdmin')
 
 #la vue pour ajouter une chambre
 def ajout_chambre(request):
-
-    return render(request,'ajout_chambre.html')
+    if "emailPasAdmin" in request.session:
+        return render(request,'ajout_chambre.html')
+    else:
+        return redirect('connexionAdmin')
 
 #la vue pour ajouter une chambre ventilee
 def ajout_chambre_vent(request):
@@ -164,7 +203,7 @@ def ajout_espace(request):
     if espace_existant:
         # Message d'erreur si un espace existe déjà
         messages.error(request, "Un espace existe déjà. Vous ne pouvez pas en ajouter un autre.")
-        #return redirect('ListEspace')  # Rediriger vers la page de liste des espaces
+        return redirect('ListEspace')  # Rediriger vers la page de liste des espaces
 
 
     # voir si le form est bon et valide
@@ -311,9 +350,6 @@ def supprimer_cmde_espace(request, id):
 
 
 
-
-
-
 #la vue pour validé une commande logement
 def valider_commande_log(request, id):
     cmde_logement = get_object_or_404(CommandeLogement, id=id)
@@ -385,21 +421,109 @@ def supprimer_cmde_logement(request, id):
     return redirect('ListCommandeLog')
 
 
-    
-#la vue pour l'admin
-"""def AdminDeconnexion(request):
-    try:
-        if 'emailAdmin' in request.session:
-            Administrateur.objects.get(mail_admin=request.session['emailAdmin']).delete()
-             # Affiche un message de succès
-            messages.success(request, "Vous êtes déconnecté avec succès.")
-        else:
-            # Affiche un message d'information si l'utilisateur n'est pas connecté
-            messages.info(request, "Vous n'êtes pas connecté.")
 
-    except Exception as e:
-        # En cas d'erreur, affiche un message d'erreur
-        messages.error(request, f"Une erreur est survenue : {str(e)}")
+#Connexion Admin
+def connexionAdmin(request):
+    if 'emailAdmin' in request.session:
+        return redirect('ListUser')
+    else:
+        # Verifier que la requete est POST
+        if request.method == 'POST':
+
+            # Recuperer le formulaire de contact depuis la page
+            form = ConnexionForm(request.POST)
+
+            # Valider le formulaire de contact
+            if form.is_valid():
+                request.session['emailPasAdmin'] = form.cleaned_data['email']
+                code = generate_random_code()
+
+                try:
+                    # Rechercher l'utilisateur associé à cet email
+                    admini = Administrateur.objects.get(mail_admin=request.session['emailPasAdmin'])
+                    # Envoyer un email de réinitialisation du mot de passe
+
+                    code_validation, created = CodeConnexionAdmin.objects.get_or_create(admin=admini)
+
+                    # Mettre à jour le code et la date de création
+                    code_validation.code = code
+                    code_validation.save()
+
+                    sujet = "Code de connexion de l'administrateur"
+                    message = (
+                        f"Bonjour/Bonsoir, Voici votre code: {code}.")
+                    envoyer_email(request.session['emailPasAdmin'], sujet, message)
+
+                    messages.success(request,
+                                     'Un email a été envoyé contenant le code pour la connexion votre mot de passe.')
+                    # Recuperer vers le code de connexion
+                    return redirect('codeConnexionAdmin')
+                except:
+                    None
+
+        # Recuperer le formulaire de connexion
+        form = ConnexionForm()
+
+        # Passer le form de contact en paramètres
+        context = {
+            'formConnexion': form
+        }
+
+        # Afficher le template de la page de connexion
+        return render(request, 'admin/connexionAdmin.html', context)
+
+
+def generate_random_code(length=6):
+    """Génère un code aléatoire de 6 caractères (lettres majuscules et chiffres)."""
+    characters = string.ascii_uppercase + string.digits
+    return ''.join(random.choices(characters, k=length))
+
+
+# La Vue du Code de connexion de l'admin
+def connexionAdminCode(request):
+    if 'emailPasAdmin' not in request.session:
+        return redirect('connexionAdmin')
+    else:
+        # Verifier que la requete est POST
+        if request.method == 'POST':
+
+            # Recuperer le formulaire de contact depuis la page
+            form = ConnexionCodeForm(request.POST, request)
+
+            # Valider le formulaire de code
+            if form.is_valid():
+
+                admini = Administrateur.objects.get(mail_admin=request.session['emailPasAdmin'])
+
+                if form.cleaned_data['code'] == CodeConnexionAdmin.objects.get(admin=admini).code:
+                    request.session['emailAdmin'] = request.session['emailPasAdmin']
+
+                    del request.session['emailPasAdmin']
+
+                    # Recuperer vers la page changé mot de passe
+                    return redirect('ListUser')
+
+        # Recuperer le formulaire du code lors du mot de passe oublier
+        form = ConnexionCodeForm()
+
+        # Passer le form de contact en paramètres
+        context = {
+            'formCode': form
+        }
+
+        # Afficher le template de la page de code
+        return render(request, 'admin/connexionCode.html', context)
+
+
     
-    # Redirige vers l'URL de connexion ou une autre page après la déconnexion
-    return redirect('login_url')  # Remplace 'login_url' par l'URL appropriée"""
+#la vue pour la deconnexion de l'admin
+def AdminDeconnexion(request):
+    try:
+        # Supprime l'email de la session si présent
+        if 'emailUser' in request.session:
+            del request.session['emailAdmin']
+    except KeyError:
+        pass
+
+        # Redirige vers la page de connexion de l'Admin
+    return redirect('connexionAdmin')
