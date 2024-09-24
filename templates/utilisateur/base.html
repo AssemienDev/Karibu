@@ -2,7 +2,6 @@
 <!DOCTYPE html>
 <html lang="fr" class="h-full">
 {% load pwa %}
-
 <head>
  {% progressive_web_app_meta %}
     <meta charset="UTF-8">
@@ -22,6 +21,14 @@
         },
       }
     </script>
+    {% block description %}
+    	
+    {% endblock %}"
+
+    {% block motCles %}
+    	
+    {% endblock %}
+    
 
 
      <script src="{% static 'karibu/js/app.js' %}" defer></script>
