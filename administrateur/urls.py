@@ -104,6 +104,9 @@ urlpatterns = [
 
     # url de la liste des utilisateurs
     path('codeConnexionAdmin', views.connexionAdminCode, name="codeConnexionAdmin"),
+    
+    # url de connexion de l'admin
+    path('deconnexionAdmin', views.AdminDeconnexion, name="deconnexionAdmin"),
 
 
 ]
