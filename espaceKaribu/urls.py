@@ -16,13 +16,26 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.contrib.sitemaps.views import sitemap
+from utilisateur.sitemaps import StaticViewSitemap
+from utilisateur import views
 
+sitemaps = {
+    'static': StaticViewSitemap,
+}
 
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    #path('admin/', admin.site.urls),
+
     path('admini/', include('administrateur.urls')),
     path('', include('utilisateur.urls')),
 
-    path('', include('pwa.urls'))
+    path('', include('pwa.urls')),
+
+    # URL pour le sitemap
+    path('sitemap.xml', sitemap, {'sitemaps': sitemaps}, name='django.contrib.sitemaps.views.sitemap'),
+
+    # URL pour robots.txt
+    path('robots.txt', views.robots_txt),
 ]

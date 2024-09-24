@@ -43,7 +43,7 @@ class ContactForm(forms.Form):
         # Création de l'objet ContactAdmin à partir des données du formulaire
         contact = ContactAdmin(
             nom_complet=self.cleaned_data['nom_complet'],
-            mail_admin=self.cleaned_data['email'],
+            mail=self.cleaned_data['email'],
             message=self.cleaned_data['message']
         )
         contact.save()
@@ -76,14 +76,14 @@ class ConnexionForm(forms.Form):
         if email and password:
             user = self.authentifier_utilisateur(email, password)
             if not user:
-                raise self.add_error(self,"E-mail ou mot de passe incorrect")
+                self.add_error(self,"E-mail ou mot de passe incorrect")
 
         return cleaned_data
 
     def authentifier_utilisateur(self, email, password):
         try:
             user = Utilisateur.objects.get(mail_utilisateur=email)  # Recherche de l'utilisateur par email
-            if check_password(password, user.password):  # Vérifie si le mot de passe est correct
+            if check_password(password, user.mot_de_passe):  # Vérifie si le mot de passe est correct
                 return user
             else:
                 return None
@@ -123,7 +123,7 @@ class InscriptionForm(forms.Form):
     def clean_email(self):
         email = self.cleaned_data.get('email')
         if Utilisateur.objects.filter(mail_utilisateur=email).exists():
-            raise self.add_error(self,"Cet e-mail est déjà utilisé.")
+            self.add_error(self,"Cet e-mail est déjà utilisé.")
         return email
 
     def save(self):
@@ -201,7 +201,7 @@ class ChangePasseForm(forms.Form):
 
         # Vérifier si les deux mots de passe correspondent
         if password and password2 and password != password2:
-            raise self.add_error(None,"Les mots de passe ne correspondent pas.")
+             self.add_error(None,"Les mots de passe ne correspondent pas.")
 
         return cleaned_data
 

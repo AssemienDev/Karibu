@@ -33,6 +33,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
+BASE_URL = 'http://localhost:8000'
+
 
 # Application definition
 
@@ -45,6 +47,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'pwa',
     'utilisateur.apps.UtilisateurConfig',
+    'django.contrib.sitemaps',
     'administrateur.apps.AdministrateurConfig'
 
 ]
@@ -193,7 +196,7 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'espacekaribu1308@gmail.com'
-EMAIL_HOST_PASSWORD = '#'
+EMAIL_HOST_PASSWORD = 'afkvxicvyvntopfd '
 DEFAULT_FROM_EMAIL = 'espacekaribu1308@gmail.com'
 
 

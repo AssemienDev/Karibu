@@ -1,5 +1,6 @@
 from django.contrib.auth.hashers import make_password
-from django.contrib.messages.storage import session
+from django.http import HttpResponse
+from django.conf import settings
 from django.shortcuts import render, redirect
 from django.contrib import messages
 
@@ -8,7 +9,6 @@ from utilisateur.forms import ContactForm, ConnexionForm, InscriptionForm, Passe
     ChangePasseForm, ReservationChambreForm, ReservationEventForm
 from utilisateur.models import Chambre, Suite, ChambreClimatisee, ChambreVentilee, Espace, Utilisateur, \
     CodeRecuperationUser, CommandeLogement, CommandeEspace
-from django.core.mail import send_mail
 import random
 import string
 
@@ -576,3 +576,26 @@ def reservationEvent(request):
 
     else:
         return redirect('connexion')
+
+
+# Pour l'optimisation SEO
+def robots_txt(request):
+    # Utiliser le BASE_URL de settings si défini, sinon fallback à request.get_host()
+    base_url = settings.BASE_URL if hasattr(settings, 'BASE_URL') else f'http://{request.get_host()}'
+
+    lines = [
+        "User-Agent: *",
+    ]
+    if settings.DEBUG:
+        # Bloquer tout accès aux robots en développement
+        lines.append("Disallow: /")
+    else:
+        # En production, autoriser certaines sections et inclure le sitemap
+        lines.extend([
+            "Disallow: /admin/",
+            "Disallow: /admini/",
+            "Allow: /",
+            f"Sitemap: {base_url}/sitemap.xml",
+        ])
+
+    return HttpResponse("\n".join(lines), content_type="text/plain")

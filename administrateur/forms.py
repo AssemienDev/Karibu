@@ -126,14 +126,14 @@ class ConnexionForm(forms.Form):
         if email and password:
             user = self.authentifier_utilisateur(email, password)
             if not user:
-                raise self.add_error(self,"E-mail ou mot de passe incorrect")
+             self.add_error(self,"E-mail ou mot de passe incorrect")
 
         return cleaned_data
 
     def authentifier_utilisateur(self, email, password):
         try:
-            user = Administrateur.objects.get(mail_utilisateur=email)  # Recherche de l'utilisateur par email
-            if check_password(password, user.password):  # Vérifie si le mot de passe est correct
+            user = Administrateur.objects.get(mail_admin=email)  # Recherche de l'utilisateur par email
+            if user.mot_de_passe == password:  # Vérifie si le mot de passe est correct
                 return user
             else:
                 return None
