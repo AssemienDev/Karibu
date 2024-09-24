@@ -31,7 +31,7 @@ def envoyer_email(recepteur, subject, message):
 
 #la vue pour récuperer la liste des utilisateurs
 def list_user (request):
-    if "emailPasAdmin" in request.session:
+    if "emailAdmin" in request.session:
         user = Utilisateur.objects.all()
         return render (request, "admin/list_user.html",{'utilisateur':user})
     else:
@@ -39,7 +39,7 @@ def list_user (request):
 
 #la vue pour récuperer la commande de l'espace
 def list_cmde_espace (request):
-    if "emailPasAdmin" in request.session:
+    if "emailAdmin" in request.session:
         cmde_espace = CommandeEspace.objects.all()
         return render (request, "admin/list_cmde_espace.html",{'cmde_espace':cmde_espace})
     else:
@@ -49,7 +49,7 @@ def list_cmde_espace (request):
 
 #la vue pour lister les chambres climatisées
 def list_chambre_clim(request):
-    if "emailPasAdmin" in request.session:
+    if "emailAdmin" in request.session:
         affiche_chambre_clim = ChambreClimatisee.objects.all()
         return render(request,"admin/list_chambre_clim.html",{'affiche_clim':affiche_chambre_clim})
     else:
@@ -57,7 +57,7 @@ def list_chambre_clim(request):
 
 #la vue pour lister les chambres ventilées
 def list_chambre_vent(request):
-    if "emailPasAdmin" in request.session:
+    if "emailAdmin" in request.session:
         affiche_chambre_vent = ChambreVentilee.objects.all()
         return render(request,"admin/list_chambre_vent.html",{"affiche_vent":affiche_chambre_vent})
     else:
@@ -66,7 +66,7 @@ def list_chambre_vent(request):
 
 #la vue pour lister les suites
 def list_suite(request):
-    if "emailPasAdmin" in request.session:
+    if "emailAdmin" in request.session:
         affiche_suite = Suite.objects.all()
         return render(request,"admin/list_suite.html",{"affiche_suite":affiche_suite})
     else:
@@ -74,7 +74,7 @@ def list_suite(request):
 
 #la vue pour lister  les espaces
 def list_espace(request):
-    if "emailPasAdmin" in request.session:
+    if "emailAdmin" in request.session:
         affiche_espace = Espace.objects.all()
         return render(request,"admin/list_espace.html",{"affiche_espace":affiche_espace})
     else:
@@ -82,7 +82,7 @@ def list_espace(request):
 
 #la vue pour lister les commandes d'espace 
 def list_commande_esp(request):
-    if "emailPasAdmin" in request.session:
+    if "emailAdmin" in request.session:
         affiche_commande_esp = CommandeEspace.objects.all()
         return render(request,"admin/list_cmde_espace.html",{"affiche_commande_esp":affiche_commande_esp})
     else:
@@ -90,7 +90,7 @@ def list_commande_esp(request):
 
 #la vue pour lister les commandes de logement
 def list_commande_log(request):
-    if "emailPasAdmin" in request.session:
+    if "emailAdmin" in request.session:
         affiche_cmde_log = CommandeLogement.objects.all()
         return render(request,'list_cmde_logement.html',{"affiche_cmde_log":affiche_cmde_log})
     else:
@@ -98,7 +98,7 @@ def list_commande_log(request):
 
 #la vue pour ajouter une chambre
 def ajout_chambre(request):
-    if "emailPasAdmin" in request.session:
+    if "emailAdmin" in request.session:
         return render(request,'ajout_chambre.html')
     else:
         return redirect('connexionAdmin')
