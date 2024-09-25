@@ -26,37 +26,43 @@
   {% include 'navbar.html' %}
     <div class="container mt-5">
         <!-- Classe Bootstrap pour le fond bleu et le texte en blanc -->
-        <h2 class="text-center bg-primary text-white p-3">Liste des utilisateurs</h2>
+        <h2 class="text-center bg-primary text-white p-3">Liste des contacts de l'admin</h2>
 
         <!-- Div pour centrer le contenu -->
         <div class="text-center mb-4">
-            <h4 class="alert alert-info">Montrer les informations des utilisateurs</h4>
+            <h4 class="alert alert-info">Montrer les informations des utilisateurs qui ont contacté l'admin</h4>
         </div>
         
         <div class="table-responsive">
-            {% if utilisateur %}
+            {% if contact_admin %}
             <table class="table table-hover table-bordered">
                 <thead>
                   <tr>
                     <th scope="col">ID</th>
-                    <th scope="col">Nom complet de l'utilisateur</th>
+                    <th scope="col">Nom complet utilisateur</th>
                     <th scope="col">Mail utilisateur</th>
-                    <th scope="col">Mot de passe utilisateur</th>
-                    
-                
-                   
+                    <th scope="col">Message utilisateur</th>
+          
+                    <!-- modif et supprimer -->
+                    <!-- <th scope="col">Action</th> -->
                   </tr>
                 </thead>
                 <tbody>
-                    {% for user in utilisateur %}
+                    {% for list in contact_admin %}
                   <tr>
-                    <th scope="row">{{user.id}}</th>
-                    <td>{{user.nom_complet}}</td>
-                    <td>{{user.mail_utilisateur}}</td>
-                    <td>{{user.mot_de_passe}}</td>
-                  
-                  
-                    
+                    <th scope="row">{{list.id}}</th>
+                    <td>{{list.nom_complet}}</td>
+                    <td>{{list.mail}}</td>
+                    <td>{{list.message}}</td>
+                 
+                    <!-- modif et supprimer -->
+                    <!-- <td>
+                      <a href="{% url 'modifier' affiche.id %}" class="btn btn-warning btn-sm d-block d-sm-inline mb-2">Modifier</a>
+                      <form action="{% url 'supprimer' affiche.id %}" method="post" class="d-inline">
+                        {% csrf_token %}
+                        <input type="submit" class="btn btn-danger btn-sm" value="Supprimer">
+                      </form>
+                    </td> -->
                   </tr>
                   {% endfor %}
                 </tbody> 
@@ -68,7 +74,6 @@
             {% endif %}
         </div>
     </div>
-
     <!-- Popper.js doit être inclus avant Bootstrap -->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.7/dist/umd/popper.min.js"></script>
     <script src="{% static 'js/bootstrap.js' %}"></script>

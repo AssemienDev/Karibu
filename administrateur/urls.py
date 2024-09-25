@@ -108,6 +108,9 @@ urlpatterns = [
     # url de connexion de l'admin
     path('deconnexionAdmin', views.AdminDeconnexion, name="deconnexionAdmin"),
 
+    # url de contact de l'admin
+    path('ListContactAdmin', views.list_contact_admin, name="ListContactAdmin"),
+    
 
 ]
 

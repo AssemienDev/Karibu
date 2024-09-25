@@ -7,8 +7,7 @@ from django.contrib import messages
 from espaceKaribu import settings
 from .forms import AjoutChambreClim, AjoutChambreVent, AjoutSuite, AjoutEspace, ConnexionForm, ConnexionCodeForm
 from utilisateur.models import Utilisateur, Chambre, ChambreClimatisee, ChambreVentilee, Suite, Espace, CommandeEspace, \
-    CommandeLogement, Administrateur, CodeConnexionAdmin
-
+    CommandeLogement, Administrateur, CodeConnexionAdmin,ContactAdmin
 #L'envoi d'email avec django
 from django.core.mail import send_mail
 
@@ -44,6 +43,21 @@ def list_cmde_espace (request):
         return render (request, "admin/list_cmde_espace.html",{'cmde_espace':cmde_espace})
     else:
         return redirect('connexionAdmin')
+
+
+#la vue pour récuperer la liste des contacts de l'admin
+def list_contact_admin (request):
+    if "emailAdmin" in request.session:
+        if ContactAdmin.objects.exists():
+            contact_admin = ContactAdmin.objects.all()
+        else:
+            contact_admin = None
+        return render (request, "admin/list_contact_admin.html",{'contact_admin':contact_admin})
+    else:
+        return redirect('connexionAdmin')
+
+
+
 
 
 
