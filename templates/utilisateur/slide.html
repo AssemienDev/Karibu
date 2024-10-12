@@ -1,45 +1,39 @@
 {% load static %}
 
-<div class="flex items-center justify-center min-h-20">
+<div class="flex items-center justify-center min-h-20 md:ml-[20%] md:mr-[20%]">
     <div class="container swiper">
         <div class="card-wrapper">
             <ul class="card-list swiper-wrapper">
-            
-            {% if chambre %}
-                
-                {% for chambre in chambre %}
-                	
-                    <li class="card-item swiper-slide">
-                    <a href="#" class="card-link">
-                        <img src="{{ chambre.photo1.url }}" alt="Card Image"
-                         class="card-image object-cover">
-                        <p class="bagde">
-                            {% if chambre.suite %}
-                                SUITE
-                            {% elif chambre.chambre_climatisee %}
-                                CHAMBRE CLIMATISEE
-                            {% else %}
-                                CHAMBRE VENTILEE
-                            {% endif %}
-                        </p>
-                        <h2 class="card-title">{{ chambre.description }} </h2>
-                        <h2 class="card-title">Nuitée: {{ chambre.prix_nuite }}  </h2>
-                        <h2 class="card-title">Journée: {{ chambre.prix_journee }}  </h2>
-                        
-                    </a>
-                </li>
-                    
+
+                {% for chambre_data in chambres_data %}
+                    {% if chambre_data.chambre %}
+                        <li class="card-item swiper-slide">
+                            <a href="{% url 'detailsChambre' chambre_data.idChambre.id %}" class="card-link">
+                                <img src="{{ chambre_data.chambre.photo1.url }}" alt="Card Image" class="card-image object-cover">
+                                <p class="badge">
+                                    {% if chambre_data.type_chambre == 'suite' %}
+                                        SUITE
+                                    {% elif chambre_data.type_chambre == 'chambre_climatisee' %}
+                                        CHAMBRE CLIMATISÉE
+                                    {% else %}
+                                        CHAMBRE VENTILÉE
+                                    {% endif %}
+                                </p>
+                                <h2 class="card-title">{{ chambre_data.chambre.description }}</h2>
+                                <h2 class="card-title">Nuitée: {{ chambre_data.chambre.prix_nuite }} Frcfa</h2>
+                                <h2 class="card-title">Journée: {{ chambre_data.chambre.prix_journee }} Frcfa</h2>
+                            </a>
+                        </li>
+                    {% endif %}
                 {% endfor %}
-                
-            {% endif %}
-                
+
             </ul>
             <div class="swiper-pagination"></div>
 
             <div class="swiper-button-prev"></div>
             <div class="swiper-button-next"></div>
 
-            
+
         </div>
     </div>
 </div>

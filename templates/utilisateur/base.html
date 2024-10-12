@@ -22,13 +22,13 @@
       }
     </script>
     {% block description %}
-    	
-    {% endblock %}"
+
+    {% endblock %}
 
     {% block motCles %}
-    	
+
     {% endblock %}
-    
+
 
 
      <script src="{% static 'karibu/js/app.js' %}" defer></script>
@@ -75,10 +75,10 @@
 </head>
 
 
-<body class="h-full">
+<body class="h-full {% block fond %}  {% endblock %}">
 
     {% block header %}
-    
+
     <!-- Header -->
 
     <section class="relative py-4">
@@ -101,12 +101,12 @@
          md:flex-row md:space-x-10 md:w-auto md:items-center md:justify-center">
 
          <li class="py-2 text-center border-t border-gray-200 md:border-0">
-            <a href="{% url 'acceuil' %}" class="font-medium text-lg
-             text-zinc-700 hover:text-gray-900">Acceuil</a>
+            <a href="/" class="font-medium text-lg
+             text-zinc-700 hover:text-gray-900">Accueil</a>
          </li>
          <li class="py-2 text-center border-t border-gray-200 md:border-0">
             <a href="{% url 'espace_event' %}" class="font-medium text-lg
-             text-zinc-700 hover:text-gray-900">Espace evenementiel</a>
+             text-zinc-700 hover:text-gray-900">Espace évènementiel</a>
          </li>
          <li class="py-2 text-center border-t border-b border-gray-200 md:border-0">
             <a href="{% url 'contact' %}" class="font-medium text-lg
@@ -114,17 +114,30 @@
          </li>
         </ul>
 
+
+        {% if request.session.emailUser %}
+
+        <div class="toggle-menu hidden flex justify-center items-center mt-6 md:mt-0 md-justify-end md:flex">
+            <a href="{% url 'profil' %}"
+            class="shadow-md py-2 px-3 border font-medium text-indigo-600 text-center w-40 bg-white hover:bg-gray-200 rounded-md"> Compte </a>
+        </div>
+
+        {% else %}
+
         <div class="toggle-menu hidden flex justify-center items-center mt-6 md:mt-0 md-justify-end md:flex">
             <a href="{% url 'connexion' %}"
             class="shadow-md py-2 px-3 border font-medium text-indigo-600 text-center w-40 bg-white hover:bg-gray-200 rounded-md"> Connexion </a>
         </div>
+
+        {% endif %}
         </nav>
 
+
     </section>
-        
+
     {% endblock %}
 
-    
+
     {% block content %}
 
     {% endblock %}
@@ -132,10 +145,10 @@
     {% block footere %}
         <!--Le footer -->
         <hr class="h-3 mt-5">
-        <section class="text-center space-x-9 underline py-4">
+        <section class="text-center space-x-9 underline py-4 text-black">
             <a href="{% url 'espace_event' %}">Espace karibu </a>
             <a href="{% url 'chambreDisponible' %}">Logements </a>
-            <a href="">côte d'ivoire</a>
+            <a href="/">côte d'ivoire</a>
         </section>
         <hr class="h-3">
 
@@ -147,7 +160,7 @@
 
 
     <script src="{% static 'karibu/js/toggle.js' %}"></script>
-    
+
     <script src="{% static 'karibu/assets/js/jquery-3.6.0.min.js' %} "></script>
     <script src="{% static 'karibu/assets/js/popper.min.js' %} "></script>
     <script src="{% static 'karibu/assets/bootstrap/js/bootstrap.min.js' %} "></script>
@@ -163,13 +176,61 @@
     <script src="{% static 'karibu/assets/js/jquery.elevatezoom.js' %} "></script>
     <script src="{% static 'karibu/assets/js/scripts.js' %} "></script>
 
-    
+
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
     <script src="{% static 'karibu/js/slide.js' %}"> </script>
-     
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const choixSejourField = document.getElementById('choix_sejour_field');
+        const tempsSejourField = document.getElementById('temps_sejour_field');
+
+        // Masquer initialement le champ "temps_sejour"
+        if (choixSejourField.value !== 'journée') {
+            tempsSejourField.style.display = 'none';
+        }
+
+        // Ajouter un événement lors du changement de sélection
+        choixSejourField.addEventListener('change', function() {
+            if (choixSejourField.value === 'journée') {
+                tempsSejourField.style.display = 'block';
+                tempsSejourField.required = true;
+            } else {
+                tempsSejourField.style.display = 'none';
+                tempsSejourField.required = false;
+            }
+        });
+
+        // Validation des chiffres uniquement
+        tempsSejourField.addEventListener('input', function() {
+            if (tempsSejourField.value && isNaN(tempsSejourField.value)) {
+                tempsSejourField.setCustomValidity('Veuillez entrer un nombre valide.');
+            } else {
+                tempsSejourField.setCustomValidity('');
+            }
+        });
+    });
+</script>
+
+<!-- Matomo -->
+<script>
+  var _paq = window._paq = window._paq || [];
+  /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+  _paq.push(['trackPageView']);
+  _paq.push(['enableLinkTracking']);
+  (function() {
+    var u="https://espacekaribue.matomo.cloud/";
+    _paq.push(['setTrackerUrl', u+'matomo.php']);
+    _paq.push(['setSiteId', '1']);
+    var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+    g.async=true; g.src='https://cdn.matomo.cloud/espacekaribue.matomo.cloud/matomo.js'; s.parentNode.insertBefore(g,s);
+  })();
+</script>
+<!-- End Matomo Code -->
 
 
-    
-</body> 
+
+
+
+</body>
 </html>

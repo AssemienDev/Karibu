@@ -94,7 +94,7 @@ def list_espace(request):
     else:
         return redirect('connexionAdmin')
 
-#la vue pour lister les commandes d'espace 
+#la vue pour lister les commandes d'espace
 def list_commande_esp(request):
     if "emailAdmin" in request.session:
         affiche_commande_esp = CommandeEspace.objects.all()
@@ -139,13 +139,13 @@ def ajout_chambre_vent(request):
 
             #actualise le form
             form = AjoutChambreVent()
-            
+
     else:
-        
+
         form = AjoutChambreVent()
         #récuperer ces colonnes de la table
-      
-      
+
+
     return render(request,'ajout_chambre_vent.html',{'form':form, 'ajouter':ajouter})
 
 
@@ -172,11 +172,11 @@ def ajout_chambre_clim(request):
             #actualise le form
             form = AjoutChambreClim()
     else:
-        
+
         form = AjoutChambreClim()
         #récuperer ces colonnes de la table
-      
-      
+
+
     return render(request,'ajout_chambre_clim.html',{'form':form, 'ajouter':ajouter})
 
 
@@ -201,16 +201,16 @@ def ajout_suite(request):
             #actualise le form
             form = AjoutSuite()
     else:
-        
+
         form = AjoutSuite()
         #récuperer ces colonnes de la table
-      
-      
+
+
     return render(request,'ajout_suite.html',{'form':form, 'ajouter':ajouter})
 
 
 
-#la vue pour ajouter un espace 
+#la vue pour ajouter un espace
 def ajout_espace(request):
     # Vérifier si un espace existe déjà
     espace_existant = Espace.objects.exists()
@@ -229,11 +229,11 @@ def ajout_espace(request):
             #actualise le form
             form = AjoutEspace()
     else:
-        
+
         form = AjoutEspace()
         #récuperer ces colonnes de la table
-      
-      
+
+
     return render(request,'ajout_espace.html',{'form':form})
 
 
@@ -256,7 +256,7 @@ def supprimer_suite(request,id):
     if request.method == 'POST':
         sup = Suite.objects.get(pk=id)
         sup.delete()
-        return HttpResponseRedirect('/admini/ListSuite') 
+        return HttpResponseRedirect('/admini/ListSuite')
 
 #la vue pour supprimer un espace dans la bd
 def supprimer_espace(request,id):
@@ -278,7 +278,7 @@ def modifier_clim(request,id):
         form = AjoutChambreClim(instance=mod)
 
     return render(request,'admin/modif_chambre_clim.html',{'form':form,})
-    
+
 
 #la vue pour modifier une chambre vent
 def modifier_vent(request,id):
@@ -293,7 +293,7 @@ def modifier_vent(request,id):
         form = AjoutChambreVent(instance=mod)
 
     return render(request,'admin/modif_chambre_vent.html',{'form':form,})
-    
+
 
 #la vue pour modifier une suite
 def modifier_suite(request,id):
@@ -308,8 +308,8 @@ def modifier_suite(request,id):
         form = AjoutSuite(instance=mod)
 
     return render(request,'admin/modif_suite.html',{'form':form,})
-    
-#la vue pour modifier un espace 
+
+#la vue pour modifier un espace
 def modifier_espace(request,id):
     if request.method == 'POST':
         mod = Espace.objects.get(pk=id)
@@ -336,6 +336,7 @@ def valider_commande(request, id):
     # Modifier le statut de l'espace
     espace.statutEspace = 'occupé'
     espace.save()  # Sauvegarder les modifications de l'espace
+
     return redirect('ListCommandeEsp')
 
 def refuser_commande(request, id):
@@ -344,7 +345,7 @@ def refuser_commande(request, id):
     cmde_espace.delete()
     return redirect('ListCommandeEsp')
 
-    
+
 #la vue pour supprimer une comande d'espace
 def supprimer_cmde_espace(request, id):
     # Récupérer l'instance de la commande
@@ -392,6 +393,10 @@ def valider_commande_log(request, id):
 
     # Sauvegarder les modifications de la chambre
     logement.save()
+    sujet = "Validation de la commande "
+    message = ( "Cher(e) client(e), \n Nous avons le plaisir de vous informer que votre commande  a été acceptée par notre équipe. \n Si vous avez des questions ou des demandes spécifiques, n’hésitez pas à nous contacter à espaceKaribu@gmail.com .\n Nous vous remercions pour votre confiance et espérons que vous apprécierez votre séjour.\nCordialement,\nL’équipe Karibu")
+
+    envoyer_email(cmde_logement.client.mail_utilisateur, sujet, message)
 
     return redirect('ListCommandeLog')
 
@@ -402,7 +407,7 @@ def refuser_commande_log(request, id):
     cmde_logement.delete()
     return redirect('ListCommandeLog')
 
-    
+
 #la vue pour supprimer une comande de logement
 def supprimer_cmde_logement(request, id):
     # Récupérer l'instance de la commande
@@ -529,7 +534,7 @@ def connexionAdminCode(request):
         return render(request, 'admin/connexionCode.html', context)
 
 
-    
+
 #la vue pour la deconnexion de l'admin
 def AdminDeconnexion(request):
     try:

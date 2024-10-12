@@ -12,10 +12,10 @@
     </h2>
 
     <!-- <div class=""> -->
-        <div> 
+        <div>
             <img src="{{ detailChambre.photo1.url }}" class=" w-[250px] mx-auto mt-10 sm:w-[400px] lg:w-[350px]">
             <h3 class=" font-semi-bold text-lg text-center mt-10">{{ detailChambre.description }}</h3>
-        </div> 
+        </div>
     <!-- </div> -->
 
     <h2 class="font-bold text-lg text-center my-7">
@@ -25,13 +25,13 @@
 <section class="relative px-10">
     <form method="POST" class="block">
             {% csrf_token %}
-        
-            {{ form.as_p }}
-        
+
+            {{ forms.as_p }}
+
             <button type="submit" class="bg-violet-600 justify-center text-white items-center mx-auto mt-3 py-3 w-full rounded-md text-white">
                 envoyer
             </button>
-        
+
     </form>
 </section>
 
@@ -41,4 +41,3 @@
 {% endblock %}
 
 
- 

@@ -7,48 +7,50 @@
 {% endblock %}
 
 {% block content %}
-	
+
 
 <section class="max-w-7xl mx-auto px-4 py-10">
     <p class="text-2xl mb-5 font-bold text-black">
-        Disponible 
+        Disponible
     </p>
-     
+
     <div class="grid gap-5 grid-cols-1 sm:grid-cols-2 md:grid-cols-3">
         <!-- <div class="shadow-lg">
             <img src="{% static 'karibu/assets/images/images.jpg' %}" class="w-full h-48 object-cover">
             <p class="text-center mt-2 font-semibold">Description de l'hotel</p>
             <div class="p-4">
                 <div class="flex justify-between font-semibold">
-                   <p>titre de l'hotel </p> 
+                   <p>titre de l'hotel </p>
                    <p>Le prix de l'hotel</p>
                 </div>
                 <a href="#" class="flex items-center justify-center px-4 py-2 mt-7
                 font-semibold text-sm bg-gray-400 rounded-lg text-white">Voir detail</a>
             </div>
         </div> -->
-        
-        {% if chambres %}
-            
-            {% for chambre in chambres %}
-            	
-                <a href="{% url 'detailsChambre' chambre.id %}" class="flex items-center justify-center px-4 py-2
-                font-semibold text-smrounded-lg text-white">
-                    <div> 
-                        <img src="{{ chambre.photo1.url }}" class="w-full h-48 object-cover md:h-full">
-                        <p class=" mt-2 font-semibold text-center">{{ chambre.description}}</p>
-                        <h5>Nuitée: {{ chambre.prix_nuitee }}</h5>
-                        <h5>Journée: {{ chambre.prix_journee }}</h5>
-                    </div> 
-                </a>
-                
-            {% endfor %}
-            
-        
-        {% endif %}
-        
+
+        {% for chambre_data in chambres_data %}
+
+            {% if chambre_data %}
+
+
+                    <a href="{% url 'detailsChambre' chambre_data.idChambre.id %}" class="flex items-center justify-center px-4 py-2
+                    font-semibold text-smrounded-lg text-white">
+                        <div>
+                            <img src="{{ chambre_data.chambre.photo1.url }}" class="w-full h-48 object-cover md:h-full">
+                            <p class=" mt-2 font-semibold text-center">{{ chambre_data.chambre.description}}</p>
+                            <h5>Nuitée: {{ chambre_data.chambre.prix_nuite }}Fcfa</h5>
+                            <h5>Journée: {{ chambre_data.chambre.prix_journee }}Fcfa</h5>
+                        </div>
+                    </a>
+
+
+            {% endif %}
+
+        {% endfor %}
+
+
     </div>
-    
+
 </section>
-    
+
 {% endblock %}

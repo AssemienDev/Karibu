@@ -16,11 +16,11 @@
                     <img src=" {%  static 'karibu/assets/images/nature.jpg' %}" alt="logo.png" class="md:hidden w-96 mx-auto mt-10 p-4 sm:w-[400px] lg:w-[350px]">
                 </div>
                     <h2 class="text-center font-bold text-xl mb-10">
-                       Réinitialiser le mot de passe Email 
+                       Réinitialiser le mot de passe Email
                     </h2>
-                
+
     <section class="relative px-10 ">
-        <form method="POST" class="block space-y-10">
+        <form method="POST" class="block space-y-10 ">
             {% csrf_token %}
             {{ formEmail.email }}
             <button class="bg-violet-600 justify-center items-center mx-auto px-7 py-3 w-full rounded-md text-white" type="submit">
@@ -29,9 +29,9 @@
         </form>
     </section>
 
-    <p class="text-center">
-            Vous n'avez pas de compte ? 
-            <a href="{% url 'inscription %}" class="text-violet-600 underline">s'inscrire</a>
+    <p class="text-center mt-3">
+            Vous n'avez pas de compte ?
+            <a href="{% url 'inscription' %}" class="text-violet-600 underline">s'inscrire</a>
     </p>
 
 </div>

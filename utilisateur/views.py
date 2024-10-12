@@ -6,7 +6,7 @@ from django.contrib import messages
 
 from espaceKaribu import settings
 from utilisateur.forms import ContactForm, ConnexionForm, InscriptionForm, PasseOublierEmailForm, PasseOublierCodeForm, \
-    ChangePasseForm, ReservationChambreForm, ReservationEventForm
+    ChangePasseForm, ReservationChambreForm, ReservationEventForm, ModifNameForm, ModifPasseForm
 from utilisateur.models import Chambre, Suite, ChambreClimatisee, ChambreVentilee, Espace, Utilisateur, \
     CodeRecuperationUser, CommandeLogement, CommandeEspace
 import random
@@ -31,12 +31,34 @@ def envoyer_email(recepteur, subject, message):
 # La Vue de l'acceuil
 def index(request):
     # Recuperer les chambres
-    chambre = Chambre.objects.filter(statutChambre='libre')[:6]
+    chambres = Chambre.objects.filter(statutChambre='libre')[:6]
 
-    # Passer les chambres en paramètres
+    chambres_data = []
+    for chambre in chambres:
+        type_chambre = ''
+        chambrer = None
+
+        if chambre.suite:
+            type_chambre = 'suite'
+            chambrer = chambre.suite
+        elif chambre.chambre_climatisee:
+            type_chambre = 'chambre_climatisee'
+            chambrer = chambre.chambre_climatisee
+        elif chambre.chambre_ventilee:
+            type_chambre = 'chambre_ventilee'
+            chambrer = chambre.chambre_ventilee
+
+        chambres_data.append({
+            'idChambre': chambre,
+            'chambre': chambrer,         # Add the correct related room instance
+            'type_chambre': type_chambre  # Add the type for display
+        })
+
+    # Pass the chambres_data to your template
     context = {
-        'chambre': chambre
+        'chambres_data': chambres_data
     }
+
 
     # Afficher le template de la page d'acceuil
     return render(request, 'utilisateur/home.html', context)
@@ -89,7 +111,7 @@ def connexion(request):
             if form.is_valid():
                 request.session['emailUser'] = form.cleaned_data['email']
                 # Recuperer vers la page de profil
-                return redirect('profil')
+                return redirect('acceuil')
 
         # Recuperer le formulaire de connexion
         form = ConnexionForm()
@@ -109,8 +131,36 @@ def profilUtilisateur(request):
 
         client = Utilisateur.objects.get(mail_utilisateur=request.session['emailUser'])
 
+        if request.method == 'POST':
+
+            formName = ModifNameForm(request.POST)
+            formPasse = ModifPasseForm(request.POST, user=client)
+
+            if formName.is_valid():
+
+                name = formName.cleaned_data['nom']
+                client.nom_complet = name
+                client.save()
+
+            if formPasse.is_valid():
+
+                passeNew = formPasse.cleaned_data['new_password']
+                client.mot_de_passe = make_password(passeNew)  # Hacher le nouveau mot de passe
+                client.save()
+
+                sujet = "Réinitialisation du mot de passe"
+                message = (
+                    "Bonjour/Bonsoir, Votre mot de passe a été modifié avec succès.")
+                envoyer_email(client.mail_utilisateur, sujet, message)
+
+        else:
+            formName = ModifNameForm()
+            formPasse = ModifPasseForm()
+
         context = {
-            'InfoClient': client
+            'InfoClient': client,
+            'form1': formName,
+            'form2': formPasse
         }
 
         # Afficher le template de la page d'inscription
@@ -118,6 +168,9 @@ def profilUtilisateur(request):
 
     else:
         return redirect('connexion')
+
+
+
 
 
 # Déconnexion
@@ -159,27 +212,76 @@ def suppUtilisateur(request):
 def reservation(request):
     if 'emailUser' in request.session:
 
+        # Récupérer l'utilisateur connecté
         client = Utilisateur.objects.get(mail_utilisateur=request.session['emailUser'])
-        # Recuperer les details de la reservation
-        try:
-            reservChambre = CommandeLogement.objects.filter(client=client)  # Récupère l'objet commande
-        except Espace.DoesNotExist:
-            reservChambre = None  # Gère le cas où l'objet n'existe pas
 
-        # Recuperer les details de la reservation
         try:
-            reservEspace = CommandeEspace.objects.filter(client=client)  # Récupère l'objet commande
-        except Espace.DoesNotExist:
-            reservEspace = None  # Gère le cas où l'objet n'existe pas
+            # Récupérer les réservations de chambres pour ce client
+            reservChambre = CommandeLogement.objects.filter(client=client)
 
-        # Passer l'espace en paramètre
+            chambres = []  # Liste pour stocker les chambres récupérées
+            total_chambres = 0 # Variable pour stocker le total des réservations de chambres
+
+            # Parcourir toutes les réservations de chambres pour ce client
+            for reservation in reservChambre:
+                chambrer = None
+                details_chambre = {
+                    'photo_chambre' : None,
+                    'date_arrivee': reservation.date_arriver,
+                    'heure_arrivee': reservation.heure_arriver,
+                    'total': reservation.total_a_payer,
+                    'etat' : reservation.etat_commande
+                }
+
+                # Vérifier le type de chambre réservée (suite, climatisée, ventilée)
+                if reservation.chambre.suite:
+                    chambrer = reservation.chambre.suite
+                    details_chambre['photo_chambre'] = chambrer.photo1
+                elif reservation.chambre.chambre_climatisee:
+                    chambrer = reservation.chambre.chambre_climatisee
+                    details_chambre['photo_chambre'] = chambrer.photo1
+                elif reservation.chambre.chambre_ventilee:
+                    chambrer = reservation.chambre.chambre_ventilee
+                    details_chambre['photo_chambre'] = chambrer.photo1
+
+                # Si une chambre est trouvée, l'ajouter à la liste des chambres avec ses détails
+                if chambrer:
+                    chambres.append(details_chambre)
+
+        except CommandeLogement.DoesNotExist:
+            reservChambre = None
+            chambres = []
+            total_chambres = 0  # Aucun total si aucune chambre n'est réservée
+
+        try:
+            # Récupérer les réservations d'espaces pour ce client
+            reservEspace = CommandeEspace.objects.filter(client=client)
+
+            espacer = []  # Liste pour stocker les espaces récupérés
+
+            # Parcourir toutes les réservations d'espaces pour ce client
+            for reservation in reservEspace:
+                espaceNew = reservation.espace
+                details_espace = {
+                    'espace': espaceNew,
+                    'date_arrivee': reservation.date_arriver,
+                    'etat' : reservation.etat_commande
+                }
+
+                espacer.append(details_espace)  # Ajouter les détails de l'espace à la liste
+        except CommandeEspace.DoesNotExist:
+            reservEspace = None
+            espacer = []
+
+        # Passer les informations en paramètre au template
         context = {
-            'reservChambres': reservChambre,
-            'reservEspaces': reservEspace,
+            'reservChambres': chambres,
+            'reservEspaces': espacer,
         }
 
-        # Afficher le template de la page d'acceuil
+        # Afficher le template de la page des réservations
         return render(request, 'utilisateur/reservations.html', context)
+
     else:
         return redirect('connexion')
 
@@ -358,11 +460,32 @@ def passeOublierChangePasse(request):
 # La Vue des chambres disponibles
 def listeChambreDisponible(request):
     # Recuperer les chambres
-    chambre = Chambre.objects.filter(statutChambre='LIBRE')
+    chambres = Chambre.objects.filter(statutChambre='libre')
 
-    # Passer les chambres en paramètres
+    chambres_data = []
+    for chambre in chambres:
+        type_chambre = ''
+        chambrer = None
+
+        if chambre.suite:
+            type_chambre = 'suite'
+            chambrer = chambre.suite
+        elif chambre.chambre_climatisee:
+            type_chambre = 'chambre_climatisee'
+            chambrer = chambre.chambre_climatisee
+        elif chambre.chambre_ventilee:
+            type_chambre = 'chambre_ventilee'
+            chambrer = chambre.chambre_ventilee
+
+        chambres_data.append({
+            'idChambre': chambre,
+            'chambre': chambrer,         # Add the correct related room instance
+            'type_chambre': type_chambre  # Add the type for display
+        })
+
+    # Pass the chambres_data to your template
     context = {
-        'chambres': chambre
+        'chambres_data': chambres_data
     }
 
     # Afficher le template de la page d'acceuil
@@ -371,12 +494,11 @@ def listeChambreDisponible(request):
 
 # Detail de la chambre disponible
 def detailChambre(request, chambre_id):
-    if 'emailUser' in request.session:
 
         if Chambre.objects.filter(id=chambre_id).exists():
 
             # Recuperer la chambre précise
-            chambre = Chambre.objects.filter(id=chambre_id)
+            chambre = Chambre.objects.get(id=chambre_id)
             chambrer = None
             chambres = None
             typeChambre = None
@@ -400,7 +522,7 @@ def detailChambre(request, chambre_id):
 
             # Passer les chambres en paramètres
             context = {
-                'idChambre': chambre,
+                'idChambre': chambre_id,
                 'detailChambre': chambrer,
                 'type': typeChambre,
                 'chambres': chambres
@@ -411,8 +533,6 @@ def detailChambre(request, chambre_id):
 
         else:
             return redirect('chambreDisponible')
-    else:
-        return redirect('connexion')
 
 
 # Detail de la chambre disponible avec vidéo
@@ -422,7 +542,7 @@ def detailChambreVideo(request, chambre_id):
         if Chambre.objects.filter(id=chambre_id).exists():
 
             # Recuperer la chambre précise
-            chamb = Chambre.objects.filter(id=chambre_id)
+            chamb = Chambre.objects.get(id=chambre_id)
 
             chambre = None
 
@@ -455,10 +575,10 @@ def detailChambreVideo(request, chambre_id):
 def reservationChambre(request, chambre_id):
     if 'emailUser' in request.session:
 
-        if Chambre.objects.filter(id=chambre_id).exists():
+        if Chambre.objects.filter(id=chambre_id, statutChambre='libre').exists():
 
             # Recuperer la chambre précise
-            chamb = Chambre.objects.filter(id=chambre_id)
+            chamb = Chambre.objects.get(id=chambre_id)
 
             chambre = None
 
@@ -484,6 +604,13 @@ def reservationChambre(request, chambre_id):
                     reservationChambre = form.save(commit=False)
 
                     reservationChambre.client = Utilisateur.objects.get(mail_utilisateur=request.session['emailUser'])
+
+                    reservationChambre.chambre = Chambre.objects.get(id=chambre_id)
+
+                    if form.cleaned_data['temps_sejour']:
+                        reservationChambre.total_a_payer = int(chambre.prix_journee)*int(form.cleaned_data['temps_sejour'])
+                    else:
+                        reservationChambre.total_a_payer = int(chambre.prix_nuite)
 
                     reservationChambre.save()
 
@@ -532,50 +659,44 @@ def espaceEvent(request):
 
 # Réservation de la chambre disponible
 def reservationEvent(request):
-    if 'emailUser' in request.session:
+    try:
+        # Try to retrieve the Espace object
+        espace = Espace.objects.get()  # Assume you are fetching the specific espace with id=1
+    except Espace.DoesNotExist:
+        espace = None  # If no Espace object exists, set espace to None
 
-        try:
-            espace = Espace.objects.get()  # Récupère l'objet Espace unique
-        except Espace.DoesNotExist:
-            espace = None
+    # Check if the request method is POST
+    if request.method == 'POST':
+        # Get the reservation form from the page
+        form = ReservationEventForm(request.POST)
 
-            # Verifier que la requete est POST
-            if request.method == 'POST':
+        # Validate the reservation form
+        if form.is_valid():
+            reservationEspace = form.save(commit=False)
+            reservationEspace.espace = espace
+            # Fetch the client based on their email in the session
+            reservationEspace.client = Utilisateur.objects.get(mail_utilisateur=request.session['emailUser'])
+            reservationEspace.save()
 
-                # Recuperer le formulaire de contact depuis la page
-                form = ReservationEventForm(request.POST)
+            # Send an email confirmation
+            sujet = "RESERVATION DE L'ESPACE"
+            message = "Bonjour/Bonsoir, Vous serez contacter lors de la validation."
+            envoyer_email(request.session['emailUser'], sujet, message)
 
-                # Valider le formulaire de reservation
-                if form.is_valid():
-                    reservationEspace = form.save(commit=False)
-
-                    espace = Espace.objects.get(id=1)
-                    reservationEspace.espace = espace
-                    reservationEspace.client = Utilisateur.objects.get(mail_utilisateur=request.session['emailUser'])
-
-                    reservationEspace.save()
-
-                    sujet = "RESERVATION DE L'ESPACE"
-                    message = (
-                        f"Bonjour/Bonsoir, Vous serez contacter lors de la validation.")
-                    envoyer_email(request.session['emailUser'], sujet, message)
-
-                    return redirect('profil')
-
-            # Recuperer le formulaire de mot de passe
-            form = ReservationEventForm()
-
-            # Passer les chambres en paramètres
-            context = {
-                'detailEspace': espace,
-                'forms': form
-            }
-
-            # Afficher le template de la page d'acceuil
-            return render(request, 'utilisateur/reservationEvent.html', context)
-
+            # Redirect to the profile page after successful reservation
+            return redirect('profil')
     else:
-        return redirect('connexion')
+        # If the request is not POST, instantiate an empty form
+        form = ReservationEventForm()
+
+    # Context data for rendering the template
+    context = {
+        'detailEspace': espace,
+        'forms': form
+    }
+
+    # Render the reservationEvent.html template with the context data
+    return render(request, 'utilisateur/reservationEvent.html', context)
 
 
 # Pour l'optimisation SEO
@@ -588,7 +709,12 @@ def robots_txt(request):
     ]
     if settings.DEBUG:
         # Bloquer tout accès aux robots en développement
-        lines.append("Disallow: /")
+        lines.extend([
+            "Disallow: /admin/",
+            "Disallow: /admini/",
+            "Allow: /",
+            f"Sitemap: https://espacekaribu.pythonanywhere.com/sitemap.xml",
+        ])
     else:
         # En production, autoriser certaines sections et inclure le sitemap
         lines.extend([

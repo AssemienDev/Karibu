@@ -5,56 +5,66 @@
         <div class="container swiper">
             <div class="card-wrapper">
                 <ul class="card-list swiper-wrapper">
-                    
+
                     {% if detailChambre %}
-                        
+
                     <li class="card-item swiper-slide">
-                        
+
                         <a href="#" class="card-link">
                             <img src="{{ detailChambre.photo1.url }}" alt="Card Image"
                             class="card-image object-cover">
-                       
+
                         </a>
-                    
+
                     </li>
-                        
+
+                        {% if detailChambre.photo2 %}
                         <li class="card-item swiper-slide">
-                        
+
                             <a href="#" class="card-link">
+
                                 <img src="{{ detailChambre.photo2.url }}" alt="Card Image"
+
                                 class="card-image object-cover">
-                           
+
                             </a>
-                    
+
                         </li>
-                        
+                        {% endif %}
+
+
+                        {% if detailChambre.photo3 %}
                         <li class="card-item swiper-slide">
-                        
+
                             <a href="#" class="card-link">
                                 <img src="{{ detailChambre.photo3.url }}" alt="Card Image"
                                 class="card-image object-cover">
-                           
+
                             </a>
-                    
+
                         </li>
-                        
+                        {% endif %}
+
+
+                        {% if detailChambre.photo4 %}
                         <li class="card-item swiper-slide">
-                        
+
                             <a href="#" class="card-link">
                                 <img src="{{ detailChambre.photo4.url }}" alt="Card Image"
                                 class="card-image object-cover">
-                           
+
                             </a>
-                        
+
                         </li>
-                    
-                    {% endif %} 
-                    
+                        {% endif %}
+
+                    {% endif %}
+
                 </ul>
 
                 <!-- Affiche la pagination en bas des bouttons  -->
                 <div class="swiper-pagination"></div>
-                
+
             </div>
         </div>
     </div>
@@ -66,26 +76,33 @@
                 {{ type }}
             </h2>
             <span> {{ detailChambre.description }} </span>
-        </p> 
+        </p>
         <p>
             <h2 class="font-bold text-lg">Le prix de l'hotel </h2>
-            <span>Nuitée: {{ detailChambre.prix_nuite }} </span>
-            <span>Journée: {{ detailChambre.prix_journee }} </span>
+            <br>
+            <span>Nuitée: {{ detailChambre.prix_nuite }}Fcfa </span>
+            <br>
+            <span>Journée: {{ detailChambre.prix_journee }}Fcfa </span>
         </p>
-        <div class="justify-center flex sm:mb-5 mb-5">
-            <a class="mt-5 text-white bg-violet-500
-              items-center py-2 px-5 rounded-lg" 
+        <div class="flex space-x-2 mb-3  justify-center">
+            <a class="mt-5 text-white bg-violet-500 flex-shrink-0 whitespace-nowrap
+              items-center py-2 p-5 rounded-lg"
               href="{% url 'reservationChambre' idChambre %}">
-                Reservez
+                reservez
             </a>
-          </div>
+            <a class="mt-5 text-white bg-violet-500 flex-shrink-0 whitespace-nowrap
+              items-center py-2 p-5 rounded-lg"
+              href="{% url 'detailsChambreVideo' idChambre %}">
+                voir vidéos
+            </a>
+        </div>
     </div>
 </div>
 
 <!-- Grand ecran -->
 <section class="hidden max-w-7xl mx-auto px-3 py-5 md:block">
         <h2 class="hidden text-xl mb-8 underline text-center">
-            Confirmez votre reservation 
+            Confirmez votre reservation
         </h2>
         <div class="container flex flex-col md:flex-row sm:justify-around mx-7">
             <div class="flex-shrink-0 w-full sm:w-auto">
@@ -98,20 +115,31 @@
                         {{ type }}
                     </h2>
                     <span class="">{{ detailChambre.description }}</span>
-                </p> 
+                </p>
                 <p>
                     <h2 class="font-bold text-lg">Le prix de l'hotel </h2>
-                    <span>Nuitée: {{ detailChambre.prix_nuite }} </span>
-                    <span>Journée: {{ detailChambre.prix_journee }} </span>
+                    <br>
+                    <span>Nuitée: {{ detailChambre.prix_nuite}}Fcfa </span>
+                    <br>
+                    <span>Journée: {{ detailChambre.prix_journee }}Fcfa </span>
                 </p>
-                <div class="justify-center flex">
-                    <a class="mt-5 text-white bg-violet-500
-                      items-center py-2 px-5 rounded-lg" 
+                <div class="mt-5">
+
+                </div>
+                  <div class="flex space-x-5 ">
+                    <a class="mt-5 text-white bg-violet-500 flex-shrink-0 whitespace-nowrap
+                      items-center py-2 px-5 rounded-lg"
                       href="{% url 'reservationChambre' idChambre %}">
                         Reservez
                     </a>
+
+                    <a class=" mt-5 text-white bg-violet-500 flex-shrink-0 whitespace-nowrap
+                      items-center py-2 px-5 rounded-lg "
+                      href="{% url 'detailsChambreVideo' idChambre %}">
+                        voir vidéos
+                    </a>
                   </div>
-            </div>  
+            </div>
         </div>
-   
-</section> 
+
+</section>

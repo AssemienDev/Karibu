@@ -49,7 +49,7 @@ urlpatterns = [
     path('chambreDisponible', views.listeChambreDisponible, name='chambreDisponible'),
 
     # Url de la page details de la chambre
-    path('chambreDisponible/detailsChambre/<int:chambre_id>', views.detailChambre, name='detailsChambre'),
+    path('detailsChambre/<int:chambre_id>', views.detailChambre, name='detailsChambre'),
 
     # Url de la page de reservation
     path('reservationChambre/<int:chambre_id>', views.reservationChambre,
@@ -58,7 +58,7 @@ urlpatterns = [
 
     # Url de la page de details chambre vidéo
     path('chambreDisponible/detailsChambreVideo/<int:chambre_id>', views.detailChambreVideo,
-         name='chambreDisponible/detailsChambreVideo'),
+         name='detailsChambreVideo'),
 
 
 ]

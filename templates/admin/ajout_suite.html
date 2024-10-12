@@ -42,26 +42,29 @@
                 </div>
             </div>
         </div>
-        
+
     </div>
     <!-- Popper.js doit être inclus avant Bootstrap -->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.7/dist/umd/popper.min.js"></script>
     <script src="{% static 'js/bootstrap.js' %}"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    
-    {% if ajouter %}
-         
-        function valider(){
-            Swal.fire({
-              title: "Good job!",
-              text: "La chambre a été ajouté!",
-              icon: "success"
-            });
-        }
-        
+
+    <script>
+        {% if ajouter %}
+
+            function valider(){
+                Swal.fire({
+                  title: "Good job!",
+                  text: "La chambre a été ajouté!",
+                  icon: "success"
+                });
+            }
+
         valider()
-        
+
         {% endif %}
+
+    </script>
 </body>
 </html>

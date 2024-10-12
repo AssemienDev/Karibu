@@ -16,18 +16,18 @@
 {% block content %}
 
 
-    <div class="flex">
+    <div class="flex flex-col md:flex-row">
         <!-- Faire que l'image s'affiche sur grand ecran seulement -->
-        <div class="flex-1 flex flex-col justify-center items-center md:flex-none">
+        <div class="w-full md:w-1/2 flex flex-col justify-center items-center">
             <!-- Pour que la taille des inputs ne change pas -->
             <div class="w-full max-w-xl">
-                <div class="py-10">
+                <div class="py-14">
                     <img src="{% static 'karibu/assets/images/nature.jpg' %}" alt="logo.png" class="w-96 mx-auto mt-10 sm:w-[400px] lg:w-[350px] md:hidden">
                 </div>
-                    <h2 class="text-center font-bold text-xl  underline mb-7">
+                    <h2 class="text-center font-bold text-xl underline mb-5">
                         Contactez-nous
                     </h2>
-                <section class="relative px-10 ">
+                <section class="relative px-14 ">
 
                     <form method="POST" class="block">
                         {% csrf_token %}
@@ -49,7 +49,7 @@
            </div>
         </div>
             <!-- l'image apparait seulement quand on est sur grand ecran -->
-            <div class="hidden md:block flex-1">
+            <div class="hidden md:block w-full md:w-1/2">
                 <img src="{% static 'karibu/assets/images/nature.jpg' %}" alt="logo.png" class="h-full w-full object-cover">
             </div>
     </div>

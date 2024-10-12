@@ -9,29 +9,29 @@
 
  {% block content %}
 
-    <div class="flex">
+    <div class="flex flex-col md:flex-row">
         <!-- Faire que l'image s'affiche sur grand ecran seulement -->
-        <div class="flex-1 flex flex-col justify-center items-center md:flex-none">
+        <div class="w-full md:w-1/2 flex flex-col justify-center items-center">
             <!-- Pour que la taille des inputs ne change pas -->
             <div class="w-full max-w-xl">
-                <div class="py-16">
-                    <img src="{% static 'karibu/assets/images/nature.jpg' %}" alt="logo.png" class="md:hidden w-96 mx-auto mt-10 p-4 sm:w-[400px] lg:w-[350px]">
+                <div class="py-14">
+                    <img src="{% static 'karibu/assets/images/nature.jpg' %}" alt="logo.png" class="w-96 mx-auto mt-10 sm:w-[400px] lg:w-[350px] md:hidden">
                 </div>
-                    <h2 class="text-center font-bold text-xl mb-10">
+                    <h2 class="text-center font-bold text-xl mb-5">
                         Inscrivez-vous et  commencez à <br> reservez
                     </h2>
-                
-    <section class="relative px-10 ">
-        <form action="" method="POST" class="block space-y-10">
+
+    <section class="relative px-15">
+        <form action="" method="POST" class="block space-y-2 px-10">
             {% csrf_token %}
             {{ formInscription.as_p }}
             <button type="submit" class="bg-violet-600 text-white justify-center items-center mx-auto px-7 py-3 w-full rounded-md" required>
-                S'inscrire ✍️
+                S'inscrire
             </button>
             {{ formInscription.non_field_errors }}
-            <p class="text-center">
-                vous avez un compte? 
-                <a href="{% url 'connexion' %}" class="text-violet-600 underline">Se connecter</a>
+            <p class="text-center mt-3">
+                vous avez un compte?
+                <a href="{% url 'connexion' %}" class="text-violet-600 underline mt-3">Se connecter</a>
             </p>
         </form>
     </section>
@@ -40,7 +40,7 @@
 </div>
 </div>
 <!-- l'image apparait seulement quand on est sur grand ecran -->
-<div class="hidden md:block flex-1">
+<div class="hidden md:block w-full md:w-1/2">
     <img src="{% static 'karibu/assets/images/nature.jpg' %}" alt="logo.png" class="h-full w-full object-cover">
 </div>
 </div>

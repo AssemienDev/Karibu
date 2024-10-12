@@ -12,7 +12,7 @@ class AjoutChambreClim(forms.ModelForm):
         #les champs de la table
         fields = ['numeroChambre','photo1','photo2','photo3','photo4','video1','video2','video3','description','prix_nuite','prix_journee','statutChambre']
         widgets = {
-            
+
             'numeroChambre': forms.TextInput(attrs={'class': 'form-control'}),
             'photo1': forms.FileInput(attrs={'class': 'form-control'}),
             'photo2': forms.FileInput(attrs={'class': 'form-control'}),
@@ -25,8 +25,8 @@ class AjoutChambreClim(forms.ModelForm):
             'prix_nuite': forms.NumberInput(attrs={'class': 'form-control'}),
             'prix_journee': forms.NumberInput(attrs={'class': 'form-control'}),
             'statutChambre': forms.Select(attrs={'class': 'form-control'}),
-             
-            
+
+
         }
 
 
@@ -84,19 +84,20 @@ class AjoutEspace(forms.ModelForm):
         #les champs de la table
         fields = ['photo1','photo2','photo3','photo4','photo5','photo6','description','descriptionSalleReception','descriptionSalleVip','descriptionGarage','prix','statutEspace']
         widgets = {
-            'photo1': forms.FileInput(attrs={'class': 'form-control'}),
-            'photo2': forms.FileInput(attrs={'class': 'form-control'}),
-            'photo3': forms.FileInput(attrs={'class': 'form-control'}),
-            'photo4': forms.FileInput(attrs={'class': 'form-control'}),
-            'photo5': forms.FileInput(attrs={'class': 'form-control'}),
-            'photo6': forms.FileInput(attrs={'class': 'form-control'}),
+            'photo1': forms.FileInput(attrs={'class': 'form-control', 'required': 'required'}),
+            'photo2': forms.FileInput(attrs={'class': 'form-control', 'required': 'required'}),
+            'photo3': forms.FileInput(attrs={'class': 'form-control', 'required': 'required'}),
+            'photo4': forms.FileInput(attrs={'class': 'form-control', 'required': 'required'}),
+            'photo5': forms.FileInput(attrs={'class': 'form-control', 'required': 'required'}),
+            'photo6': forms.FileInput(attrs={'class': 'form-control', 'required': 'required'}),
             'description': forms.Textarea(attrs={'class': 'form-control'}),
             'descriptionSalleReception': forms.Textarea(attrs={'class': 'form-control'}),
             'descriptionSalleVip': forms.Textarea(attrs={'class': 'form-control'}),
             'descriptionGarage': forms.Textarea(attrs={'class': 'form-control'}),
             'prix': forms.NumberInput(attrs={'class': 'form-control'}),
             'statutEspace': forms.Select(attrs={'class': 'form-control'}),
-            
+            'required': 'required'
+
         }
 
 
@@ -126,7 +127,7 @@ class ConnexionForm(forms.Form):
         if email and password:
             user = self.authentifier_utilisateur(email, password)
             if not user:
-             self.add_error(self,"E-mail ou mot de passe incorrect")
+                self.add_error(None,"E-mail ou mot de passe incorrect")
 
         return cleaned_data
 

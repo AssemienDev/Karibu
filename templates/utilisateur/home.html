@@ -10,110 +10,84 @@
 {% endblock %}
 
 {% block motCles %}
-	<meta name="keywords" content="Espace Karibu, réservation de chambres, hébergement abordable, hôtel confortable, location de chambres, espace événementiel, garage, mini-bar, séjour, Côte d'Ivoire" />
+	<meta name="keywords" content="Espace Karibu, réservation de chambres, hébergement abordable, hôtel confortable, location de chambres, espace événementiel, garage, mini-bar, séjours, Côte d'Ivoire" />
 {% endblock %}
 
 {% block content %}
 
     {% include 'utilisateur/slider.html' %}
 
- 
+
    <!-- <h1 class="hidden md:block text-xl md:text-4xl font-bold text-center text-violet-600 uppercase">
       Avantages
     </h1>-->
 
-  <section class="sm:py-0"> 
+  <section class="sm:py-0">
 
      <!-- L'espace entre les avantages -->
     <div class="flex mt-[50px] px-[50px] justify-around sm:justify-center sm:space-x-[150px]">
-      
-      <div class="text-center mt-1 flex-col flex "> 
-        <a href="" class="bg-gray-300 border mx-5 p-10 rounded-full">
-            <img src="{% static 'karibu/assets/icons/wifi.png' %}" alt="logo" class="w-10 min-w-5">
+
+        <div class="flex flex-col items-center">
+          <a href="" class="bg-gray-300 border rounded-full p-5 flex items-center justify-center w-20 h-20">
+            <img src="{% static 'karibu/assets/icons/wifi.png' %}" alt="Wifi" class="w-10 min-w-[20px] min-h-[20px]">
           </a>
-        <p class="text-center font-bold">Wifi</p>
-      </div> 
+          <p class="text-center font-bold mt-2">Wifi</p>
+        </div>
 
-      <div class="text-center mt-1 flex-col flex "> 
-        <a href="" class="bg-gray-300 border mx-5 p-10 rounded-full">
-            <img src="{% static 'karibu/assets/icons/servir.png' %}" alt="logo" class="w-10 min-w-5">
+        <div class="flex flex-col items-center">
+          <a href="" class="bg-gray-300 border rounded-full p-5 flex items-center justify-center w-20 h-20">
+            <img src="{% static 'karibu/assets/icons/servir.png' %}" alt="Room Services" class="w-10 min-w-[20px] min-h-[20px]">
           </a>
-        <p class="text-center font-bold">room serices</p>
-      </div>
+          <p class="text-center font-bold mt-2">Room Services</p>
+        </div>
 
-      
-    </div> 
+    </div>
 
+    </div>
 
 
   </section>
 
-    <h1 class="sm:mt-10 lg:text-3xl text-center text-violet-600 mt-5 font-bold font-mono">
+    <h1 class="sm:mt-10 text-center text-violet-600 mt-5 font-bold text-xl lg:text-3xl">
       Des logements avec tout le confort néccessaire
     </h1>
-  
-    <p class="text-lg text-center mt-3 px-10 ">
-      Trouvez des logements entiers pour vos séjour et plus encore      
-    </p> 
+
+    <p class="text-base text-center mt-3 px-10 ">
+      Trouvez des logements entiers pour vos séjours et plus encore
+    </p>
 
     {% include 'utilisateur/slide.html' %}
-    
+
     <!-- Le boutton afficher plus -->
      <div class="justify-end flex sm:mb-5 container mx-auto">
      <a class="mt-[50px] text-black ring ring-black
-       items-center py-2 px-[24px] mx-5 
-       rounded-lg" 
+       items-center py-2 px-[24px] mx-5
+       rounded-lg"
        href="{% url 'chambreDisponible' %}">
          Afficher plus
     </a>
-    </div> 
+    </div>
 
     <!-- images et texte juste avant le bouton reservez -->
-    <section class="py-3 flex flex-col sm:flex-row max-w-4xl mx-auto">
-      <div class="text-lg mx-10 flex-wrap">
+    <section class="py-3 flex flex-col max-w-4xl mx-auto sm:flex-row">
+      <div class="w-1/2 text-lg mx-5 flex-wrap">
         <img src="{% static 'karibu/assets/icons/antivirus.png' %}" alt="logo securité" class="w-8 mx-10 mt-12 mb-2">
-        <p>
-          Nous nous engageons à vous offrir un service exceptionnel et un confort optimal. 
+        <p class="w-full">
+          Nous nous engageons à vous offrir un service exceptionnel et un confort optimal.
           Notre équipe dévouée est là pour répondre
            à tous vos besoins et s'assurer que votre expérience soit des plus agréables.
         </p>
       </div>
 
-      <div class="text-lg mx-10 flex-wrap">
+      <div class="w-1/2 text-lg mx-5 flex-wrap">
       <img src="{% static 'karibu/assets/icons/confiance.png' %}" alt="logo securité" class="w-8 mx-10 mt-12 mb-2">
-      <p>
-        Avec des installations modernes et un environnement accueillant, nous sommes convaincus 
+      <p class="w-full">
+        Avec des installations modernes et un environnement accueillant, nous sommes convaincus
         que vous vous sentirez chez vous.
       </p>
     </div>
 
     </section>
-
-
-
-    <!-- Le boutton reservez
-     <button class="mt-[50px] text-white bg-violet-500
-     items-center justify-start flex py-2 px-[45px] text-center
-    mx-auto rounded-lg" 
-    type="submit">
-      Reservez 
-    </button> -->
-
-   
-      <!-- class="mt-[50px] text-white
-              flex items-center justify-center py-2 px-[45px] text-center
-              mx-auto rounded-lg"> -->
-
-
-              <!-- <div class="mx-auto flex items-center justify-center">
-
-                  <a href="{% url 'chambreDisponible' %}"
-                      class="bg-violet-500 ">
-                            Reservez
-                          
-                </a>
-              </div> -->
-
 
 
     <div class="justify-center flex sm:mb-5">
