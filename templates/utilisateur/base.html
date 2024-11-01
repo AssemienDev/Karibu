@@ -40,10 +40,13 @@
 
     <title>{% block title %}{% endblock %}</title>
 
+    <link rel="icon" type="image/png" href="{% static 'karibu/assets/images/logo1.png' %}" />
+
     <link rel="stylesheet" href="{% static 'karibu/css/app.css' %}" />
     <link rel="stylesheet" href="{% static 'karibu/css/style.css' %}" />
 
     <link rel="stylesheet" href="{% static 'karibu/css/design.css' %}" />
+    
 
         <!-- Swiper link to slide -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
@@ -87,7 +90,7 @@
 
         <div class="flex justify-between items-center md:justify-center">
             <a href="/">
-                <img src="{% static 'karibu/assets/images/logo.png' %}" alt="logo app" class="w-12">
+                <img src="{% static 'karibu/assets/images/logo1.png' %}" alt="logo app" class="w-12">
             </a>
 
             <button class="icone-toggle bg-white rounded p-2 inline-flex items-center
@@ -103,6 +106,10 @@
          <li class="py-2 text-center border-t border-gray-200 md:border-0">
             <a href="/" class="font-medium text-lg
              text-zinc-700 hover:text-gray-900">Accueil</a>
+         </li>
+            <li class="py-2 text-center border-t border-gray-200 md:border-0">
+            <a href="{% url 'chambreDisponible' %}" class="font-medium text-lg
+             text-zinc-700 hover:text-gray-900">Hotels</a>
          </li>
          <li class="py-2 text-center border-t border-gray-200 md:border-0">
             <a href="{% url 'espace_event' %}" class="font-medium text-lg

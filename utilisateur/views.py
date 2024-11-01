@@ -657,6 +657,54 @@ def espaceEvent(request):
     return render(request, 'utilisateur/espaceEvenementiel.html', context)
 
 
+def espaceEventSalleEvent(request):
+    # Recuperer les details de l'espace
+    try:
+        espace = Espace.objects.get()  # Récupère l'objet Espace unique
+    except Espace.DoesNotExist:
+        espace = None  # Gère le cas où l'objet n'existe pas
+
+    # Passer l'espace en paramètre
+    context = {
+        'espace': espace,
+    }
+
+    # Afficher le template de la page d'acceuil
+    return render(request, 'utilisateur/salleevent.html', context)
+
+
+def espaceEventGarage(request):
+    # Recuperer les details de l'espace
+    try:
+        espace = Espace.objects.get()  # Récupère l'objet Espace unique
+    except Espace.DoesNotExist:
+        espace = None  # Gère le cas où l'objet n'existe pas
+
+    # Passer l'espace en paramètre
+    context = {
+        'espace': espace,
+    }
+
+    # Afficher le template de la page d'acceuil
+    return render(request, 'utilisateur/garage.html', context)
+
+
+def espaceEventSalleVip(request):
+    # Recuperer les details de l'espace
+    try:
+        espace = Espace.objects.get()  # Récupère l'objet Espace unique
+    except Espace.DoesNotExist:
+        espace = None  # Gère le cas où l'objet n'existe pas
+
+    # Passer l'espace en paramètre
+    context = {
+        'espace': espace,
+    }
+
+    # Afficher le template de la page d'acceuil
+    return render(request, 'utilisateur/sallevip.html', context)
+
+
 # Réservation de la chambre disponible
 def reservationEvent(request):
     try:

@@ -31,34 +31,25 @@
         A votre dispositon
     </p>
     <div class="grid gap-5 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-        <a href="{% url 'espace_event' %}" class=" flex items-center justify-center px-4 py-2
+        <a href="{% url 'espace_event_salle' %}" class=" flex items-center justify-center px-4 py-2
                         font-semibold text-smrounded-lg text-white">
                 <div class="border px-2 py-3 text-center">
-                    <img src="{% static 'karibu/assets/icons/reception.jpg' %}" class="mx-auto object-cover md:h-full w-14">
+                    <img src="{% static 'karibu/assets/icons/reception.jpg' %}" class="mx-auto object-cover md:h-full w-14" alt="icon salle">
                     <h4 class="py-2 text-sm font-bold">SALLE DE RECEPTION</h4>
-                    <p class=" mt-2 font-semibold text-center">
-                        {{ espace.descriptionSalleReception }}
-                    </p>
                 </div>
         </a>
-        <a href="{% url 'espace_event' %}" class=" flex items-center justify-center px-4 py-2
+        <a href="{% url 'espace_event_vip' %}" class=" flex items-center justify-center px-4 py-2
                         font-semibold text-smrounded-lg text-white">
                 <div class="border px-2 py-3 text-center">
-                    <img src="{% static 'karibu/assets/icons/vip(1).png' %}" class="mx-auto object-cover md:h-full w-14">
+                    <img src="{% static 'karibu/assets/icons/vip(1).png' %}" class="mx-auto object-cover md:h-full w-14" alt="icon vip">
                     <h4 class="py-2 text-sm font-bold">SALLE VIP</h4>
-                    <p class=" mt-2 font-semibold text-center">
-                        {{ espace.descriptionSalleVip }}
-                    </p>
                 </div>
         </a>
-        <a href="{% url 'espace_event' %}" class=" flex items-center justify-center px-4 py-2
+        <a href="{% url 'espace_event_garage' %}" class=" flex items-center justify-center px-4 py-2
                 font-semibold text-smrounded-lg text-white">
                 <div class="border px-2 py-3 text-center">
-                    <img src="{% static 'karibu/assets/icons/garage.png' %}" class="mx-auto object-cover md:h-full w-14">
-                    <h4 class="py-2 text-sm font-bold" > GARAGE</h4>
-                    <p class=" mt-2 font-semibold text-center">
-                        {{ espace.descriptionGarage }}
-                    </p>
+                    <img src="{% static 'karibu/assets/icons/garage.png' %}" class="mx-auto object-cover md:h-full w-14" alt="icon garage">
+                    <h4 class="py-2 text-sm font-bold" > Bar</h4>
                 </div>
         </a>
     </div>
@@ -90,18 +81,11 @@
     <p class="text-lg px-5 text-black">
         Anyama, en face de la Paroisse Notre dame de la paix, côte d'ivoire <br>
     </p>
-    <p class="text-2xl pt-3 font-bold text-black"> 📞 +225 0708034575 <span class="text-red-500">(24h/7j)</span></p>
+    <p class="text-2xl pt-3 font-bold text-black"> 📞 +225 0100551684 / +225 0100551685 <span class="text-red-500">(24h/7j)</span></p>
     <p class="text-black text-2xl">
         espacekaribu1308@gmail.com
     </p>
 
-
-    <!-- <h2 class=" text-lg sm:font-bold sm:text-3xl font-extrabold ">
-        Votre événement mérite un espace d'exception
-    </h2>
-    <p class="">
-        Nos différents tarifs , pour le moins abordable sont faits pour le bonheur de tous
-    </p> -->
 </section>
 
 {% endblock %}

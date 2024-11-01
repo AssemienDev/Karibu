@@ -5,48 +5,22 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ea1b3f62-481b-4561-8344-ed06e2fce4d2" name="Changes" comment="Travail dans la partie utilisateur 97% il reste 3%">
-      <change beforePath="$PROJECT_DIR$/administrateur/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/administrateur/forms.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/administrateur/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/administrateur/views.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/utilisateur/garage.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/utilisateur/salleevent.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/utilisateur/sallevip.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/utilisateur/static/karibu/assets/images/logo1.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/espaceKaribu/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/espaceKaribu/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/admin/ajout_chambre_clim.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/admin/ajout_chambre_clim.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/admin/ajout_chambre_vent.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/admin/ajout_chambre_vent.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/admin/ajout_espace.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/admin/ajout_espace.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/admin/ajout_suite.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/admin/ajout_suite.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/admin/connexionAdmin.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/admin/connexionAdmin.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/admin/connexionCode.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/admin/connexionCode.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/admin/list_chambre_clim.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/admin/list_chambre_clim.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/admin/list_chambre_vent.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/admin/list_chambre_vent.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/admin/list_cmde_espace.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/admin/list_cmde_espace.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/admin/list_cmde_logement.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/admin/list_cmde_logement.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/admin/list_espace.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/admin/list_espace.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/admin/list_suite.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/admin/list_suite.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/admin/modif_chambre_clim.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/admin/modif_chambre_clim.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/admin/modif_chambre_vent.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/admin/modif_chambre_vent.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/admin/modif_espace.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/admin/modif_espace.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/admin/modif_suite.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/admin/modif_suite.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/admin/navbar.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/admin/navbar.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/utilisateur/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/utilisateur/base.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/utilisateur/chambresDisponible.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/utilisateur/chambresDisponible.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/utilisateur/changePasse.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/utilisateur/changePasse.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/utilisateur/connexion.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/utilisateur/connexion.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/utilisateur/contact.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/utilisateur/contact.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/utilisateur/corpsDetailChambre.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/utilisateur/corpsDetailChambre.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/utilisateur/detailsChambre.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/utilisateur/detailsChambre.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/utilisateur/detailsChambreVideo.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/utilisateur/detailsChambreVideo.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/utilisateur/espaceEvenementiel.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/utilisateur/espaceEvenementiel.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/utilisateur/home.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/utilisateur/home.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/utilisateur/inscription.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/utilisateur/inscription.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/utilisateur/passeOublierCode.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/utilisateur/passeOublierCode.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/utilisateur/passeOublierEmail.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/utilisateur/passeOublierEmail.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/utilisateur/profilUtilisateur.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/utilisateur/profilUtilisateur.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/utilisateur/reservationChambre.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/utilisateur/reservationChambre.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/utilisateur/reservationEvent.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/utilisateur/reservationEvent.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/utilisateur/reservations.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/utilisateur/reservations.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/utilisateur/slide.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/utilisateur/slide.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/utilisateur/slider.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/utilisateur/slider.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/utilisateur/sliderevent.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/utilisateur/sliderevent.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/utilisateur/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/utilisateur/forms.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/utilisateur/sitemaps.py" beforeDir="false" afterPath="$PROJECT_DIR$/utilisateur/sitemaps.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/utilisateur/static/karibu/assets/images/bar - Copie.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/utilisateur/static/karibu/assets/images/bar.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/utilisateur/static/karibu/assets/images/bar-1 - Copie.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/utilisateur/static/karibu/assets/images/bar-1.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/utilisateur/static/karibu/assets/images/bar-2 - Copie.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/utilisateur/static/karibu/assets/images/bar-2.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/utilisateur/static/karibu/assets/images/logo.png" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/utilisateur/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/utilisateur/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/utilisateur/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/utilisateur/views.py" afterDir="false" />
     </list>
@@ -69,7 +43,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="master" />
+        <entry key="$PROJECT_DIR$" value="back" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -88,6 +62,10 @@
             <RecentBranchesForRepo>
               <option name="branches">
                 <list>
+                  <RecentBranch>
+                    <option name="branchName" value="main" />
+                    <option name="lastUsedInstant" value="1730157814" />
+                  </RecentBranch>
                   <RecentBranch>
                     <option name="branchName" value="back" />
                     <option name="lastUsedInstant" value="1727211620" />
@@ -118,40 +96,42 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
-    &quot;JavaScript Debug.sliderevent.html.executor&quot;: &quot;Debug&quot;,
-    &quot;RunOnceActivity.OpenDjangoStructureViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.pycharm.django.structure.promotion.once.per.project&quot;: &quot;true&quot;,
-    &quot;django.template.preview.state&quot;: &quot;SHOW_EDITOR&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;back&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/sidja/PycharmProjects/espaceKaribu/templates/admin&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
+    "HTTP Request.generated-requests | #3.executor": "Run",
+    "HTTP Request.generated-requests | #4.executor": "Run",
+    "JavaScript Debug.sliderevent.html.executor": "Debug",
+    "RunOnceActivity.OpenDjangoStructureViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.pycharm.django.structure.promotion.once.per.project": "true",
+    "django.template.preview.state": "SHOW_EDITOR",
+    "git-widget-placeholder": "main",
+    "last_opened_file_path": "C:/Users/sidja/PycharmProjects/espaceKaribu/templates/utilisateur",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "vue.rearranger.settings.migration": "true"
   },
-  &quot;keyToStringList&quot;: {
-    &quot;DatabaseDriversLRU&quot;: [
-      &quot;mariadb&quot;
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "mariadb"
     ],
-    &quot;com.intellij.ide.scratch.ScratchImplUtil$2/New Scratch File&quot;: [
-      &quot;PLAIN_TEXT&quot;
+    "com.intellij.ide.scratch.ScratchImplUtil$2/New Scratch File": [
+      "PLAIN_TEXT"
     ]
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\sidja\PycharmProjects\espaceKaribu\templates\utilisateur" />
+      <recent name="C:\Users\sidja\PycharmProjects\espaceKaribu\utilisateur\static\karibu\assets\images" />
       <recent name="C:\Users\sidja\PycharmProjects\espaceKaribu\templates\admin" />
       <recent name="C:\Users\sidja\PycharmProjects\espaceKaribu\utilisateur\static\karibu\assets\icons" />
-      <recent name="C:\Users\sidja\PycharmProjects\espaceKaribu\templates\utilisateur" />
       <recent name="C:\Users\sidja\PycharmProjects\espaceKaribu\templates" />
-      <recent name="C:\Users\sidja\PycharmProjects\espaceKaribu\utilisateur\static\karibu\js" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\sidja\PycharmProjects\espaceKaribu\templates\admin" />
@@ -162,6 +142,12 @@
     </key>
   </component>
   <component name="RunManager" selected="Django Server.espaceKaribu">
+    <configuration name="generated-requests | #3" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$APPLICATION_CONFIG_DIR$/scratches/generated-requests.http" index="3" requestIdentifier="#3" runType="Run single request">
+      <method v="2" />
+    </configuration>
+    <configuration name="generated-requests | #4" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$APPLICATION_CONFIG_DIR$/scratches/generated-requests.http" index="4" requestIdentifier="#4" runType="Run single request">
+      <method v="2" />
+    </configuration>
     <configuration name="sliderevent.html" type="JavascriptDebugType" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/espaceKaribu/templates/utilisateur/sliderevent.html" useBuiltInWebServerPort="true">
       <method v="2" />
     </configuration>
@@ -191,6 +177,8 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="HTTP Request.generated-requests | #4" />
+        <item itemvalue="HTTP Request.generated-requests | #3" />
         <item itemvalue="JavaScript Debug.sliderevent.html" />
       </list>
     </recent_temporary>
@@ -273,7 +261,15 @@
       <workItem from="1727543045040" duration="6000" />
       <workItem from="1727543129210" duration="15000" />
       <workItem from="1728744036536" duration="398000" />
-      <workItem from="1728744473344" duration="1340000" />
+      <workItem from="1728744473344" duration="1551000" />
+      <workItem from="1728836064794" duration="138000" />
+      <workItem from="1728837534388" duration="16000" />
+      <workItem from="1728839441971" duration="16000" />
+      <workItem from="1728897086936" duration="31000" />
+      <workItem from="1728897138056" duration="114000" />
+      <workItem from="1729022156932" duration="27000" />
+      <workItem from="1730157455272" duration="957000" />
+      <workItem from="1730462305243" duration="3744000" />
     </task>
     <task id="LOCAL-00001" summary="Travail dans la partie utilisateur 97% il reste 3%">
       <option name="closed" value="true" />

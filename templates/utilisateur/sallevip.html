@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+	Salle Vip
+{% endblock %}
+    
+{% block content %}
+<section class="py-5 text-center">
+        <h1>NOS ESPACES</h1>
+        <h2 class="font-semibold">La salle vip</h2>
+        <p class="px-5 pt-3">
+           {{ espace.descriptionSalleVip }}
+        </p>
+</section>
+
+<div class="flex items-center justify-center min-h-20">
+    <div class="container swiper">
+        <div class="card-wrapper">
+            <ul class="card-list swiper-wrapper">
+                <li class="card-item swiper-slide">
+                    <a href="#" class="card-link">
+                        <img src="{% static 'karibu/assets/images/event.jpg' %}" alt="Card Image"
+                         class="card-image object-cover">                
+                    </a>
+                </li>
+                <li class="card-item swiper-slide">
+                    <a href="#" class="card-link">
+                        <img src="{% static 'karibu/assets/images/event-1.jpg' %}" 
+                        alt="Card Image" class="card-image object-cover">
+                        
+                    </a>
+                </li>
+                <li class="card-item swiper-slide">
+                    <a href="#" class="card-link">
+                        <img src="{% static 'karibu/assets/images/event-2.jpg' %}" 
+                        alt="Card Image" class="card-image object-cover">
+                        
+                    </a>
+                </li>
+                <li class="card-item swiper-slide">
+                    <a href="#" class="card-link">
+                        <img src="{% static 'karibu/assets/images/event-3.jpg' %}" 
+                        alt="Card Image" class="card-image object-cover">
+                        
+                    </a>
+                </li>
+            </ul>
+            <div class="swiper-pagination"></div>
+
+            <div class="swiper-button-prev"></div>
+            <div class="swiper-button-next"></div>
+
+            
+        </div>
+    </div>
+</div>
+
+<hr class="mt-5">
+<section class="text-center pt-3 mt-5">
+    <h1 class="text-xl font-semibold">Contactez-nous</h1>
+    <p class="text-lg px-5 text-black">
+        Anyama, en face de la Paroisse Notre dame de la paix , côte d'ivoire <br>
+    </p>
+    <p class="text-2xl pt-3 font-bold text-black"> 📞 +225 0100551684 / +225 0100551685  <span class="text-red-500">(24h/7j)</span></p>  
+    <p class="text-black text-2xl">
+        eventmarie@gmail.com
+    </p>
+</section> 
+
+{% endblock %}
