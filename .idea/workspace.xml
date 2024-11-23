@@ -4,26 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ea1b3f62-481b-4561-8344-ed06e2fce4d2" name="Changes" comment="Travail dans la partie utilisateur 97% il reste 3%">
-      <change afterPath="$PROJECT_DIR$/templates/utilisateur/garage.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/utilisateur/salleevent.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/utilisateur/sallevip.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/utilisateur/static/karibu/assets/images/logo1.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/espaceKaribu/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/espaceKaribu/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/utilisateur/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/utilisateur/base.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/utilisateur/changePasse.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/utilisateur/changePasse.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/utilisateur/contact.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/utilisateur/contact.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/utilisateur/espaceEvenementiel.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/utilisateur/espaceEvenementiel.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/utilisateur/profilUtilisateur.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/utilisateur/profilUtilisateur.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/utilisateur/reservations.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/utilisateur/reservations.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/utilisateur/static/karibu/assets/images/bar - Copie.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/utilisateur/static/karibu/assets/images/bar.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/utilisateur/static/karibu/assets/images/bar-1 - Copie.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/utilisateur/static/karibu/assets/images/bar-1.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/utilisateur/static/karibu/assets/images/bar-2 - Copie.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/utilisateur/static/karibu/assets/images/bar-2.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/utilisateur/static/karibu/assets/images/logo.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/utilisateur/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/utilisateur/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/utilisateur/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/utilisateur/views.py" afterDir="false" />
-    </list>
+    <list default="true" id="ea1b3f62-481b-4561-8344-ed06e2fce4d2" name="Changes" comment="Travail dans la partie utilisateur 97% il reste 3%" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -96,35 +77,35 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_ADD_EXTERNAL_FILES": "true",
-    "HTTP Request.generated-requests | #3.executor": "Run",
-    "HTTP Request.generated-requests | #4.executor": "Run",
-    "JavaScript Debug.sliderevent.html.executor": "Debug",
-    "RunOnceActivity.OpenDjangoStructureViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.pycharm.django.structure.promotion.once.per.project": "true",
-    "django.template.preview.state": "SHOW_EDITOR",
-    "git-widget-placeholder": "main",
-    "last_opened_file_path": "C:/Users/sidja/PycharmProjects/espaceKaribu/templates/utilisateur",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "preferences.pluginManager",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;HTTP Request.generated-requests | #3.executor&quot;: &quot;Run&quot;,
+    &quot;HTTP Request.generated-requests | #4.executor&quot;: &quot;Run&quot;,
+    &quot;JavaScript Debug.sliderevent.html.executor&quot;: &quot;Debug&quot;,
+    &quot;RunOnceActivity.OpenDjangoStructureViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.pycharm.django.structure.promotion.once.per.project&quot;: &quot;true&quot;,
+    &quot;django.template.preview.state&quot;: &quot;SHOW_EDITOR&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/sidja/PycharmProjects/espaceKaribu/templates/utilisateur&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
-  "keyToStringList": {
-    "DatabaseDriversLRU": [
-      "mariadb"
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;mariadb&quot;
     ],
-    "com.intellij.ide.scratch.ScratchImplUtil$2/New Scratch File": [
-      "PLAIN_TEXT"
+    &quot;com.intellij.ide.scratch.ScratchImplUtil$2/New Scratch File&quot;: [
+      &quot;PLAIN_TEXT&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\sidja\PycharmProjects\espaceKaribu\templates\utilisateur" />
@@ -269,7 +250,8 @@
       <workItem from="1728897138056" duration="114000" />
       <workItem from="1729022156932" duration="27000" />
       <workItem from="1730157455272" duration="957000" />
-      <workItem from="1730462305243" duration="3744000" />
+      <workItem from="1730462305243" duration="3894000" />
+      <workItem from="1732374861311" duration="3000" />
     </task>
     <task id="LOCAL-00001" summary="Travail dans la partie utilisateur 97% il reste 3%">
       <option name="closed" value="true" />
