@@ -14,9 +14,12 @@ from pathlib import Path
 import os
 
 import mimetypes
+import pymysql
+
 
 mimetypes.add_type("text/javascript", ".js", True)
 
+pymysql.install_as_MySQLdb()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -145,6 +148,9 @@ DATABASES = {
       'PASSWORD': 'Assemien12@',
       'HOST': 'localhost',
       'PORT': '3306',
+      'OPTIONS': {
+            'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
+    },
   }
 }
 
