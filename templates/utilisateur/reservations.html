@@ -15,12 +15,18 @@
 	<section class="relative py-4">
 
         <nav class="fixed top-0 z-20 bg-zinc-600 w-full grid grid-cols-none p-3 shadow-xl
-        md:grid-cols-menu md:shadow-none mx-auto md:relative max-w-7xl">
+         md:shadow-none mx-auto md:relative max-w-7xl">
 
-        <div class="flex justify-between items-center md:justify-center">
+        <div class="flex items-center justify-between w-full">
+
             <a href="/">
-                <img src="{% static 'karibu/assets/images/logo1.png' %}" alt="logo app" class="w-12">
+                <img src="{% static 'karibu/assets/images/logo1.png' %}" alt="logo app" class="w-12 h-12">
             </a>
+            <a href="{% url 'profil' %}" class="font-medium text-lg text-white c
+              hover:text-gray-900 hidden md:block">Profile</a>
+
+              <a href="{% url 'deconnexion' %}" class="font-medium text-lg text-white font-white
+              hover:text-gray-900 hidden md:block">Logout</a>
 
             <button class="icone-toggle bg-white rounded p-2 inline-flex items-center
             justify-center ring-1 ring-black ring-opacity-20 md:hidden">
@@ -33,7 +39,7 @@
          md:flex-row md:space-x-10 md:w-auto md:items-center md:justify-center">
 
          <!-- Profile : ajout de md:hidden et de text-white text-white font-white-->
-         <li class="py-2 text-center border-t border-b border-gray-200 md:border-0 md:hidden ">
+         <li class="py-2 text-center border-t border-b border-gray-200 md:border-0 md:hidden">
             <a href="{% url 'profil' %}" class="font-medium text-lg text-white c
               hover:text-gray-900">Profile</a>
          </li>
@@ -72,9 +78,9 @@
                     {% for chambre in reservChambres %}
                     <div class="border py-4 px-4">
                         <img src="{{ chambre.photo_chambre.url }}" alt="image" class="w-full h-48 object-cover">
-                        <h3 class="text-black  text-sm text-center py-3 font-bold">{{ chambre.date_arrivee }} <br> {{ chambre.heure_arrivee }}</h3>
+                        <h3 class="text-black  text-sm text-center py-3 font-bold">date d'arrivée: {{ chambre.date_arrivee }} <br> heure d'arrivée: {{ chambre.heure_arrivee }}</h3>
                         <h3 class="text-black  text-sm text-center font-bold">{{ chambre.etat }} </h3>
-                        <h3 class="text-black  text-sm text-center font-bold">{{ chambre.total }} FCFA</h3>
+                        <h3 class="text-black  text-sm text-center font-bold">total: {{ chambre.total }} FCFA</h3>
                     </div>
                     {% endfor %}
                 </div>

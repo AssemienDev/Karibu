@@ -29,11 +29,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-r@ia+bhsr46uicv37agw)3bmhx*@+kl2+i94lscjoe6cg1o1y2'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['espacekaribu.com', 'www.espacekaribu.com']
 
-BASE_URL = 'http://localhost:8000'
+BASE_URL = 'https://espacekaribu.com'
 
 
 # Application definition
@@ -122,7 +122,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
       'HOST': 'localhost',
       'PORT': '3306',
   }
-}"""
+}
 
 # BD DE MARIE
 DATABASES = {
@@ -134,7 +134,20 @@ DATABASES = {
            'HOST': 'localhost',
            'PORT': '3307',
        }
- }
+ }"""
+
+
+DATABASES = {
+  'default': {
+      'ENGINE': 'django.db.backends.mysql',
+      'NAME': 'c2587844c_espace_karibu_bd',
+      'USER': 'c2587844c_espace',
+      'PASSWORD': 'Assemien12@',
+      'HOST': 'localhost',
+      'PORT': '3306',
+  }
+}
+
 
 # Temps de vie d'une session
 SESSION_COOKIE_AGE = 60 * 60 * 3
